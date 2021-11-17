@@ -1,0 +1,27 @@
+{
+  "name": "bounty-hunters",
+  "version": "1.0.0",
+  "description": "Bounty hunter multiplayer game using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix ../client",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chalkenic/bounty-hunters.git"
+  },
+  "author": "Nick White",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chalkenic/bounty-hunters/issues"
+  },
+  "homepage": "https://github.com/chalkenic/bounty-hunters#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15"
+  }
+}
