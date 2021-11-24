@@ -1,0 +1,19 @@
+.summary-window {
+  text-align: center;
+  max-width: 50rem;
+  width: 80%;
+  margin: auto;
+  margin-top: 8rem;
+  position: relative;
+  background-color: #383838;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 16px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.summary-window h2 {
+    font-size: 2rem;
+    margin-top: 0;
+}
