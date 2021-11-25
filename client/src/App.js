@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/layout/Header";
-import Setup from "./components/setup/Setup";
+import Setup from "./components/mainMenu/Setup";
 
 function App() {
   return (
@@ -9,7 +9,6 @@ function App() {
 
       <main>
         <Setup />
-
       </main>
     </div>
   );

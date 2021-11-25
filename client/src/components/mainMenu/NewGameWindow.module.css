@@ -1,0 +1,11 @@
+.game-setup {
+  max-width: 60rem;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+#border-bottom {
+    border-bottom: 2px solid white;
+    width: 75%;
+    margin-left: 12.5%;
+}
