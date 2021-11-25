@@ -18,11 +18,18 @@
   },
   "homepage": "https://git.cardiff.ac.uk/c1936922/bounty-hunters",
   "devDependencies": {
-    "concurrently": "^6.3.0"
+    "concurrently": "^6.4.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16"
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^2.1.2"
   }
 }
