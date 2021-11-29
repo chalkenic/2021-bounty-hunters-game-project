@@ -3,6 +3,8 @@ import Card from "../UI/Card/Card";
 import classes from "./NewGameWindow.module.css";
 import SetupForm from "./SetupForm";
 
+
+
 const NewGameWindow = (props) => {
   return (
     <section className={classes["game-setup"]}>
@@ -11,6 +13,7 @@ const NewGameWindow = (props) => {
         <div id = {classes['border-bottom']} />
         <SetupForm />
       </Card>
+      
     </section>
   );
 };
