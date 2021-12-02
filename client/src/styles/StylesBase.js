@@ -7,7 +7,7 @@ const useStylesBase = makeStyles((theme) =>
       width: "100vw",
       overflow: "hidden",
       whiteSpace: "pre-line",
-    //   background: "#293144",
+      //   background: "#293144",
     },
     overrides: {
       "& a": {
@@ -43,34 +43,26 @@ const useStylesBase = makeStyles((theme) =>
       "& .MuiPaper-elevation4": {
         boxShadow: "none",
       },
-      "& .MuiStepIcon-root":{
-          color: "#fff"
+      "& .MuiStepIcon-root": {
+        color: "#fff",
       },
       "& .MuiContainer-root.MuiContainer-maxWidthLg": {
         padding: 0,
-        maxWidth: '100',
-
-      }
+        maxWidth: "100",
+      },
     },
 
-
-
     homeOverride: {
-      '@media (min-width: 1280px)': {
-        maxWidth: '100%'
-      }
-
-
+      "@media (min-width: 1280px)": {
+        maxWidth: "100%",
+      },
     },
 
     homeGrid: {
-      width: "60%",
-      position: 'relative',
+      marginLeft: 10,
+      marginRight: 10,
+      position: "static",
       marginTop: 30,
-      marginLeft: '20%'
-
-
-
     },
     fullWidthHeight: {
       height: "100%",

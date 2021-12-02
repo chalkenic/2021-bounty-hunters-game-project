@@ -18,6 +18,7 @@ const AppTheme  = createTheme({
         primary: "#fff",
         secondary: "#fff",
       },
+
     },
   });
   export default AppTheme;
