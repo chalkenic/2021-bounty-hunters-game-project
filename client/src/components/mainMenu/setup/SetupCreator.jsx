@@ -5,7 +5,6 @@ import { green } from "@material-ui/core/colors";
 import {
   makeStyles,
   Grid,
-  CardActions,
   createStyles,
   CardContent,
   Typography,
@@ -44,36 +43,37 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const test = (props) => {
-  console.log("Hi");
-};
+const SetupCreator = (props) => {
 
-const SetupWindow = (props) => {
   const classes = useStyles();
   const classesBase = useStylesBase();
   return (
     <Card className={classesBase.homeGrid}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
-          Setup
+          Game Setup
         </Typography>
         <Divider className={classes.lineSeparate} />
         <Grid container>
-          <Grid item xs={12} sm={6} md={4}>
-            <DeckDropdown />
-          </Grid>
-          <Grid item xs={12} sm={6} md={8}>
+        <Grid item xs={12} sm={12} md={6}>
             <PlayerCount />
           </Grid>
+          <Grid item xs={12} sm={12} md={6}>
+            <DeckDropdown />
+          </Grid>
+          
+
         </Grid>
-        <AppPrimaryButton onClick={test} className={classes.blackButton}>
-            <IconButton>
-              <ArrowForwardIosIcon />
-            </IconButton>
+        <AppPrimaryButton
+          className={classes.blackButton}
+        >
+          <IconButton>
+            <ArrowForwardIosIcon />
+          </IconButton>
         </AppPrimaryButton>
       </CardContent>
     </Card>
     // </section>
   );
 };
-export default SetupWindow;
+export default SetupCreator;

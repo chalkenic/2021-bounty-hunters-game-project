@@ -14,6 +14,10 @@ const useStyles = makeStyles({
     display: "block",
     '& .MuiCardContent-root': {
       padding: '0',
+      height: '6rem',
+    },
+    headerText: {
+      m: '0',
     }
   },
   quote: {
@@ -26,10 +30,10 @@ const Header = (props) => {
   return (
     <Card className={classes.root}>
       <CardContent >
-        <Typography variant="header" component="h1">
-          <h1>Bounty Hunters</h1>
+        <Typography m={0} variant="header" component="h1">
+          <h1 className={classes.headerText}>Bounty Hunters</h1>
         </Typography>
-        <Typography variant="header" component="h3">
+        <Typography m={0}variant="header" component="h3">
           <h3 className={classes.quote}>"Explore together, win as one"</h3>
         </Typography>
       </CardContent>

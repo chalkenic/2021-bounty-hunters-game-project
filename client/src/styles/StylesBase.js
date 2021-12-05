@@ -5,7 +5,7 @@ const useStylesBase = makeStyles((theme) =>
     root: {
       height: "100vh",
       width: "100vw",
-      overflow: "hidden",
+      // overflow: "hidden",
       whiteSpace: "pre-line",
       //   background: "#293144",
     },
@@ -28,6 +28,7 @@ const useStylesBase = makeStyles((theme) =>
       "& h1": {
         fontSize: 40,
         fontWeight: 400,
+        margin: 0
       },
       "& h2": {
         fontSize: 30,
@@ -36,6 +37,7 @@ const useStylesBase = makeStyles((theme) =>
       "& h3": {
         fontSize: 25,
         fontWeight: 300,
+        margin: 0
       },
       "& .MuiPaper-elevation1": {
         boxShadow: "none",
@@ -53,15 +55,17 @@ const useStylesBase = makeStyles((theme) =>
     },
 
     homeOverride: {
+      maxHeight: "100%",
       "@media (min-width: 1280px)": {
         maxWidth: "100%",
+        
       },
     },
 
     homeGrid: {
       marginLeft: 10,
       marginRight: 10,
-      position: "static",
+      position: "relative",
       marginTop: 30,
     },
     fullWidthHeight: {
