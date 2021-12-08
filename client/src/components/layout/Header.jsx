@@ -30,11 +30,11 @@ const Header = (props) => {
   return (
     <Card className={classes.root}>
       <CardContent >
-        <Typography m={0} variant="header" component="h1">
-          <h1 className={classes.headerText}>Bounty Hunters</h1>
+        <Typography m={0} variant="header" component="h1" className={classes.headerText}>
+          Bounty Hunters
         </Typography>
-        <Typography m={0}variant="header" component="h3">
-          <h3 className={classes.quote}>"Explore together, win as one"</h3>
+        <Typography m={0}variant="header" component="h3" className={classes.quote}>
+          "Explore together, win as one"
         </Typography>
       </CardContent>
       {/* <header className={classes.header}>

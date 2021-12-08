@@ -8,3 +8,8 @@ html {
   font-family: "Noto Sans JP", sans-serif;
 }
 
+ul, li{
+  padding: 0
+
+}
+

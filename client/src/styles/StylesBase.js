@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Maximize } from "@material-ui/icons";
+import { maxHeight } from "@mui/system";
 const useStylesBase = makeStyles((theme) =>
   createStyles({
     root: {
@@ -28,7 +29,7 @@ const useStylesBase = makeStyles((theme) =>
       "& h1": {
         fontSize: 40,
         fontWeight: 400,
-        margin: 0
+        margin: 0,
       },
       "& h2": {
         fontSize: 30,
@@ -37,7 +38,7 @@ const useStylesBase = makeStyles((theme) =>
       "& h3": {
         fontSize: 25,
         fontWeight: 300,
-        margin: 0
+        margin: 0,
       },
       "& .MuiPaper-elevation1": {
         boxShadow: "none",
@@ -58,7 +59,13 @@ const useStylesBase = makeStyles((theme) =>
       maxHeight: "100%",
       "@media (min-width: 1280px)": {
         maxWidth: "100%",
-        
+      },
+    },
+
+    rootOverride: {
+      "& .makeStyles-root-80": {
+        height: 0,
+        width: 0,
       },
     },
 

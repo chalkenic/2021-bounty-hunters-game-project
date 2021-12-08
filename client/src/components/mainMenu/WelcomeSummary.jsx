@@ -22,16 +22,12 @@ const WelcomeSummary = () => {
           Welcome to Bounty Hunters
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          <p>
             In this game, you will work together alongside other players to
             explore rooms of a chosen scenario.
-          </p>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          <p>
             However, only the player who completes each room exploration first
             will get the treasure!
-          </p>
         </Typography>
       </CardContent>
     </Card>
