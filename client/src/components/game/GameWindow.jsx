@@ -5,7 +5,9 @@ import {
   // CardHeader,
   CardMedia,
   Container,
+  createTheme,
   Grid,
+  Paper,
   // IconButton,
   // SvgIcon,
   // Typography,
@@ -21,14 +23,29 @@ import { red } from "@material-ui/core/colors";
 import PlayerHand from "./player/PlayerHand";
 import DungeonProgressBar from "./DungeonProgressBar";
 import clsx from "clsx";
-import { flexbox } from "@mui/system";
+import gameStore from "../../store/store";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import PlayerList from "./player/PlayerList";
+import AppTheme from "../../styles/AppTheme";
+
 const useStyles = makeStyles((theme) => ({
-  handDimensions: {
+  handWindow: {
     justifyContent: "center",
-    width: "100%",
-    margin: 50,
+    // width: "50%",
+    marginLeft: 10,
 
     // flex: '1 0 auto'
+  },
+
+  root: {
+    padding: "10px",
+  },
+
+  gameBoard: {
+    backgroundColor: AppTheme.palette.background.board,
+    borderTop: 5,
+    borderRadius: 10,
+    padding: 10,
   },
 
   expand: {
@@ -45,15 +62,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
 
-  // gameWindow: {
-  //   display: "flex",
-  //   flexDirection: 'row'
-  // },
-  playerCardHand: {
-    // display: "flex",
-    flexFlow: "1 0 auto",
+  handContainer: {
+    alignItems: "center",
+    display: "flex",
+    justify: "center",
   },
 }));
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      small: 1080,
+    },
+  },
+});
 
 const testData = [
   { bgColor: "#6a1b9a", completed: 60 },
@@ -63,17 +85,15 @@ const testData = [
 
 const GameWindow = (props) => {
   const classes = useStyles();
-  const classesBase = useStylesBase();
   const dungeonMax = 200;
   const [completed, setCompleted] = useState(0);
   const [barWidth, setBarWidth] = useState(0);
-  const [cardChoice, setCardChoice] = useState(0)
+  const [cardChoice, setCardChoice] = useState(0);
 
   // const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    setBarWidth((barWidth + cardChoice));
-
+    setBarWidth(barWidth + cardChoice);
   }, [cardChoice]);
 
   useEffect(() => {
@@ -85,42 +105,38 @@ const GameWindow = (props) => {
   };
 
   return (
-    <Container className={clsx(classesBase.fullWidth, classes.gameWindow)}>
-      {/* <Grid container xs={12}></Grid> */}
-      <Grid item xs={11}>
-        <DungeonProgressBar
-          barBackground={testData[0].bgColor}
-          completed={completed}
-          dungeonMax={dungeonMax}
-          currentWidth={barWidth}
-        />
+    <Container>
+      <Grid container className={classes.gameBoard}>
+        <Grid item xs={12}>
+          <DungeonProgressBar
+            barBackground={testData[0].bgColor}
+            completed={completed}
+            dungeonMax={dungeonMax}
+            currentWidth={barWidth}
+          />
+        </Grid>
+        <Grid item xs={3} sm={3} md={1} classes={classes.playerWindow}>
+          <PlayerList />
+        </Grid>
+
+        <Grid container item xs={9} sm={9} md={11}>
+          <Grid style={{ padding: "0 10px" }} item xs={12}>
+            <Paper style={{ height: "100%", width: "100%" }}></Paper>
+          </Grid>
+          <Grid
+            container
+            alignItems="flex-end"
+            justifyContent="center"
+            item
+            xs={9}
+          >
+            <PlayerHand className={classes.handWindow}>
+              <GameCardList onClick={handleCardClick} />
+            </PlayerHand>
+          </Grid>
+          <Grid container item xs={3}></Grid>
+        </Grid>
       </Grid>
-      <Grid item xs={11} className={classes.playerCardHand}>
-        <PlayerHand className={classes.handDimensions}>
-          <GameCardList onClick={handleCardClick} />
-        </PlayerHand>
-        {/* <Card className={classes.root}>
-            <CardHeader
-
-              title={"Card 5"}
-              subheader={"test card??"}
-            />
-
-            <CardMedia
-              className={classes.media}
-              alt="Does this show????"
-              title="Card 5"
-            >
-              <img
-                src={`${process.env.PUBLIC_URL}/static/playerCardImages/${img}.svg`}
-                className={classes.gameCard}
-                alt={'test'}
-              />
-
-            </CardMedia>
-          </Card> */}
-      </Grid>
-      {/* <Grid container></Grid> */}
     </Container>
   );
 };

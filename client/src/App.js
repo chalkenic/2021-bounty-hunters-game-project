@@ -7,6 +7,7 @@ import AppRouter from "./pages/AppRouter";
 
 function App() {
   const classesBase = useStylesBase();
+
   return (
     <div className="App">
       <ThemeProvider theme={AppTheme}>

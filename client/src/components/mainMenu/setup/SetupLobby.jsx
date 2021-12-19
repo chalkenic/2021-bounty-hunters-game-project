@@ -13,7 +13,6 @@ import {
 import { red } from "@material-ui/core/colors";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useStylesBase from "../../../styles/StylesBase";
-import { Box } from "@mui/system";
 
 const useStyles = makeStyles((theme) =>
   createStyles({

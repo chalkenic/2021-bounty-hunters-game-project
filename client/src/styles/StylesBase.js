@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Maximize } from "@material-ui/icons";
-import { maxHeight } from "@mui/system";
 const useStylesBase = makeStyles((theme) =>
   createStyles({
     root: {
@@ -62,11 +61,23 @@ const useStylesBase = makeStyles((theme) =>
       },
     },
 
+    cardLastChildOverride: {
+      "& .MuiCardContent-root:last-child": {
+        paddingBottom: 0
+      }
+    },
+
     rootOverride: {
       "& .makeStyles-root-80": {
         height: 0,
         width: 0,
       },
+    },
+
+    cardOverride: {
+"& .MuiCardContent-root": {
+  padding: 5
+}
     },
 
     homeGrid: {

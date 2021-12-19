@@ -5,13 +5,7 @@ import { Card, CardContent } from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
 
 const useStyles = makeStyles((theme) => ({
-  playerHand: {
-    margin: "auto",
-    // paddingBottom: "5%",
-    paddingTop: "5",
-    // left: "45%",
-    // top: "70%",
-  },
+
 }));
 
 const PlayerHand = (props) => {
@@ -29,8 +23,8 @@ const PlayerHand = (props) => {
   const classesBase = useStylesBase();
 
   return (
-    <Card className={props.className} xs={12}>
-      <CardContent className={classes.playerHand}>{props.children}</CardContent>
+    <Card className={props.className} style={{padding: '0 10px'}}>
+      <CardContent className={classes.playerHand, classesBase.cardLastChildOverride}>{props.children}</CardContent>
     </Card>
   );
 };
