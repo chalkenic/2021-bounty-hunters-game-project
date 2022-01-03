@@ -67,30 +67,27 @@ const GameCardList = (props) => {
   // console.log("list size: " + PLAYER_CARDS.length);
   const gameDeck = useSelector((state) => state.playerDeck.UnusedCards);
 
+  for (let index = 0; index < gameDeck.length; index++) {
+    console.log(gameDeck[index]);
+  }
 
-for (let index = 0; index < gameDeck.length; index++) {
-  console.log(gameDeck[index])
-  
-}
+  // Create temporary deck containing all current unused cards. Shuffle randomly.
+  let tempDeck = gameDeck.slice();
+  tempDeck.sort(() => 0.5 - Math.random());
 
   let player_cards_temp = [];
 
-  for (let index = 40; index < 47; index++) {
-    player_cards_temp[index] = gameDeck[index];
+  for (let index = 0; index < 7; index++) {
+    player_cards_temp[index] = tempDeck[index];
   }
 
-  // for (let index = 0; index < PLAYER_CARDS.length; index++) {}
+  const shuffledDeck = player_cards_temp.sort(() => Math.random() - 0.5);
 
-  //   let playerDeck = [];
-  //    playerDeck = PLAYER_CARDS.map((card, index) => {
-  //     <GameCard key={card.id} card={card} />
-
-  //   });
   return (
     <Fragment>
       <h3>Your Hand</h3>
       <div className={classes.root}>
-        {player_cards_temp.map((card) => {
+        {shuffledDeck.map((card) => {
           return (
             <GameCard
               key={card.id}

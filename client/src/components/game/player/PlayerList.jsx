@@ -33,7 +33,7 @@ const GAME_PLAYERS = [
 
 const PlayerList = () => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} item xs={12} sm={12} md={12}>
       {GAME_PLAYERS.map((player) => {
         return (
           <Grid item xs={12} key={player.id}>

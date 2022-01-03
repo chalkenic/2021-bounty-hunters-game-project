@@ -6,11 +6,15 @@ import { createSlice } from "@reduxjs/toolkit";
 3 contains all discarded cards.
 */
 
-let PLAYER_CARD_VALUES = [0, 5, 10, 20, 25, 30, 40, 50, 80];
+let PLAYER_CARD_VALUES = [1, 5, 10, 20, 25, 30, 40, 50, 80];
 
 let PLAYER_CARD_COUNT = [7, 9, 10, 9, 8, 10, 10, 7, 4];
 
 let PLAYER_CARDS = [];
+
+let CURRENT_CARDS = [];
+
+let DISCARDED_CARDS = [];
 
 let cardDeckSize = 0;
 
@@ -56,6 +60,23 @@ const playerDeckSlice = createSlice({
     resetProgress(state) {
       state.progress = 0;
     },
+
+    // dealCardToPlayer(state, action) {
+
+    //   PLAYER_CARDS.forEach(card => {
+    //     console.log('card in deck: ' + card.id + '; card checking against: ' + action.payload.id)
+    //     if(card.id === action.payload.id) {
+    //       console.log('found!');
+    //       initialPlayerCardsState.currentCards.push(card);
+    //       initialPlayerCardsState.UnusedCards.splice(card);
+    //     }
+    //   });
+
+    //   console.log('test');
+    //   console.log(initialPlayerCardsState.currentCards);
+
+
+    // },
   },
 });
 

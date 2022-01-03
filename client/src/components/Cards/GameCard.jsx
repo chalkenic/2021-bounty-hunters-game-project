@@ -4,6 +4,7 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { progressBarActions } from "../../store/progressBar-slice";
+import {playerCardDeckActions} from "../../store/playerDeck-slice";
 
 const useStyles = makeStyles(() => ({
   cardSize: {
@@ -32,7 +33,7 @@ const GameCard = ({ card }) => {
   const dispatch = useDispatch();
 
   const progressBarIncreaseHandler = () => {
-    console.log( card.value + ' added to progress bar!');
+    // console.log( card.value + ' added to progress bar!');
     dispatch(progressBarActions.increaseProgress(parseInt(card.value)));
   };
 

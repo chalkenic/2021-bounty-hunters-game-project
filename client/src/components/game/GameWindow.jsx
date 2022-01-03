@@ -30,10 +30,9 @@ import AppTheme from "../../styles/AppTheme";
 
 const useStyles = makeStyles((theme) => ({
   handWindow: {
-    justifyContent: "center",
+    // justifyContent: "center",
     // width: "50%",
-    marginLeft: 10,
-
+    // marginLeft: 10,
     // flex: '1 0 auto'
   },
 
@@ -102,6 +101,7 @@ const GameWindow = (props) => {
 
   const handleCardClick = (props) => {
     setCardChoice(props);
+    console.log(cardChoice);
   };
 
   return (
@@ -115,26 +115,33 @@ const GameWindow = (props) => {
             currentWidth={barWidth}
           />
         </Grid>
-        <Grid item xs={3} sm={3} md={1} classes={classes.playerWindow}>
+        <Grid item xs={2} sm={2} md={2} classes={classes.playerWindow}>
           <PlayerList />
         </Grid>
 
-        <Grid container item xs={9} sm={9} md={11}>
-          <Grid style={{ padding: "0 10px" }} item xs={12}>
-            <Paper style={{ height: "100%", width: "100%" }}></Paper>
+        <Grid container item xs={8} sm={8} md={8}>
+          <Grid container item style={{ padding: "0 5px" }} item xs={12}>
+            <Paper style={{ height: "195%", width: "100%" }}>
+              <Paper
+                style={{ height: "50%", width: "50%", backgroundColor: "red" }}
+              ></Paper>
+            </Paper>
           </Grid>
           <Grid
             container
             alignItems="flex-end"
             justifyContent="center"
             item
-            xs={9}
+            xs={12}
+            style={{ padding: "0 5px", width: "100%" }}
           >
             <PlayerHand className={classes.handWindow}>
               <GameCardList onClick={handleCardClick} />
             </PlayerHand>
           </Grid>
-          <Grid container item xs={3}></Grid>
+        </Grid>
+        <Grid xs={2} style={{ padding: "0 5px" }}>
+          <Paper style={{ height: "100%", width: "100%" }}></Paper>
         </Grid>
       </Grid>
     </Container>
