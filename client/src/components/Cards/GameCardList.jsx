@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  playerCard: {
-    height: "8rem",
-    width: "6rem",
-  },
 
   //   expand: {
   //     transform: "rotate(0deg)",

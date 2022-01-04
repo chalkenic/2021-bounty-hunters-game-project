@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
 import GameCard from "../../cards/GameCard";
+import PlayerEnergyBar from "./PlayerEnergyBar";
 
 const useStyles = makeStyles({
   root: {
@@ -34,9 +35,8 @@ const Player = (props) => {
         <Typography className={classes.title} color="textSecondary">
           {props.player.playerName}
         </Typography>
-        <CardContent  xs={12}>
-          {<GameCard card={DUMMY_CARD} />}
-        </CardContent>
+        <PlayerEnergyBar />
+        <CardContent xs={12}>{<GameCard card={DUMMY_CARD} />}</CardContent>
       </CardContent>
     </Card>
   );

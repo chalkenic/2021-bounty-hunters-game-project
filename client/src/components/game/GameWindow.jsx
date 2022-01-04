@@ -105,8 +105,11 @@ const GameWindow = (props) => {
   };
 
   return (
-    <Container>
+    <Container style={{ padding: "5px" }}>
       <Grid container className={classes.gameBoard}>
+        <Grid item xs={12}>
+          <h1>BOUNTY HUNTERS</h1>
+        </Grid>
         <Grid item xs={12}>
           <DungeonProgressBar
             barBackground={testData[0].bgColor}
@@ -121,11 +124,7 @@ const GameWindow = (props) => {
 
         <Grid container item xs={8} sm={8} md={8}>
           <Grid container item style={{ padding: "0 5px" }} item xs={12}>
-            <Paper style={{ height: "195%", width: "100%" }}>
-              <Paper
-                style={{ height: "50%", width: "50%", backgroundColor: "red" }}
-              ></Paper>
-            </Paper>
+            <Paper style={{ height: "195%", width: "100%" }}></Paper>
           </Grid>
           <Grid
             container
@@ -133,6 +132,8 @@ const GameWindow = (props) => {
             justifyContent="center"
             item
             xs={12}
+            sm={12}
+            md={12}
             style={{ padding: "0 5px", width: "100%" }}
           >
             <PlayerHand className={classes.handWindow}>
