@@ -12,6 +12,11 @@ const progressBarSlice = createSlice({
     increaseProgress(state, action) {
       state.progress = state.progress + action.payload;
     },
+
+    increaseProgressComp(state, action) {
+      console.log('test2');
+      state.progress = state.progress + parseInt(action.payload.card.value);
+    },
     // Reducer decreases game progress by card value given.
     decreaseProgress(state, action) {
       state.progress = state.progress - action.payload;

@@ -6,7 +6,7 @@ import { Container, Grid } from "@material-ui/core";
 import useStylesBase from "../../styles/StylesBase";
 import { makeStyles, createStyles, Paper } from "@material-ui/core";
 import SetupLobby from "../mainMenu/setup/SetupLobby";
-import PlayingCard from "../cards/GameCard";
+import PlayingCard from "../cards/PlayerCard";
 import AppPrimaryButton from "../../appComponents/AppPrimaryButton";
 
 const useStyles = makeStyles((theme) =>

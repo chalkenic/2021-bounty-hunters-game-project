@@ -2,8 +2,8 @@ import { makeStyles, useTheme, withStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Grid, LinearProgress, Typography } from "@material-ui/core";
-import AppTheme from "../../styles/AppTheme";
-import { progressBarActions } from "../../store/progressBar-slice";
+import AppTheme from "../../../styles/AppTheme";
+import { progressBarActions } from "../../../store/progressBar-slice";
 
 const useStyles = makeStyles((theme, barColor) => ({
   barContainer: {

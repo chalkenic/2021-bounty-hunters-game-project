@@ -4,7 +4,7 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { progressBarActions } from "../../store/progressBar-slice";
-import { playerCardDeckActions } from "../../store/playerDeck-slice";
+import { playerDeckActions } from "../../store/playerDeck-slice";
 
 const useStyles = makeStyles((theme) => ({
   cardSize: {
@@ -37,12 +37,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GameCard = ({ card }, props) => {
+const PlayerCard = ({ card }, props) => {
   const dispatch = useDispatch();
 
   const progressBarIncreaseHandler = () => {
     // console.log( card.value + ' added to progress bar!');
     dispatch(progressBarActions.increaseProgress(parseInt(card.value)));
+    dispatch(playerDeckActions.playCard(card));
+    // dispatch(playerDeckActions.dealCard(card));
+  };
+
+  const cardClickedHandler = () => {
+    dispatch(playerDeckActions.cardClicked(card));
   };
 
   const classes = useStyles();
@@ -50,7 +56,7 @@ const GameCard = ({ card }, props) => {
   const [cardChoice, setCardChoice] = useState();
 
   return (
-    <div className={classes.cardSize} onClick={progressBarIncreaseHandler}>
+    <div className={classes.cardSize} onClick={progressBarIncreaseHandler} >
       <img
         className={clsx(classes.cardImgSize, {
           [classes.cardSelectedColor]: cardChoice,
@@ -65,4 +71,4 @@ const GameCard = ({ card }, props) => {
     </div>
   );
 };
-export default GameCard;
+export default PlayerCard;

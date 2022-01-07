@@ -6,19 +6,21 @@ import {
   CardContent,
   makeStyles,
   Typography,
+  withStyles,
 } from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
-import GameCard from "../../cards/GameCard";
+import PlayerCard from "../../cards/PlayerCard";
 import PlayerEnergyBar from "./PlayerEnergyBar";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles({});
+
+const PlayerNameTypography = withStyles(() => ({
   root: {
-    minWidth: 100,
+    color: "textSecondary",
+    fontWeight: 600,
+    fontSize: "3rem",
   },
-  title: {
-    fontSize: 14,
-  },
-});
+}))(Typography);
 
 const Player = (props) => {
   const classesBase = useStylesBase();
@@ -30,13 +32,14 @@ const Player = (props) => {
     alt: "player card",
   };
   return (
-    <Card className={(classes.root, classesBase.cardOverride)}>
+    <Card className={classesBase.cardOverride}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary">
-          {props.player.playerName}
-        </Typography>
+        <PlayerNameTypography>
+          Player {props.player.playerName}
+        </PlayerNameTypography>
+
+        {<PlayerCard card={DUMMY_CARD} />}
         <PlayerEnergyBar />
-        <CardContent xs={12}>{<GameCard card={DUMMY_CARD} />}</CardContent>
       </CardContent>
     </Card>
   );

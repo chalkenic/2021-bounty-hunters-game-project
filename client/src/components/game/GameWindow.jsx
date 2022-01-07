@@ -1,6 +1,7 @@
 import {
   // Avatar,
   Card,
+  CardContent,
   // CardContent,
   // CardHeader,
   CardMedia,
@@ -13,20 +14,23 @@ import {
   // Typography,
 } from "@material-ui/core";
 import useStylesBase from "../../styles/StylesBase";
-// import GameCard from "../cards/GameCard";
-import GameCardList from "../cards/GameCardList";
+import GameCardList from "./player/PlayerHand";
 import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-// import { maxWidth } from "@mui/system";
-// import { MoreVertRounded } from "@material-ui/icons";
 import { red } from "@material-ui/core/colors";
 import PlayerHand from "./player/PlayerHand";
-import DungeonProgressBar from "./DungeonProgressBar";
+import DungeonProgressBar from "./gameTracking/DungeonProgressBar";
 import clsx from "clsx";
 import gameStore from "../../store/store";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import PlayerList from "./player/PlayerList";
+import PlayerTeamWindow from "./dungeonWindows/PlayerTeamWindow";
 import AppTheme from "../../styles/AppTheme";
+import GamePlayLog from "./gameLog/GamePlayLog";
+import CardDeckWindow from "./dungeonWindows/CardDeckWindow";
+import GameplayWindow from "./dungeonWindows/GameplayWindow";
+import PlayerCard from "../cards/PlayerCard";
+import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
+import { playerDeckActions } from "../../store/playerDeck-slice";
 
 const useStyles = makeStyles((theme) => ({
   handWindow: {
@@ -36,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
     // flex: '1 0 auto'
   },
 
-  root: {
-    padding: "10px",
-  },
+  root: {},
 
   gameBoard: {
     backgroundColor: AppTheme.palette.background.board,
@@ -83,11 +85,27 @@ const testData = [
 ];
 
 const GameWindow = (props) => {
+  // const dispatch = useDispatch();
+
   const classes = useStyles();
   const dungeonMax = 200;
   const [completed, setCompleted] = useState(0);
   const [barWidth, setBarWidth] = useState(0);
   const [cardChoice, setCardChoice] = useState(0);
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  // useEffect(() => {
+  //   function handleResizeEvent() {
+  //     setDimensions({
+  //       height: window.innerHeight,
+  //       width: window.innerWidth,
+  //     });
+  //   }
+  //   window.addEventListener("resize", handleResizeEvent);
+  // }, []);
 
   // const [expanded, setExpanded] = useState(false);
 
@@ -101,30 +119,53 @@ const GameWindow = (props) => {
 
   const handleCardClick = (props) => {
     setCardChoice(props);
-    console.log(cardChoice);
+    console.log('card choice: ' + cardChoice);
   };
 
   return (
-    <Container style={{ padding: "5px" }}>
+    <Container
+      style={{ padding: "5px", maxHeight: window.innerHeight }}
+      className={classes.root}
+    >
       <Grid container className={classes.gameBoard}>
         <Grid item xs={12}>
           <h1>BOUNTY HUNTERS</h1>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={10}>
           <DungeonProgressBar
-            barBackground={testData[0].bgColor}
             completed={completed}
             dungeonMax={dungeonMax}
             currentWidth={barWidth}
           />
         </Grid>
-        <Grid item xs={2} sm={2} md={2} classes={classes.playerWindow}>
-          <PlayerList />
+        <Grid item xs={2}>
+          <Grid item xs={12}>
+            Dungeon floors
+          </Grid>
+          <Grid item xs={12}>
+            6/8
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          xs={2}
+          sm={2}
+          md={2}
+          style={{ maxHeight: window.innerHeight }}
+          classes={classes.playerWindow}
+        >
+          <PlayerTeamWindow />
         </Grid>
 
         <Grid container item xs={8} sm={8} md={8}>
-          <Grid container item style={{ padding: "0 5px" }} item xs={12}>
-            <Paper style={{ height: "195%", width: "100%" }}></Paper>
+          <Grid
+            container
+            style={{ padding: "0 5px", flexDirection: "column" }}
+            item
+            xs={12}
+          >
+            {/* <Paper style={{ height: "195%", width: "100%" }}></Paper> */}
+            <GameplayWindow />
           </Grid>
           <Grid
             container
@@ -136,13 +177,14 @@ const GameWindow = (props) => {
             md={12}
             style={{ padding: "0 5px", width: "100%" }}
           >
-            <PlayerHand className={classes.handWindow}>
-              <GameCardList onClick={handleCardClick} />
-            </PlayerHand>
+            <PlayerHandWindow className={classes.handWindow}>
+              <PlayerHand onClick={handleCardClick} />
+            </PlayerHandWindow>
           </Grid>
         </Grid>
         <Grid xs={2} style={{ padding: "0 5px" }}>
-          <Paper style={{ height: "100%", width: "100%" }}></Paper>
+          {/* <GamePlayLog /> */}
+          <CardDeckWindow />
         </Grid>
       </Grid>
     </Container>

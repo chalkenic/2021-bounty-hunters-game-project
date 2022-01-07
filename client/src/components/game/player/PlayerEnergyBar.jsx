@@ -9,6 +9,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 
+  energyBorder: {
+    border: "1px solid grey",
+    borderRadius: 5,
+    padding: "2px",
+  },
+
   energyTextBox: {
     top: 0,
     left: 0,
@@ -42,19 +48,24 @@ const WhiteTypography = withStyles(() => ({
   },
 }))(Typography);
 
-const PlayerEnergyBar = (props) => {
-  const classes = useStyles(props);
+const PlayerEnergyBar = ({ color, hex, value }) => {
+//   let internalColor = string;
+
+  const classes = useStyles();
   return (
-    <Box className={classes.energyContainer}>
-      <BorderLinearProgress
-        className={classes.energyBar}
-        variant="determinate"
-        value="100"
-      />
-      <Box className={classes.energyTextBox}>
-        <WhiteTypography variant="body2">100</WhiteTypography>
+    <div className={classes.energyBorder}>
+      <Typography variant="h10">Energy</Typography>
+      <Box className={classes.energyContainer}>
+        <BorderLinearProgress
+          className={classes.energyBar}
+          variant="determinate"
+          value="100"
+        />
+        <Box className={classes.energyTextBox}>
+          <WhiteTypography variant="body2">100</WhiteTypography>
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 };
 export default PlayerEnergyBar;

@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from "@material-ui/core";
 import React from "react";
-import Player from "./Player";
+import Player from "../player/Player";
 
 // const useStyles = makeStyles(() => ({
 //   playerWindow: {
@@ -24,14 +24,14 @@ const GAME_PLAYERS = [
     playerName: "xxx3",
     playerNumber: 2,
   },
-  {
-    id: 4,
-    playerName: "xxx4",
-    playerNumber: 2,
-  },
+  // {
+  //   id: 4,
+  //   playerName: "xxx4",
+  //   playerNumber: 2,
+  // },
 ];
 
-const PlayerList = () => {
+const PlayerTeamWindow = () => {
   return (
     <Grid container spacing={1} item xs={12} sm={12} md={12}>
       {GAME_PLAYERS.map((player) => {
@@ -45,4 +45,4 @@ const PlayerList = () => {
   );
 };
 
-export default PlayerList;
+export default PlayerTeamWindow;
