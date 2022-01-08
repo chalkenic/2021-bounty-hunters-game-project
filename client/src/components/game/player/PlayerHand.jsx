@@ -1,4 +1,4 @@
-import { Grid, ImageList, ImageListItem } from "@material-ui/core";
+import { Button, Grid, ImageList, ImageListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,20 +42,19 @@ const PlayerHand = (props) => {
     }
   }, [playerHand]);
 
-  // Create temporary deck containing all current unused cards. Shuffle randomly.
-  // let tempDeck = gameDeck.slice(gameDeck.length - 7);
-
-  // let player_cards_temp = [];
-
-  // for (let index = 0; index < 7; index++) {
-  //   player_cards_temp[index] = tempDeck[index];
-  // }
-
-  // const shuffledDeck = player_cards_temp.sort(() => Math.random() - 0.5);
+  const handleEndTurn = () => {
+    dispatch(
+      progressBarActions.increaseProgress(
+        playerHand.find((card) => card.clicked)
+      )
+    );
+    dispatch(playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked)))
+  };
 
   return (
     <div>
       <h3>Your Hand</h3>
+      
       <div className={classes.root}>
         {playerHand.map((card, index) => {
           return (

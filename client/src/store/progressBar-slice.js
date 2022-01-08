@@ -10,7 +10,10 @@ const progressBarSlice = createSlice({
   reducers: {
     // Reducer increases game progress by card value given.
     increaseProgress(state, action) {
-      state.progress = state.progress + action.payload;
+      console.log('Reached increased progress! payload:', action.payload)
+      state.progress = state.progress + parseInt(action.payload.value);
+
+
     },
 
     increaseProgressComp(state, action) {

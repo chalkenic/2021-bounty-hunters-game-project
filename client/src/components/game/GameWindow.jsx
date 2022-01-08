@@ -1,4 +1,5 @@
 import {
+  Button,
   // Avatar,
   Card,
   CardContent,
@@ -31,6 +32,7 @@ import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/playerDeck-slice";
+import { progressBarActions } from "../../store/progressBar-slice";
 
 const useStyles = makeStyles((theme) => ({
   handWindow: {
@@ -85,9 +87,13 @@ const testData = [
 ];
 
 const GameWindow = (props) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const classes = useStyles();
+  const playerHand = useSelector(
+    (state) => state.playerDeck.playerHands.player1
+  );
+
   const dungeonMax = 200;
   const [completed, setCompleted] = useState(0);
   const [barWidth, setBarWidth] = useState(0);
@@ -119,7 +125,18 @@ const GameWindow = (props) => {
 
   const handleCardClick = (props) => {
     setCardChoice(props);
-    console.log('card choice: ' + cardChoice);
+    console.log("card choice: " + cardChoice);
+  };
+
+  const handleEndTurn = () => {
+    dispatch(
+      progressBarActions.increaseProgress(
+        playerHand.find((card) => card.clicked)
+      )
+    );
+    dispatch(
+      playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
+    );
   };
 
   return (
@@ -144,6 +161,7 @@ const GameWindow = (props) => {
           </Grid>
           <Grid item xs={12}>
             6/8
+            <Button onClick={() => handleEndTurn()}>End turn</Button>
           </Grid>
         </Grid>
         <Grid

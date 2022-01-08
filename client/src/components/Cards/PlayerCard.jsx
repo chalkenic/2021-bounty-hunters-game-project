@@ -56,12 +56,12 @@ const PlayerCard = ({ card }, props) => {
   const [cardChoice, setCardChoice] = useState();
 
   return (
-    <div className={classes.cardSize} onClick={progressBarIncreaseHandler} >
+    <div className={classes.cardSize} onClick={cardClickedHandler}>
       <img
-        className={clsx(classes.cardImgSize, {
-          [classes.cardSelectedColor]: cardChoice,
-          [classes.cardUnselectedColor]: !cardChoice,
-        })}
+        className={clsx(
+          classes.cardImgSize,
+          card.clicked ? classes.cardSelectedColor : classes.cardUnselectedColor
+        )}
         src={`${process.env.PUBLIC_URL}/static/playerCardImages/${card.src}.svg`}
         alt={card.alt}
         back={`${process.env.PUBLIC_URL}/static/playerCardImages/playerCard_back.svg`}

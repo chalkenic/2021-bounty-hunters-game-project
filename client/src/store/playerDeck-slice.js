@@ -120,36 +120,28 @@ const playerDeckSlice = createSlice({
       console.log("discarded:" + state.discardedCards.length);
     },
 
-    cardClicked(state, action) {},
+    cardClicked(state, action) {
+      state.playerHands.player1 = state.playerHands.player1.map((card) =>
+        card.id === action.payload.id
+          ? { ...card, clicked: true }
+          : { ...card, clicked: false }
+      );
+    },
 
-    playCard(state, action) {
-      console.log("got to deal card state! payload: " + action.payload.id);
+    dealNewCard(state, action) {
+      state.playerHands.player1 = state.playerHands.player1.map((card) =>
+      card.id === action.payload.id
+        ? state.unusedCards[state.unusedCards.length - 1]
+        : card
+    );
 
-      // removeCardFromDeck(action.payload, state.playerHands);
-      // removeCardFromDeck(action.payload, state.currentCards);
+      state.unusedCards.pop()
 
-      // Takes current card that was clicked and changes it with a card from the unused desk
-  
-      const cardIndex = state.playerHands.player1.findIndex((card) => card.id === action.payload.id);
+      state.discardedCards.push(action.payload);
 
-      if(cardIndex !== -1){
-        state.playerHands.player1[cardIndex] = {...state.playerHands.player1[cardIndex], clicked: true}
-      }
-
-      state.unusedCards.pop();
-
-      // state.currentCards.forEach((card) => {
-      //   if (card.id === action.payload.id) {
-      //     console.log("found a match! " + card.id + " & " + action.payload.id);
-      //     state.playerHands.player1 = state.playerHands.player1.filter(card => card.id !== action.payload.id);
-      //     state.playerHands.player1 = state.currentCards.filter(card => card.id !== action.payload.id);
-      //   }
-      // })
       console.log("final lengths:");
       console.log("unused: " + state.unusedCards.length);
-      console.log("current: " + state.currentCards.length);
       console.log("discarded:" + state.discardedCards.length);
-      console.log("player hand size: " + state.playerHands.player1.length);
     },
 
     // dealCardToPlayer(state, action) {
@@ -173,3 +165,5 @@ const playerDeckSlice = createSlice({
 export const playerDeckActions = playerDeckSlice.actions;
 
 export default playerDeckSlice.reducer;
+
+
