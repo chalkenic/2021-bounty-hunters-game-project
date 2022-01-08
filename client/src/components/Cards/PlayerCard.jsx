@@ -4,7 +4,7 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { progressBarActions } from "../../store/progressBar-slice";
-import { playerDeckActions } from "../../store/playerDeck-slice";
+import { playerDeckActions } from "../../store/playerCardDeck-slice";
 
 const useStyles = makeStyles((theme) => ({
   cardSize: {

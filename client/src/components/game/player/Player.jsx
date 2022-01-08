@@ -39,7 +39,7 @@ const Player = (props) => {
         </PlayerNameTypography>
 
         {<PlayerCard card={DUMMY_CARD} />}
-        <PlayerEnergyBar />
+        <PlayerEnergyBar energyValue={props.player.energyValue}/>
       </CardContent>
     </Card>
   );

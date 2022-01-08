@@ -48,7 +48,7 @@ const WhiteTypography = withStyles(() => ({
   },
 }))(Typography);
 
-const PlayerEnergyBar = ({ color, hex, value }) => {
+const PlayerEnergyBar = (props) => {
 //   let internalColor = string;
 
   const classes = useStyles();
@@ -59,7 +59,7 @@ const PlayerEnergyBar = ({ color, hex, value }) => {
         <BorderLinearProgress
           className={classes.energyBar}
           variant="determinate"
-          value="100"
+          value={props.energyValue}
         />
         <Box className={classes.energyTextBox}>
           <WhiteTypography variant="body2">100</WhiteTypography>

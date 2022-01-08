@@ -4,7 +4,7 @@ import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PlayerCard from "../../cards/PlayerCard";
 import { progressBarActions } from "../../../store/progressBar-slice";
-import { playerDeckActions } from "../../../store/playerDeck-slice";
+import { playerDeckActions } from "../../../store/playerCardDeck-slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -8,6 +8,8 @@ import { makeStyles, createStyles, Paper } from "@material-ui/core";
 import SetupLobby from "../mainMenu/setup/SetupLobby";
 import PlayingCard from "../cards/PlayerCard";
 import AppPrimaryButton from "../../appComponents/AppPrimaryButton";
+import { useDispatch } from "react-redux";
+import { gamePlayerActions } from "../../store/gamePlayers-slice";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -20,9 +22,25 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+let newPlayers = [];
+
 const HomeWindow = (props) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const classesBase = useStylesBase();
+  
+  let tempNames = ["cheese", "biscuits", "crackers"];
+
+  const onGameStart = () => {
+    for (let index = 0; index < 2; index++) {
+      newPlayers[index] = {
+        id: index,
+        name: tempNames[index],
+      };
+    }
+    dispatch(gamePlayerActions.addPlayersToGame(newPlayers));
+  };
+
   return (
     <Container className={classesBase.homeOverride}>
       <Grid container>
@@ -43,7 +61,9 @@ const HomeWindow = (props) => {
           </Paper>
         </Grid>
         <Grid item xs={1.5} />
-        <AppPrimaryButton to="/game/game1">test</AppPrimaryButton>
+        <AppPrimaryButton onClick={onGameStart} to="/game/game1">
+          test
+        </AppPrimaryButton>
         <Grid item xs={5}>
           <Paper className={classes.paper}>
             <SetupLobby />

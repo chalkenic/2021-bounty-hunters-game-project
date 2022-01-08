@@ -31,7 +31,7 @@ import CardDeckWindow from "./dungeonWindows/CardDeckWindow";
 import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
-import { playerDeckActions } from "../../store/playerDeck-slice";
+import { playerDeckActions } from "../../store/playerCardDeck-slice";
 import { progressBarActions } from "../../store/progressBar-slice";
 
 const useStyles = makeStyles((theme) => ({

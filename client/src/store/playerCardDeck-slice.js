@@ -2,13 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 /*Slice contains 3 arrays; 
 1: contain all unused player cards
-2: contain all cards currently in play
+2: Current cards used by players
 3 contains all discarded cards.
 */
 
+// Holds all card values.
 let PLAYER_CARD_VALUES = [1, 5, 10, 20, 25, 30, 40, 50, 80];
 
-let PLAYER_CARD_COUNT = [7, 9, 10, 9, 8, 10, 10, 7, 4];
+let PLAYER_CARD_COUNT = [7, 10, 14, 13, 11, 7, 5, 4, 2];
 
 let PLAYER_CARDS = [];
 
@@ -60,7 +61,6 @@ let SHUFFLED_DECK = PLAYER_CARDS.sort(() => 0.5 - Math.random());
 
 const initialPlayerCardsState = {
   unusedCards: SHUFFLED_DECK,
-  currentCards: CURRENT_CARDS,
   discardedCards: DISCARDED_CARDS,
   playerHands: {
     player1: PLAYER_1,
@@ -75,51 +75,17 @@ const playerDeckSlice = createSlice({
   initialState: initialPlayerCardsState,
   reducers: {
     // Get full deck of cards from state.
-    getFullDeck(state, action) {
+    getFullDeck(state) {
       console.log(state.unusedCards.length);
     },
-    setUpHands(state, action) {
-      console.log(
-        "do i get here? player hand size: " + state.playerHands.length
-      );
-
+    setUpHands(state) {
       state.playerHands.player1 = state.unusedCards.splice(
         state.unusedCards.length - 7
       );
-      state.currentCards.push(...state.playerHands.player1);
-      for (let index = 0; index < state.playerHands.length; index++) {
-        console.log("1");
-        console.log(state.playerHands[index]);
-      }
     },
 
-    // getNewHand(state, action) {
-    //   console.log("got to get new hand state!");
-    // },
-
-    // let tempDeck = state.unusedCards.slice(gameDeck.length - 7);
-
-    dealCard(state, action) {
-      console.log("got to deal card state! payload: " + action.payload);
-      state.unusedCards.forEach((card) => {
-        if (card.id === action.payload) {
-          console.log("found a match! (" + card.id + " & " + action.payload);
-          console.log("adding card to current card deck: " + card.id);
-          // state.currentCards.push(card);
-          console.log("removing card to unused card deck: " + card.id);
-          // var cardIdx = state.unusedCards.indexOf(card);
-          // state.unusedCards.splice(cardIdx);
-
-          moveCardBetweenDecks(card, state.unusedCards, state.currentCards);
-        }
-      });
-
-      console.log("final lengths:");
-      console.log("unused: " + state.unusedCards.length);
-      console.log("current: " + state.currentCards.length);
-      console.log("discarded:" + state.discardedCards.length);
-    },
-
+    // If card clicked, change value on component to true. Change all other
+    // card values to false.
     cardClicked(state, action) {
       state.playerHands.player1 = state.playerHands.player1.map((card) =>
         card.id === action.payload.id
@@ -127,43 +93,27 @@ const playerDeckSlice = createSlice({
           : { ...card, clicked: false }
       );
     },
-
+    // Replace card played in round by end card in unused array.
     dealNewCard(state, action) {
       state.playerHands.player1 = state.playerHands.player1.map((card) =>
-      card.id === action.payload.id
-        ? state.unusedCards[state.unusedCards.length - 1]
-        : card
-    );
+        card.id === action.payload.id
+          ? state.unusedCards[state.unusedCards.length - 1]
+          : card
+      );
 
-      state.unusedCards.pop()
+      //Remove card given to player from unused deck.
+      state.unusedCards.pop();
 
+      // Append played card into discard deck.
       state.discardedCards.push(action.payload);
 
       console.log("final lengths:");
       console.log("unused: " + state.unusedCards.length);
       console.log("discarded:" + state.discardedCards.length);
     },
-
-    // dealCardToPlayer(state, action) {
-
-    //   PLAYER_CARDS.forEach(card => {
-    //     console.log('card in deck: ' + card.id + '; card checking against: ' + action.payload.id)
-    //     if(card.id === action.payload.id) {
-    //       console.log('found!');
-    //       initialPlayerCardsState.currentCards.push(card);
-    //       initialPlayerCardsState.UnusedCards.splice(card);
-    //     }
-    //   });
-
-    //   console.log('test');
-    //   console.log(initialPlayerCardsState.currentCards);
-
-    // },
   },
 });
 
 export const playerDeckActions = playerDeckSlice.actions;
 
 export default playerDeckSlice.reducer;
-
-
