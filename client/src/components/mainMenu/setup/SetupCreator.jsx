@@ -1,5 +1,4 @@
 // import Card from "../../UI/Card/Card";
-import cssClasses from "./SetupWindow.module.css";
 import React from "react";
 import { green } from "@material-ui/core/colors";
 import {
@@ -9,10 +8,9 @@ import {
   CardContent,
   Typography,
   Card,
-  IconButton,
   Divider,
 } from "@material-ui/core";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+// import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 import DeckDropdown from "./DeckDropdown";
 import PlayerCount from "./PlayerCount";
@@ -43,8 +41,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const SetupCreator = (props) => {
-
+const SetupCreator = () => {
   const classes = useStyles();
   const classesBase = useStylesBase();
   return (
@@ -55,21 +52,17 @@ const SetupCreator = (props) => {
         </Typography>
         <Divider className={classes.lineSeparate} />
         <Grid container>
-        <Grid item xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <PlayerCount />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <DeckDropdown />
           </Grid>
-          
-
         </Grid>
-        <AppPrimaryButton
-          className={classes.blackButton}
-        >
-          <IconButton>
+        <AppPrimaryButton className={classes.blackButton}>
+          {/* <IconButton>
             <ArrowForwardIosIcon />
-          </IconButton>
+          </IconButton> */}
         </AppPrimaryButton>
       </CardContent>
     </Card>

@@ -40,9 +40,11 @@ for (let card = 0; card < 10; card++) {
     id: `${PYRAMID_DECK_CARD_DATA[card]}`,
     key: `p-${PYRAMID_DECK_CARD_DATA[card].name}`,
     name: `Pyramid Card ` + PYRAMID_DECK_CARD_DATA[card].name,
-    src: "pyramidRoomDeck_" + PYRAMID_DECK_CARD_DATA[card].name,
+    src: "pyramidRoomCard_" + PYRAMID_DECK_CARD_DATA[card].name,
+    windowText: PYRAMID_DECK_CARD_DATA[card].name,
     health: getRandomInt(100, 200),
     score: getRandomInt(1, 5),
+    damage: getRandomInt(5, 15),
     target: PYRAMID_DECK_CARD_DATA[card].target,
     hitChance: PYRAMID_DECK_CARD_DATA[card].hitChance,
     completed: false,
@@ -87,10 +89,6 @@ const pyramidDeckSlice = createSlice({
 
       // Append played card into discard deck.
       state.discardedCards.push(action.payload);
-
-      console.log("final lengths:");
-      console.log("unused: " + state.unusedCards.length);
-      console.log("discarded:" + state.discardedCards.length);
     },
   },
 });

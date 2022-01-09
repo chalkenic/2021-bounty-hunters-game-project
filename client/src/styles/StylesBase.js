@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Maximize } from "@material-ui/icons";
+// import { Maximize } from "@material-ui/icons";
 const useStylesBase = makeStyles((theme) =>
   createStyles({
     root: {

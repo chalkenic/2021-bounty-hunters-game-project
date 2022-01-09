@@ -1,8 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 
-import { makeStyles } from "@material-ui/styles";
 import { Card, CardContent } from "@material-ui/core";
-import useStylesBase from "../../../styles/StylesBase";
 
 
 const PlayerHand = (props) => {

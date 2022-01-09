@@ -34,7 +34,7 @@ const BorderLinearProgress = withStyles(() => ({
     borderRadius: 5,
   },
   colorPrimary: {
-    backgroundColor: "white",
+    backgroundColor: "black",
   },
   barColorPrimary: {
     borderRadius: 5,
@@ -49,12 +49,14 @@ const WhiteTypography = withStyles(() => ({
 }))(Typography);
 
 const PlayerEnergyBar = (props) => {
-//   let internalColor = string;
+  //   let internalColor = string;
 
   const classes = useStyles();
+  console.log("Energy value of player: ", props.energyValue);
+
   return (
     <div className={classes.energyBorder}>
-      <Typography variant="h10">Energy</Typography>
+      <Typography variant="inherit">Energy</Typography>
       <Box className={classes.energyContainer}>
         <BorderLinearProgress
           className={classes.energyBar}
@@ -62,7 +64,7 @@ const PlayerEnergyBar = (props) => {
           value={props.energyValue}
         />
         <Box className={classes.energyTextBox}>
-          <WhiteTypography variant="body2">100</WhiteTypography>
+          <WhiteTypography variant="body2">{props.energyValue}</WhiteTypography>
         </Box>
       </Box>
     </div>

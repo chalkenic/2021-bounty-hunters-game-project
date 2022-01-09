@@ -1,19 +1,18 @@
 import React from "react";
-import classes from "./WelcomeSummary.module.css";
 
-import { Card, makeStyles, CardContent, Typography } from "@material-ui/core";
+import { Card,  CardContent, Typography } from "@material-ui/core";
 import useStylesBase from "../../styles/StylesBase";
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: "100",
-    position: 'relative',
-    top: 110
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     minWidth: "100",
+//     position: 'relative',
+//     top: 110
+//   },
+// });
 
 const WelcomeSummary = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const classesBase = useStylesBase();
   return (
     <Card className={ classesBase.homeGrid}>

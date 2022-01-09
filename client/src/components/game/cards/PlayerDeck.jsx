@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PlayerDeck = (props) => {
+const PlayerDeck = () => {
 return <div></div>
 }
 export default PlayerDeck;

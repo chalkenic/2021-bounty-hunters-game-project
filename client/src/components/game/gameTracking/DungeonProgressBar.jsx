@@ -1,7 +1,7 @@
 import { makeStyles, useTheme, withStyles } from "@material-ui/styles";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Grid, LinearProgress, Typography } from "@material-ui/core";
+import { LinearProgress, Typography } from "@material-ui/core";
 import AppTheme from "../../../styles/AppTheme";
 import { progressBarActions } from "../../../store/progressBar-slice";
 
@@ -59,18 +59,18 @@ const BorderLinearProgress = withStyles(() => ({
 }))(LinearProgress);
 
 const DungeonProgressBar = (props) => {
-  const barStyles = (props) => ({
-    colorPrimary: {
-      backgroundColor: "red",
-    },
-    barColorPrimary: {
-      backgroundColor: "green",
-    },
-  });
+  // const barStyles = (props) => ({
+  //   colorPrimary: {
+  //     backgroundColor: "red",
+  //   },
+  //   barColorPrimary: {
+  //     backgroundColor: "green",
+  //   },
+  // });
   const theme = useTheme(AppTheme);
-  const [barColor, setBarColor] = useState(
-    theme.palette.progressBar.lowProgress
-  );
+  // const [barColor, setBarColor] = useState(
+  //   theme.palette.progressBar.lowProgress
+  // );
   const progress = useSelector((state) => state.progressBar.progress);
   const classes = useStyles(props);
   const dispatch = useDispatch();

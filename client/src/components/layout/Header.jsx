@@ -25,15 +25,15 @@ const useStyles = makeStyles({
   },
 });
 
-const Header = (props) => {
+const Header = () => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardContent >
-        <Typography m={0} variant="header" component="h1" className={classes.headerText}>
+        <Typography m={0} variant="body2" component="h1" className={classes.headerText}>
           Bounty Hunters
         </Typography>
-        <Typography m={0}variant="header" component="h3" className={classes.quote}>
+        <Typography m={0}variant="body2" component="h3" className={classes.quote}>
           "Explore together, win as one"
         </Typography>
       </CardContent>

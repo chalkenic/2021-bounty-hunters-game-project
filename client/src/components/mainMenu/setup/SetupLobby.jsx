@@ -61,14 +61,14 @@ const SetupLobby = (props) => {
         </Typography>
         <Divider className={classes.headerSeparate} />
         <Grid container>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={5} sm={5} md={4}>
             <Typography variant="h6" component="h4">
               Players
             </Typography>
             <Divider className={classes.lineSeparate} />
           </Grid>
-          <Grid item xs={0} sm={0} md={4}></Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={1} sm={1} md={2}></Grid>
+          <Grid item xs={5} sm={5} md={4} style={{justifyContent: 'flex-end'}}>
             <Typography variant="h6" component="h4">
               Invite Code
             </Typography>

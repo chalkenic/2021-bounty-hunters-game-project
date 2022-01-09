@@ -34,7 +34,7 @@ const AppPrimaryButton = ({ className, children, to, onClick }) => {
       className={clsx(classes.button, className)}
       onClick={onClick}
     >
-      {children}
+      {/* {children} */}
     </Button>
   );
 };

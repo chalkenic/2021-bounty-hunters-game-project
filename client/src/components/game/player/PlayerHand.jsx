@@ -1,9 +1,8 @@
-import { Button, Grid, ImageList, ImageListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PlayerCard from "../../cards/PlayerCard";
-import { progressBarActions } from "../../../store/progressBar-slice";
+import PlayerCard from "../cards/PlayerCard";
+// import { progressBarActions } from "../../../store/progressBar-slice";
 import { playerDeckActions } from "../../../store/playerCardDeck-slice";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PlayerHand = (props) => {
+const PlayerHand = () => {
   const cardIndex = 0;
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -42,19 +41,21 @@ const PlayerHand = (props) => {
     }
   }, [playerHand]);
 
-  const handleEndTurn = () => {
-    dispatch(
-      progressBarActions.increaseProgress(
-        playerHand.find((card) => card.clicked)
-      )
-    );
-    dispatch(playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked)))
-  };
+  // const handleEndTurn = () => {
+  //   dispatch(
+  //     progressBarActions.increaseProgress(
+  //       playerHand.find((card) => card.clicked)
+  //     )
+  //   );
+  //   dispatch(
+  //     playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
+  //   );
+  // };
 
   return (
     <div>
       <h3>Your Hand</h3>
-      
+
       <div className={classes.root}>
         {playerHand.map((card, index) => {
           return (
