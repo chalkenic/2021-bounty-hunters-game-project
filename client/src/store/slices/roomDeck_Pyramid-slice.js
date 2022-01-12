@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getStoredState from "redux-persist/es/getStoredState";
-import { getRandomInt } from "../components/helpers/gameHelpers";
+import { getRandomInt } from "../../components/helpers/gameHelpers";
 
 let PYRAMID_DECK_CARD_DATA = [
   { name: "deadEnd", target: [0, 1] },
@@ -63,7 +63,7 @@ const initialPyramidState = {
   deckSize: SHUFFLED_DECK.length,
 };
 
-const pyramidDeckSlice = createSlice({
+const roomDeckPyramid = createSlice({
   name: "pyramidRoomDeck",
   initialState: initialPyramidState,
   reducers: {
@@ -107,6 +107,6 @@ const pyramidDeckSlice = createSlice({
   },
 });
 
-export const pyramidDeckActions = pyramidDeckSlice.actions;
+export const roomDeckPyramidActions = roomDeckPyramid.actions;
 
-export default pyramidDeckSlice.reducer;
+export default roomDeckPyramid.reducer;

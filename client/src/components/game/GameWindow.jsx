@@ -11,11 +11,16 @@ import AppTheme from "../../styles/AppTheme";
 import CardDeckWindow from "./dungeonWindows/CardDeckWindow";
 import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
-import { playerDeckActions } from "../../store/playerCardDeck-slice";
-import { progressBarActions } from "../../store/progressBar-slice";
-import { pyramidDeckActions } from "../../store/pyramidRoomDeck-slice";
-import { gamePlayerActions } from "../../store/gamePlayers-slice";
-import { rollHitChance, checkRoundEnded } from "../helpers/gameHelpers";
+import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
+import { progressBarActions } from "../../store/slices/progressBar-slice";
+import { roomDeckPyramidActions } from "../../store/slices/roomDeck_Pyramid-slice";
+import { gamePlayerActions } from "../../store/slices/gamePlayers-slice";
+import {
+  rollHitChance,
+  checkRoundEnded,
+  shufflePlayers,
+} from "../helpers/gameHelpers";
+import { testAction } from "../../store/actions/playerActions";
 
 const useStyles = makeStyles((theme) => ({
   gameBoard: {
@@ -47,22 +52,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GameWindow = () => {
-  const dispatch = useDispatch();
-
-  function reducePlayerEnergy(player) {
-    return dispatch(gamePlayerActions.reduceEnergy(player));
-  }
-
-  const classes = useStyles();
-  const playerHand = useSelector(
-    (state) => state.playerDeck.playerHands.player1
-  );
-  const players = useSelector((state) => state.gamePlayers.players);
-  const progress = useSelector((state) => state.progressBar.progress);
-  const currentRoomCard = useSelector(
-    (state) => state.pyramidRoomDeck.currentCard
-  );
-
   const handleEndTurn = () => {
     dispatch(
       progressBarActions.increaseProgress(
@@ -87,7 +76,33 @@ const GameWindow = () => {
     dispatch(
       playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
     );
+    handlePlayerOrder();
   };
+
+  const handlePlayerOrder = () => {
+    let shuffledPlayers = shufflePlayers(players);
+    shuffledPlayers.map((player, index) =>
+      dispatch(
+        gamePlayerActions.addTurnToPlayer({ id: player.id, turn: index })
+      )
+    );
+  };
+
+  const dispatch = useDispatch();
+
+  // function reducePlayerEnergy(player) {
+  //   return dispatch(gamePlayerActions.reduceEnergy(player));
+  // }
+
+  const classes = useStyles();
+  const playerHand = useSelector(
+    (state) => state.playerDeck.playerHands.player1
+  );
+  const players = useSelector((state) => state.gamePlayers.players);
+  const progress = useSelector((state) => state.progressBar.progress);
+  const currentRoomCard = useSelector(
+    (state) => state.pyramidRoomDeck.currentCard
+  );
 
   return (
     <Container
@@ -104,6 +119,7 @@ const GameWindow = () => {
         <Grid item xs={2}>
           <Grid item xs={12}>
             Dungeon floors
+            <Button onClick={() => dispatch(testAction())}>socket test</Button>
           </Grid>
           <Grid item xs={12}>
             6/8

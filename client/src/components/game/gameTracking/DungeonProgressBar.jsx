@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinearProgress, Typography } from "@material-ui/core";
 import AppTheme from "../../../styles/AppTheme";
-import { progressBarActions } from "../../../store/progressBar-slice";
-import { pyramidDeckActions } from "../../../store/pyramidRoomDeck-slice";
+import { progressBarActions } from "../../../store/slices/progressBar-slice";
+import { roomDeckPyramidActions } from "../../../store/slices/roomDeck_Pyramid-slice";
 
 const useStyles = makeStyles((theme, barColor) => ({
   barContainer: {

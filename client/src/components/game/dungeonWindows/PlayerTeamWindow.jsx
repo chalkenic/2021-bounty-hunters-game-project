@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
 import Player from "../player/Player";
-import { gamePlayerActions } from "../../../store/gamePlayers-slice";
+import { gamePlayerActions } from "../../../store/slices/gamePlayers-slice";
 import { useDispatch, useSelector } from "react-redux";
 
 const PlayerTeamWindow = () => {
@@ -11,7 +11,7 @@ const PlayerTeamWindow = () => {
     <Grid container spacing={1} item xs={12} sm={12} md={12}>
       {players.map((player) => {
         return (
-          <Grid item xs={12} key={player.id}>
+          <Grid item xs={12} key={player.key}>
             <Player player={player} />
           </Grid>
         );

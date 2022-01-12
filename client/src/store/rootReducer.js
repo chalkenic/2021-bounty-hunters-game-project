@@ -1,10 +1,10 @@
 import React from "react";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
-import progressBarReducer from "./progressBar-slice";
-import playerDeckReducer from "./playerCardDeck-slice";
-import pyramidDeckReducer from "./pyramidRoomDeck-slice";
-import gamePlayersReducer from "./gamePlayers-slice";
+import progressBarReducer from "./slices/progressBar-slice";
+import playerDeckReducer from './slices/playerCardDeck-slice'
+import pyramidDeckReducer from "./slices/roomDeck_Pyramid-slice";
+import gamePlayersReducer from "./slices/gamePlayers-slice";
 
 const appReducer = combineReducers({
   progressBar: progressBarReducer,

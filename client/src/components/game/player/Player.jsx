@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, Typography, withStyles } from "@material-ui/core";
+import { Card, CardContent, Grid, Typography, withStyles } from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerEnergyBar from "./PlayerEnergyBar";
@@ -26,6 +26,9 @@ const Player = (props) => {
   return (
     <Card className={classesBase.cardOverride}>
       <CardContent>
+        <Grid item xs={12}>
+          Score: {props.player.score}
+        </Grid>
         <PlayerNameTypography>{props.player.name}</PlayerNameTypography>
 
         {<PlayerCard card={playerTeamCard} />}

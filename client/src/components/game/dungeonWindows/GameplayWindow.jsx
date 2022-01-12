@@ -1,8 +1,10 @@
 import React from "react";
 import { Grid, Paper } from "@material-ui/core";
 import DungeonCard from "../cards/DungeonCard";
-import { pyramidDeckActions } from "../../../store/pyramidRoomDeck-slice";
+import { roomDeckPyramidActions } from "../../../store/slices/roomDeck_Pyramid-slice";
 import { useSelector } from "react-redux";
+import TurnTracker from "../gameTracking/TurnTracker";
+import ScoreTracker from "../gameTracking/ScoreTracker";
 
 const GameplayWindow = (props) => {
   const currentRoomCard = useSelector(
@@ -11,8 +13,16 @@ const GameplayWindow = (props) => {
   return (
     <>
       <Grid container style={{ width: "100%" }}>
-        <Grid item xs={2} style={{ padding: "0 5px" }}>
-          <Paper>Turn order</Paper>
+        <Grid item xs={2} style={{ padding: "0 2px" }}>
+          <Paper>
+            <Grid item xs={12}>
+              <TurnTracker />
+            </Grid>
+
+            <Grid item xs={12}>
+              <ScoreTracker />
+            </Grid>
+          </Paper>
         </Grid>
         <Grid item xs={4} style={{ padding: "0 5px" }}>
           <Paper>

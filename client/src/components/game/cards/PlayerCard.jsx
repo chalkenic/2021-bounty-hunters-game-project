@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { progressBarActions } from "../../../store/progressBar-slice";
-import { playerDeckActions } from "../../../store/playerCardDeck-slice";
-import { gamePlayerActions } from "../../../store/gamePlayers-slice";
+import { progressBarActions } from "../../../store/slices/progressBar-slice";
+import { playerDeckActions } from "../../../store/slices/playerCardDeck-slice";
+import { gamePlayerActions } from "../../../store/slices/gamePlayers-slice";
 
 const useStyles = makeStyles((theme) => ({
   cardSize: {

@@ -2,8 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PlayerCard from "../cards/PlayerCard";
-// import { progressBarActions } from "../../../store/progressBar-slice";
-import { playerDeckActions } from "../../../store/playerCardDeck-slice";
+import { playerDeckActions } from "../../../store/slices/playerCardDeck-slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
