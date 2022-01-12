@@ -1,20 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-/*Slice contains 3 arrays; 
+let PLAYER_CARD_VALUES = [1, 5, 10, 20, 25, 30, 40, 50, 80];
+let PLAYER_CARD_COUNT = [7, 10, 14, 13, 11, 7, 5, 4, 2];
+
+/*Slice contains 2 arrays; 
 1: contain all unused player cards
 2: Current cards used by players
 3 contains all discarded cards.
 */
-
 // Holds all card values.
-let PLAYER_CARD_VALUES = [1, 5, 10, 20, 25, 30, 40, 50, 80];
-
-let PLAYER_CARD_COUNT = [7, 10, 14, 13, 11, 7, 5, 4, 2];
 
 let PLAYER_CARDS = [];
-
-let CURRENT_CARDS = [];
-
 let DISCARDED_CARDS = [];
 
 let PLAYER_1 = [];
@@ -25,7 +21,6 @@ let PLAYER_4 = [];
 let cardDeckSize = 0;
 
 for (let cardTotal = 0; cardTotal < PLAYER_CARD_VALUES.length; cardTotal++) {
-  console.log("card deck size: " + cardDeckSize);
   for (
     let cardCounter = 0;
     cardCounter < PLAYER_CARD_COUNT[cardTotal];
@@ -60,7 +55,7 @@ function moveCardBetweenDecks(card, beforeDeck, afterDeck) {
 let SHUFFLED_DECK = PLAYER_CARDS.sort(() => 0.5 - Math.random());
 
 const initialPlayerCardsState = {
-  unusedCards: SHUFFLED_DECK,
+  dungeonCards: SHUFFLED_DECK,
   discardedCards: DISCARDED_CARDS,
   playerHands: {
     player1: PLAYER_1,
@@ -76,11 +71,11 @@ const playerDeckSlice = createSlice({
   reducers: {
     // Get full deck of cards from state.
     getFullDeck(state) {
-      console.log(state.unusedCards.length);
+      console.log(state.dungeonCards.length);
     },
     setUpHands(state) {
-      state.playerHands.player1 = state.unusedCards.splice(
-        state.unusedCards.length - 7
+      state.playerHands.player1 = state.dungeonCards.splice(
+        state.dungeonCards.length - 7
       );
     },
 
@@ -97,19 +92,18 @@ const playerDeckSlice = createSlice({
     dealNewCard(state, action) {
       state.playerHands.player1 = state.playerHands.player1.map((card) =>
         card.id === action.payload.id
-          ? state.unusedCards[state.unusedCards.length - 1]
+          ? state.dungeonCards[state.dungeonCards.length - 1]
           : card
       );
 
       //Remove card given to player from unused deck.
-      state.unusedCards.pop();
+      state.dungeonCards.pop();
 
       // Append played card into discard deck.
       state.discardedCards.push(action.payload);
 
-      console.log("final lengths:");
-      console.log("unused: " + state.unusedCards.length);
-      console.log("discarded:" + state.discardedCards.length);
+      console.log("unused cards:", state.dungeonCards.length);
+      console.log("discarded cards:", state.discardedCards.length);
     },
   },
 });

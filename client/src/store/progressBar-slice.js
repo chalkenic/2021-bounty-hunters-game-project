@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const InitialProgressBarState = { progress: 0 };
 
 //Slice handles state of progress bar value for parsing back progress of game round.
@@ -10,14 +9,11 @@ const progressBarSlice = createSlice({
   reducers: {
     // Reducer increases game progress by card value given.
     increaseProgress(state, action) {
-      console.log('Reached increased progress! payload:', action.payload)
       state.progress = state.progress + parseInt(action.payload.value);
-
-
     },
 
     increaseProgressComp(state, action) {
-      console.log('test2');
+      console.log("test2");
       state.progress = state.progress + parseInt(action.payload.card.value);
     },
     // Reducer decreases game progress by card value given.

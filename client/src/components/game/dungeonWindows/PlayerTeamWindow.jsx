@@ -5,7 +5,6 @@ import { gamePlayerActions } from "../../../store/gamePlayers-slice";
 import { useDispatch, useSelector } from "react-redux";
 
 const PlayerTeamWindow = () => {
-
   const players = useSelector((state) => state.gamePlayers.players);
 
   return (

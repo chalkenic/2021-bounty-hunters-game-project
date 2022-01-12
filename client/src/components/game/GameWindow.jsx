@@ -1,4 +1,4 @@
-import { Button, Container,  Grid } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
@@ -13,17 +13,11 @@ import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/playerCardDeck-slice";
 import { progressBarActions } from "../../store/progressBar-slice";
+import { pyramidDeckActions } from "../../store/pyramidRoomDeck-slice";
+import { gamePlayerActions } from "../../store/gamePlayers-slice";
+import { rollHitChance, checkRoundEnded } from "../helpers/gameHelpers";
 
 const useStyles = makeStyles((theme) => ({
-  handWindow: {
-    // justifyContent: "center",
-    // width: "50%",
-    // marginLeft: 10,
-    // flex: '1 0 auto'
-  },
-
-  root: {},
-
   gameBoard: {
     backgroundColor: AppTheme.palette.background.board,
     borderTop: 5,
@@ -52,55 +46,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const theme = createTheme({
-//   breakpoints: {
-//     values: {
-//       small: 1080,
-//     },
-//   },
-// });
-
 const GameWindow = () => {
   const dispatch = useDispatch();
+
+  function reducePlayerEnergy(player) {
+    return dispatch(gamePlayerActions.reduceEnergy(player));
+  }
 
   const classes = useStyles();
   const playerHand = useSelector(
     (state) => state.playerDeck.playerHands.player1
   );
-
-  const dungeonMax = 200;
-  const completed = useState(0);
-  const barWidth = useState(0);
-  // const [cardChoice, setCardChoice] = useState(0);
-  // const [dimensions, setDimensions] = useState({
-  //   height: window.innerHeight,
-  //   width: window.innerWidth,
-  // });
-
-  // useEffect(() => {
-  //   function handleResizeEvent() {
-  //     setDimensions({
-  //       height: window.innerHeight,
-  //       width: window.innerWidth,
-  //     });
-  //   }
-  //   window.addEventListener("resize", handleResizeEvent);
-  // }, []);
-
-  // const [expanded, setExpanded] = useState(false);
-
-  // useEffect(() => {
-  //   setBarWidth(barWidth + cardChoice);
-  // }, [cardChoice]);
-
-  // useEffect(() => {
-  //   setBarWidth((completed / dungeonMax) * 100);
-  // }, [completed]);
-
-  // const handleCardClick = (props) => {
-  //   setCardChoice(props);
-  //   console.log("card choice: " + cardChoice);
-  // };
+  const players = useSelector((state) => state.gamePlayers.players);
+  const progress = useSelector((state) => state.progressBar.progress);
+  const currentRoomCard = useSelector(
+    (state) => state.pyramidRoomDeck.currentCard
+  );
 
   const handleEndTurn = () => {
     dispatch(
@@ -108,6 +69,21 @@ const GameWindow = () => {
         playerHand.find((card) => card.clicked)
       )
     );
+    if (checkRoundEnded(currentRoomCard.health, progress)) {
+      for (let index = 0; index < players.length; index++) {
+        if (
+          currentRoomCard.target.includes(index) &&
+          rollHitChance(currentRoomCard.hitChance)
+        ) {
+          dispatch(
+            gamePlayerActions.reducePlayerEnergy({
+              id: players[index].id,
+              damage: currentRoomCard.damage,
+            })
+          );
+        }
+      }
+    }
     dispatch(
       playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
     );
@@ -123,11 +99,7 @@ const GameWindow = () => {
           <h1>BOUNTY HUNTERS</h1>
         </Grid>
         <Grid item xs={10}>
-          <DungeonProgressBar
-            completed={completed}
-            dungeonMax={dungeonMax}
-            currentWidth={barWidth}
-          />
+          <DungeonProgressBar />
         </Grid>
         <Grid item xs={2}>
           <Grid item xs={12}>
@@ -156,7 +128,6 @@ const GameWindow = () => {
             item
             xs={12}
           >
-            {/* <Paper style={{ height: "195%", width: "100%" }}></Paper> */}
             <GameplayWindow />
           </Grid>
           <Grid

@@ -52,7 +52,6 @@ const PlayerEnergyBar = (props) => {
   //   let internalColor = string;
 
   const classes = useStyles();
-  console.log("Energy value of player: ", props.energyValue);
 
   return (
     <div className={classes.energyBorder}>

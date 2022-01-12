@@ -24,8 +24,6 @@ const useStyles = makeStyles((theme) => ({
 const DungeonCard = ({ card }) => {
   const classes = useStyles();
 
-  console.log();
-  let cardSrc = `${process.env.PUBLIC_URL}/static/pyramidCardImages/${card.src}.png`;
   return (
     <div>
       <img

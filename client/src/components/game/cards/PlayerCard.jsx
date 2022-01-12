@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { progressBarActions } from "../../../store/progressBar-slice";
 import { playerDeckActions } from "../../../store/playerCardDeck-slice";
+import { gamePlayerActions } from "../../../store/gamePlayers-slice";
 
 const useStyles = makeStyles((theme) => ({
   cardSize: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
   // When selected, specific card border highlighted.
   cardSelectedColor: {
-    border: " 3px solid gold",
+    border: " 5px solid orange",
   },
 
   // Border remains empty if unclicked
@@ -42,6 +43,8 @@ const PlayerCard = ({ card }) => {
 
   const cardClickedHandler = () => {
     dispatch(playerDeckActions.cardClicked(card));
+    console.log('card:', card,'selected');
+    dispatch(gamePlayerActions.roundCardChosen(1));
   };
 
   const classes = useStyles();

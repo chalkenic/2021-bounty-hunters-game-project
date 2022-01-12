@@ -16,28 +16,19 @@ const PlayerNameTypography = withStyles(() => ({
 
 const Player = (props) => {
   const classesBase = useStylesBase();
-  // const classes = useStyles();
 
-  const DUMMY_CARD = {
-    id: 1,
-    src: "playerCard_back",
-    alt: "player card",
+  const playerTeamCard = {
+    id: props.player.id,
+    src: props.player.src,
+    alt: props.player.alt,
   };
 
-  console.log(
-    "energy value in parent component of player ",
-    props.player.name,
-    ":",
-    props.player.energy
-  );
   return (
     <Card className={classesBase.cardOverride}>
       <CardContent>
-        <PlayerNameTypography>
-          {props.player.name}
-        </PlayerNameTypography>
+        <PlayerNameTypography>{props.player.name}</PlayerNameTypography>
 
-        {<PlayerCard card={DUMMY_CARD} />}
+        {<PlayerCard card={playerTeamCard} />}
         <PlayerEnergyBar energyValue={props.player.energy} />
       </CardContent>
     </Card>

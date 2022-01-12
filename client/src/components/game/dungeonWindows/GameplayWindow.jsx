@@ -5,11 +5,9 @@ import { pyramidDeckActions } from "../../../store/pyramidRoomDeck-slice";
 import { useSelector } from "react-redux";
 
 const GameplayWindow = (props) => {
-  const dungeonCards = useSelector(
-    (state) => state.pyramidRoomDeck.unusedCards
+  const currentRoomCard = useSelector(
+    (state) => state.pyramidRoomDeck.currentCard
   );
-
-  let test_card = dungeonCards[0];
   return (
     <>
       <Grid container style={{ width: "100%" }}>
@@ -17,10 +15,12 @@ const GameplayWindow = (props) => {
           <Paper>Turn order</Paper>
         </Grid>
         <Grid item xs={4} style={{ padding: "0 5px" }}>
-          <Paper>Dungeon <i className="mdi mdi-card-bulleted-off:"></i>
-            <DungeonCard card={test_card} />
+          <Paper>
+            Dungeon <i className="mdi mdi-card-bulleted-off:"></i>
+            <DungeonCard card={currentRoomCard} />
             <p>
-              {test_card.hitChance}% chance of {test_card.damage} energy loss
+              {currentRoomCard.hitChance}% chance of {currentRoomCard.damage}{" "}
+              energy loss
             </p>
           </Paper>
         </Grid>
@@ -28,16 +28,7 @@ const GameplayWindow = (props) => {
           <Paper>game log</Paper>
         </Grid>
       </Grid>
-      {/* <Card xs={12}>
-        <CardContent>Current Dungeon Card and effects</CardContent>
-      </Card>
-      <Card xs={12}>
-        <CardContent>game log</CardContent> */}
-      {/* </Card> */}
     </>
   );
 };
 export default GameplayWindow;
-
-// /static/pyramidCardImages/pyramidRoomCard_gas.svg
-// /static/pyramidCardImages/pyramidRoomCard_sarcophagus.svg
