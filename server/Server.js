@@ -38,11 +38,15 @@ io.on("connection", (socket) => {
   socket.on("ADDING_PLAYER", (data) => {
     console.log("receiving player", data);
     players.push({ id: socket.id, name: data });
-    socket.emit("ADDING_COMPLETED", JSON.stringify(players));
+    io.emit(
+      "ADDING_COMPLETED",
+      JSON.stringify(players[players.length - 1])
+    );
   });
   socket.on("RESETTING_PLAYERS", () => {
     players.length = 0;
-    socket.emit("PLAYERS_RESET", JSON.stringify(players));
+    console.log(players);
+    io.emit("PLAYERS_RESET", JSON.stringify(players));
   });
 });
 

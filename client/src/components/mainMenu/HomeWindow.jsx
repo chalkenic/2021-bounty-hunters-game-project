@@ -5,7 +5,7 @@ import Header from "../layout/Header";
 import { Container, Grid, TextField } from "@material-ui/core";
 import useStylesBase from "../../styles/StylesBase";
 import { makeStyles, createStyles, Paper } from "@material-ui/core";
-import SetupLobby from "../mainMenu/setup/SetupLobby";
+import SetupPlayerLobby from "./setup/SetupPlayerLobby";
 import AppPrimaryButton from "../../appComponents/AppPrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { gamePlayerActions } from "../../store/slices/gamePlayers-slice";
@@ -52,7 +52,7 @@ const HomeWindow = (props) => {
       // }
 
       if (currentPlayerCheck > 0) {
-        dispatch(gamePlayerActions.addPlayersToGame(newPlayers));
+
 
         dispatch(roomDeckPyramidActions.dealRoomCard());
       } else {
@@ -99,7 +99,7 @@ const HomeWindow = (props) => {
         </Grid>
         <Grid item xs={5}>
           <Paper className={classes.paper}>
-            <SetupLobby />
+            <SetupPlayerLobby />
           </Paper>
         </Grid>
       </Grid>

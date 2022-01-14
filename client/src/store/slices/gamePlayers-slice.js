@@ -7,23 +7,26 @@ const gamePlayersSlice = createSlice({
   },
   reducers: {
     addPlayersToGame(state, action) {
-      for (let i = 0; i < action.payload.length; i++) {
-        state.players.push({
-          id: action.payload[i].id,
-          key: `player_${action.payload[i].name}`,
-          name: action.payload[i].name,
-          src: "playerCard_back",
-          alt: "player card",
-          score: 0,
-          energy: 100,
-          turn: null,
-          socketId: null,
-        });
-      }
+
+      // for (let i = 0; i < action.payload.length; i++) {
+      state.players.push({
+        id: state.players.length,
+        key: `player_${action.payload.name}_${state.players.length}`,
+        name: action.payload.name,
+        src: "playerCard_back",
+        alt: "player card",
+        score: 0,
+        energy: 100,
+        turn: null,
+        socketId: action.payload.id,
+      });
+      // }
+      console.log("new players:", state.players);
     },
 
     resetPlayers(state) {
       state.players.length = 0;
+      console.log("reset players to ", state.players);
     },
 
     addTurnToPlayer(state, action) {

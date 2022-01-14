@@ -36,6 +36,9 @@ const Header = () => {
         <Typography m={0}variant="body2" component="h3" className={classes.quote}>
           "Explore together, win as one"
         </Typography>
+        <div>
+          <img src={`${process.env.PUBLIC_URL}/static/frontPage_banner/.png`}/>
+        </div>
       </CardContent>
       {/* <header className={classes.header}>
         <h1>Bounty Hunters</h1>

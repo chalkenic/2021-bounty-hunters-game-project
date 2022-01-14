@@ -26,7 +26,7 @@ const GameplayWindow = (props) => {
         </Grid>
         <Grid item xs={4} style={{ padding: "0 5px" }}>
           <Paper>
-            Dungeon <i className="mdi mdi-card-bulleted-off:"></i>
+            Dungeon
             <DungeonCard card={currentRoomCard} />
             <p>
               {currentRoomCard.hitChance}% chance of {currentRoomCard.damage}{" "}

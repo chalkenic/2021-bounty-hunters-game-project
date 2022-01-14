@@ -9,7 +9,7 @@ import { gamePlayerActions } from "../../../store/slices/gamePlayers-slice";
 
 const useStyles = makeStyles((theme) => ({
   cardSize: {
-    margin: "0.2rem",
+    margin: "0.1rem",
     // height: "9rem",
   },
 

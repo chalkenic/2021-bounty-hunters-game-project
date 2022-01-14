@@ -13,7 +13,7 @@ import {
 import { red } from "@material-ui/core/colors";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useStylesBase from "../../../styles/StylesBase";
-import HomePlayerList from "./HomePlayerList";
+import SetupPlayerList from "./SetupPlayerList";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -63,7 +63,7 @@ const SetupLobby = (props) => {
         <Divider className={classes.headerSeparate} />
         <Grid container>
           <Grid item xs={5} sm={5} md={4}>
-            <HomePlayerList />
+            <SetupPlayerList />
             <Divider className={classes.lineSeparate} />
           </Grid>
           <Grid item xs={1} sm={1} md={2}></Grid>

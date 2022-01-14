@@ -1,4 +1,11 @@
-import { Button, Container, Grid } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Fab,
+  Grid,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
@@ -21,6 +28,8 @@ import {
   shufflePlayers,
 } from "../helpers/gameHelpers";
 import { testAction } from "../../store/actions/playerActions";
+import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import TutorialModal from "./tutorial/TutorialModal";
 
 const useStyles = makeStyles((theme) => ({
   gameBoard: {
@@ -52,6 +61,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GameWindow = () => {
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const playerHand = useSelector(
+    (state) => state.playerDeck.playerHands.player1
+  );
+  const players = useSelector((state) => state.gamePlayers.players);
+  const progress = useSelector((state) => state.progressBar.progress);
+  const currentRoomCard = useSelector(
+    (state) => state.pyramidRoomDeck.currentCard
+  );
   const handleEndTurn = () => {
     dispatch(
       progressBarActions.increaseProgress(
@@ -59,14 +78,17 @@ const GameWindow = () => {
       )
     );
     if (checkRoundEnded(currentRoomCard.health, progress)) {
-      for (let index = 0; index < players.length; index++) {
+      for (let idx = 0; idx < players.length; idx++) {
+        console.log("checking player", players[idx]);
+        console.log("targets of card:", currentRoomCard.target);
         if (
-          currentRoomCard.target.includes(index) &&
+          currentRoomCard.target.includes(idx) &&
           rollHitChance(currentRoomCard.hitChance)
         ) {
+          console.log("player", players[idx], "taking damage!");
           dispatch(
             gamePlayerActions.reducePlayerEnergy({
-              id: players[index].id,
+              id: players[idx].id,
               damage: currentRoomCard.damage,
             })
           );
@@ -88,21 +110,7 @@ const GameWindow = () => {
     );
   };
 
-  const dispatch = useDispatch();
 
-  // function reducePlayerEnergy(player) {
-  //   return dispatch(gamePlayerActions.reduceEnergy(player));
-  // }
-
-  const classes = useStyles();
-  const playerHand = useSelector(
-    (state) => state.playerDeck.playerHands.player1
-  );
-  const players = useSelector((state) => state.gamePlayers.players);
-  const progress = useSelector((state) => state.progressBar.progress);
-  const currentRoomCard = useSelector(
-    (state) => state.pyramidRoomDeck.currentCard
-  );
 
   return (
     <Container
@@ -110,22 +118,20 @@ const GameWindow = () => {
       className={classes.root}
     >
       <Grid container className={classes.gameBoard}>
-        <Grid item xs={12}>
-          <h1>BOUNTY HUNTERS</h1>
+        <Grid item xs={12} s={12} m={12}>
+          <Typography variant="h1">BOUNTY HUNTERS</Typography>
         </Grid>
-        <Grid item xs={10}>
+
+        {/* <Grid item xs={2}>
+          <Grid item xs={12}>
+            
+          </Grid>
+        </Grid> */}
+
+        <Grid item xs={12}>
           <DungeonProgressBar />
         </Grid>
-        <Grid item xs={2}>
-          <Grid item xs={12}>
-            Dungeon floors
-            <Button onClick={() => dispatch(testAction())}>socket test</Button>
-          </Grid>
-          <Grid item xs={12}>
-            6/8
-            <Button onClick={() => handleEndTurn()}>End turn</Button>
-          </Grid>
-        </Grid>
+
         <Grid
           item
           xs={2}
@@ -157,6 +163,12 @@ const GameWindow = () => {
             style={{ padding: "0 5px", width: "100%" }}
           >
             <PlayerHandWindow className={classes.handWindow}>
+              <Button variant="contained" onClick={() => handleEndTurn()}>
+                End turn
+              </Button>
+              <Button onClick={() => dispatch(testAction())}>
+                socket test
+              </Button>
               <PlayerHand />
             </PlayerHandWindow>
           </Grid>

@@ -11,14 +11,13 @@ const playerSocket = (dispatch) => {
   socket.on("PONG", (data) => {
     console.log("receiving a ping at", data);
   });
-  socket.on('ADDING_COMPLETED', (data) =>{
-      console.log('added new player:',JSON.parse(data))
-      dispatch(gamePlayerActions.addPlayersToGame(data))
-
+  socket.on("ADDING_COMPLETED", (data) => {
+    console.log("data", data);
+    dispatch(gamePlayerActions.addPlayersToGame(JSON.parse(data)));
   });
-  socket.on('PLAYERS_RESET', () => {
-    dispatch(gamePlayerActions.resetPlayers())
-    console.log('All players reset')
+  socket.on("PLAYERS_RESET", () => {
+    dispatch(gamePlayerActions.resetPlayers());
+    console.log("All players reset");
   });
   return socket;
 };
