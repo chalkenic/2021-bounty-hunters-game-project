@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) =>
     button: {
       borderRadius: 5,
       backgroundColor: theme.palette.primary.main,
-      color: "#50846e !important",
       height: 40,
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 // Pass Button component with optional parameters. Button can convert to link if designated.
-const AppPrimaryButton = ({ className, children, to, onClick }) => {
+const AppPrimaryButton = ({ className, to, onClick, children }) => {
   const classes = useStyles();
   return (
     <Button
@@ -34,7 +33,7 @@ const AppPrimaryButton = ({ className, children, to, onClick }) => {
       className={clsx(classes.button, className)}
       onClick={onClick}
     >
-      {/* {children} */}
+       {children}
     </Button>
   );
 };

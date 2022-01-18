@@ -1,8 +1,7 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
 import Player from "../player/Player";
-import { gamePlayerActions } from "../../../store/slices/gamePlayers-slice";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 
 const PlayerTeamWindow = () => {
   const players = useSelector((state) => state.gamePlayers.players);

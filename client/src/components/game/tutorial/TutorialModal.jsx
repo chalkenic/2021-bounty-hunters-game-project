@@ -5,8 +5,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Fab, Tooltip, Typography } from "@material-ui/core";
-import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import { withStyles } from "@material-ui/styles";
 import { purple } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core";
@@ -145,14 +143,14 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
                     final card to completes the progress bar for each room
                     scores the room's points.
                     <hr />
-                    You'll want to think carefully about which card you play.
-                    for example, if another player has been targeted for energy
-                    loss, you could play a lower value card, forcing them to
-                    play higher value cards to end the round sooner, or lose energy!
+                    Think carefully about which card you play. for example, if
+                    another player has been targeted for energy loss, you could
+                    play a lower value card, forcing them to use their higher value
+                    cards to end the round sooner, or else lose energy!
                     <hr />
                     Likewise, if you're the targeted player, you may choose to
-                    rush the round's progress by playing high value cards,
-                    rather than aiming to win that room's points.
+                    speed up the round's progress by playing high value cards,
+                    rather than aiming to win that room's points and risk losing energy.
                   </li>
                 </ul>
               </p>

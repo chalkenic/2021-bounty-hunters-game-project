@@ -26,12 +26,16 @@ const DungeonCard = ({ card }) => {
 
   return (
     <div>
-      <img
-        className={classes.cardImgSize}
-        src={`${process.env.PUBLIC_URL}/static/pyramidCardImages/${card.src}.png`}
-        alt={card.alt}
-        back={`${process.env.PUBLIC_URL}/static/playerCardImages/playerCard_back.svg`}
-      />
+      {card && card.src ? (
+        <img
+          className={classes.cardImgSize}
+          src={`${process.env.PUBLIC_URL}/static/pyramidCardImages/${card.src}.png`}
+          alt={card.alt}
+          back={`${process.env.PUBLIC_URL}/static/playerCardImages/playerCard_back.svg`}
+        />
+      ) : (
+        <div>No img available</div>
+      )}
     </div>
   );
 };

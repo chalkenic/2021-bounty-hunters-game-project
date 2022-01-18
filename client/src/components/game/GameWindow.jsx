@@ -1,12 +1,9 @@
 import {
   Button,
   Container,
-  Fab,
   Grid,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
-import { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
 import PlayerHand from "./player/PlayerHand";
@@ -19,17 +16,17 @@ import CardDeckWindow from "./dungeonWindows/CardDeckWindow";
 import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
-import { progressBarActions } from "../../store/slices/progressBar-slice";
-import { roomDeckPyramidActions } from "../../store/slices/roomDeck_Pyramid-slice";
 import { gamePlayerActions } from "../../store/slices/gamePlayers-slice";
 import {
   rollHitChance,
   checkRoundEnded,
   shufflePlayers,
 } from "../helpers/gameHelpers";
-import { testAction } from "../../store/actions/playerActions";
-import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
-import TutorialModal from "./tutorial/TutorialModal";
+
+
+
+import { increaseProgress } from "../../store/actions/progressActions";
+import { submitRoomCards, getRoomCards } from "../../store/actions/roomDeckActions";
 
 const useStyles = makeStyles((theme) => ({
   gameBoard: {
@@ -61,31 +58,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GameWindow = () => {
+
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const playerHand = useSelector(
-    (state) => state.playerDeck.playerHands.player1
+    (state) => state.playerDeck.playerHand
   );
   const players = useSelector((state) => state.gamePlayers.players);
   const progress = useSelector((state) => state.progressBar.progress);
   const currentRoomCard = useSelector(
     (state) => state.pyramidRoomDeck.currentCard
   );
+  const dungeonDeck = useSelector(
+    (state) => state.pyramidRoomDeck.dungeonDeck
+  );
+
+  if(getRoomCards().length === 0) {
+    // console.log('dispatch submitRoomCards B', dungeonDeck)
+    dispatch(submitRoomCards(dungeonDeck))
+  }
+
+  // console.log("current card:", currentRoomCard);
+
+  // dispatch(submitRoomCards(dungeonDeck));
   const handleEndTurn = () => {
-    dispatch(
-      progressBarActions.increaseProgress(
-        playerHand.find((card) => card.clicked)
-      )
-    );
+    // dispatch(
+    //   progressBarActions.increaseProgress(
+    //     playerHand.find((card) => card.clicked)
+    //   )
+    // );
+
+    
+
+    dispatch(increaseProgress(playerHand.find((card) => card.clicked)));
     if (checkRoundEnded(currentRoomCard.health, progress)) {
       for (let idx = 0; idx < players.length; idx++) {
-        console.log("checking player", players[idx]);
-        console.log("targets of card:", currentRoomCard.target);
+        // console.log("checking player", players[idx]);
+        // console.log("targets of card:", currentRoomCard.target);
         if (
           currentRoomCard.target.includes(idx) &&
           rollHitChance(currentRoomCard.hitChance)
         ) {
-          console.log("player", players[idx], "taking damage!");
+          // console.log("player", players[idx], "taking damage!");
           dispatch(
             gamePlayerActions.reducePlayerEnergy({
               id: players[idx].id,
@@ -110,7 +125,7 @@ const GameWindow = () => {
     );
   };
 
-
+  
 
   return (
     <Container
@@ -165,9 +180,6 @@ const GameWindow = () => {
             <PlayerHandWindow className={classes.handWindow}>
               <Button variant="contained" onClick={() => handleEndTurn()}>
                 End turn
-              </Button>
-              <Button onClick={() => dispatch(testAction())}>
-                socket test
               </Button>
               <PlayerHand />
             </PlayerHandWindow>

@@ -1,9 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Typography } from "@material-ui/core";
+import { getPlayers } from "../../../store/actions/playerActions";
+const HomePlayerList = () => {
+  const dispatch = useDispatch();
 
-const HomePlayerList = (props) => {
+  useEffect(() => {}, []);
+
   const players = useSelector((state) => state.gamePlayers.players);
+
+
+  // useEffect(() => {
+  //   dispatch(getPlayers());
+  // }, [players]);
+
   return (
     <>
       <Typography variant="h6" component="h4">

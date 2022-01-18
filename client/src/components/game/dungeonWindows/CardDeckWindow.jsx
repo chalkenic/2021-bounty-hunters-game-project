@@ -3,8 +3,7 @@ import React from "react";
 import PlayerDeck from "../cards/PlayerDeck";
 import TutorialModal from '../tutorial/TutorialModal'
 
-const CardDeckWindow = (props) => {
-  let playerDeck = new Map();
+const CardDeckWindow = () => {
 
   return (
     <Paper style={{ height: "100%", width: "100%" }}>

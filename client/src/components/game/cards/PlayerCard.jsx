@@ -1,9 +1,8 @@
 // import { Card, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { progressBarActions } from "../../../store/slices/progressBar-slice";
 import { playerDeckActions } from "../../../store/slices/playerCardDeck-slice";
 import { gamePlayerActions } from "../../../store/slices/gamePlayers-slice";
 

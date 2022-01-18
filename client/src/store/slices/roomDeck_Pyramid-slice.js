@@ -1,77 +1,53 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getStoredState from "redux-persist/es/getStoredState";
 import { getRandomInt } from "../../components/helpers/gameHelpers";
+import { generatePyramidDeck } from "../../components/helpers/deckHelpers";
+import { ListItemText } from "@material-ui/core";
 
-let PYRAMID_DECK_CARD_DATA = [
-  { name: "deadEnd", target: [0, 1] },
-  { name: "gas", target: [0, 1] },
-  { name: "lowCeiling", target: [0, 1] },
-  { name: "mud", target: [0, 1] },
-  { name: "pits", target: [0, 1] },
-  { name: "sand", target: [0, 1] },
-  { name: "sarcophagus", target: [0, 1] },
-  { name: "spears", target: [0, 1] },
-  { name: "spikes", target: [0, 1] },
-  { name: "treasure", target: [0, 1] },
-
-  "deadEnd",
-  "gas",
-  "lowCeiling",
-  "mud",
-  "pits",
-  "sand",
-  "sarcophagus",
-  "spears",
-  "spikes",
-  "treasure",
-];
-let PYRAMID_DECK_CARDS = [];
 let CURRENT_CARD = {};
 let DISCARDED_CARDS = [];
-
-// Mozilla basic function to return random number. available at:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-// function getRandomInt(min, max) {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min) + min);
-// }
-// Loop creates all pyramid room cards for access via game for creation of card components.
-for (let card = 0; card < 10; card++) {
-  PYRAMID_DECK_CARDS[card] = {
-    id: `${PYRAMID_DECK_CARD_DATA[card]}`,
-    key: `p-${PYRAMID_DECK_CARD_DATA[card].name}`,
-    name: `Pyramid Card ` + PYRAMID_DECK_CARD_DATA[card].name,
-    src: "pyramidRoomCard_" + PYRAMID_DECK_CARD_DATA[card].name,
-    windowText: PYRAMID_DECK_CARD_DATA[card].name,
-    health: getRandomInt(100, 200),
-    score: getRandomInt(1, 5),
-    damage: getRandomInt(5, 15),
-    target: PYRAMID_DECK_CARD_DATA[card].target,
-    hitChance: getRandomInt(30, 70),
-    completed: false,
-    current: false,
-  };
-}
-
-let SHUFFLED_DECK = PYRAMID_DECK_CARDS.sort(() => 0.5 - Math.random());
+let SHUFFLED_DECK = generatePyramidDeck();
 
 const initialPyramidState = {
   dungeonDeck: SHUFFLED_DECK,
   currentCard: CURRENT_CARD,
   discardedCards: DISCARDED_CARDS,
   deckSize: SHUFFLED_DECK.length,
+  initialized: undefined,
 };
 
 const roomDeckPyramid = createSlice({
   name: "pyramidRoomDeck",
   initialState: initialPyramidState,
   reducers: {
-    getDeckCompletionStatus(state) {
-      return state.discardedCards.length + 1;
+    // getDeckCompletionStatus(state) {
+    //   return state.discardedCards.length + 1;
+    // },
+    // getDeckSize(state) {
+    //   return state.deckSize;
+    // },
+
+    generateNewDeck(state) {
+      console.log("wadq asfasfeEAFAFAFFAEWFEFE");
+      state.dungeonDeck = generatePyramidDeck();
+      console.log("new deck:", state.dungeonDeck);
     },
-    getDeckSize(state) {
-      return state.deckSize;
+
+    // InitializeDeck(state) {
+    //   state.initialized = true;
+    // },
+
+    resetDeck(state) {
+      // if (!state.dungeonDeck === undefined) {
+      state.dungeonDeck = [];
+      // }
+      // if (!state.currentCard === undefined) {
+      state.currentCard = {};
+      // }
+      // if (!state.initialized === undefined) {
+      state.initialized = false;
+      // }
+
+      console.log("reset players to ", state.players);
     },
 
     // endRound(state, action) {
@@ -86,7 +62,28 @@ const roomDeckPyramid = createSlice({
 
       state.dungeonDeck.pop();
     },
+    setCurrentCard(state, action) {
+state.currentCard = action.payload;
+    },
 
+    setGameDeck(state, action) {
+      console.log("10. payload:", action);
+      console.log("10.5. payload inside:", action.payload);
+
+      state.dungeonDeck = action.payload;
+
+
+      console.log("11: new dungeon deck:", state.dungeonDeck);
+      console.log(
+        "12. new current card ",
+        state.dungeonDeck[state.dungeonDeck.length - 1]
+      );
+      // state.currentCard = state.dungeonDeck.pop()
+
+      // state.dungeonDeck.pop();
+      console.log("13. refined deck: ", state.dungeonDeck);
+      console.log("14. current card set:", state.currentCard);
+    },
     completeRoom(state, action) {
       state.discardedCards.push(state.currentCard);
       state.dealRoomCard();
@@ -98,14 +95,21 @@ const roomDeckPyramid = createSlice({
       // state.discardedCards.push(action.payload);
     },
 
-    getCurrentDungeonCard(state) {
-      let currentCard = state.dungeonDeck.find((card) =>
-        card.current === true ? { card } : {}
-      );
-      return currentCard;
-    },
+    // getCurrentDungeonCard(state) {
+    //   let currentCard = state.dungeonDeck.find((card) =>
+    //     card.current === true ? { card } : {}
+    //   );
+    //   return currentCard;
+    // },
   },
 });
+
+export const getRoomCardState = (id) => {
+  return async (dispatch, getState) => {
+    const currentState = getState().pyramidRoomDeck;
+    console.log(currentState);
+  };
+};
 
 export const roomDeckPyramidActions = roomDeckPyramid.actions;
 

@@ -20,7 +20,7 @@ const PlayerHand = () => {
   const classes = useStyles();
   // console.log("list size: " + PLAYER_CARDS.length);
   const playerHand = useSelector(
-    (state) => state.playerDeck.playerHands.player1
+    (state) => state.playerDeck.playerHand
   );
 
   // for (let index = 0; index < gameDeck.length; index++) {
@@ -42,7 +42,7 @@ const PlayerHand = () => {
       <h3>Your Hand</h3>
 
       <div className={classes.root}>
-        {playerHand.map((card, index) => {
+        {playerHand.map((card) => {
           return <PlayerCard key={card.id} card={card} />;
         })}
       </div>

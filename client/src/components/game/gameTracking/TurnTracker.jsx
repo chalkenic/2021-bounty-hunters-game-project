@@ -4,7 +4,6 @@ import { Grid, Paper } from "@material-ui/core";
 
 const TurnTracker = () => {
   const players = useSelector((state) => state.gamePlayers.players);
-  console.log(players);
   return (
     <div>
       <>Turn Order</>

@@ -1,10 +1,9 @@
-import { makeStyles, useTheme, withStyles } from "@material-ui/styles";
+import { makeStyles, withStyles } from "@material-ui/styles";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinearProgress, Typography } from "@material-ui/core";
-import AppTheme from "../../../styles/AppTheme";
 import { progressBarActions } from "../../../store/slices/progressBar-slice";
-import { roomDeckPyramidActions } from "../../../store/slices/roomDeck_Pyramid-slice";
+import { resetProgress } from "../../../store/actions/progressActions";
 
 const useStyles = makeStyles((theme, barColor) => ({
   barContainer: {
@@ -60,19 +59,30 @@ const BorderLinearProgress = withStyles(() => ({
 }))(LinearProgress);
 
 const DungeonProgressBar = (props) => {
-  const progress = useSelector((state) => state.progressBar.progress);
-  let currentRoomCard = useSelector((state)=> state.pyramidRoomDeck.currentCard)
+  const progress = useSelector((state) => state.progressBar.value);
+  let currentRoomCard = useSelector(
+    (state) => state.pyramidRoomDeck.currentCard
+  );
 
   const classes = useStyles(props);
   const dispatch = useDispatch();
+  // let normalize = 0;
 
   // variable converts integer inputs from cards into their % variant for inclusion
   // into progress bar.
-  const normalize = (value) => ((value - 0) * 100) / (currentRoomCard.health - 0);
+
+  // if (currentRoomCard && currentRoomCard.health) {
+  const normalize = (value) =>
+    ((value - 0) * 100) /
+    (currentRoomCard && currentRoomCard.health
+      ? currentRoomCard.health
+      : 0 - 0);
+  // }
 
   useEffect(() => {
     if (progress >= currentRoomCard.health) {
-      dispatch(progressBarActions.resetProgress());
+      console.log("love a log");
+      dispatch(resetProgress());
     }
   }, [progress]);
 
@@ -81,6 +91,7 @@ const DungeonProgressBar = (props) => {
       <Typography>
         Floor progress: {progress} /{currentRoomCard.health}
       </Typography>
+
       <div className={classes.barContainer}>
         <BorderLinearProgress
           variant="determinate"

@@ -40,29 +40,13 @@ for (let cardTotal = 0; cardTotal < PLAYER_CARD_VALUES.length; cardTotal++) {
   }
 }
 
-function moveCardBetweenDecks(card, beforeDeck, afterDeck) {
-  afterDeck.push(card);
-  // var cardIdx = beforeDeck.indexOf(card);
-  beforeDeck.splice(beforeDeck.indexOf(card));
-}
-
-// function removeCardFromDeck(card, deck) {
-//   console.log('removing card from deck ' + deck + '...')
-//   deck.filter(item => item.id != card.id)
-
-// }
 
 let SHUFFLED_DECK = PLAYER_CARDS.sort(() => 0.5 - Math.random());
 
 const initialPlayerCardsState = {
   dungeonCards: SHUFFLED_DECK,
   discardedCards: DISCARDED_CARDS,
-  playerHands: {
-    player1: PLAYER_1,
-    player2: PLAYER_2,
-    player3: PLAYER_3,
-    player4: PLAYER_4,
-  },
+  playerHand: []
 };
 
 const playerDeckSlice = createSlice({
@@ -74,7 +58,7 @@ const playerDeckSlice = createSlice({
       console.log(state.dungeonCards.length);
     },
     setUpHands(state) {
-      state.playerHands.player1 = state.dungeonCards.splice(
+      state.playerHand = state.dungeonCards.splice(
         state.dungeonCards.length - 7
       );
     },
@@ -82,7 +66,7 @@ const playerDeckSlice = createSlice({
     // If card clicked, change value on component to true. Change all other
     // card values to false.
     cardClicked(state, action) {
-      state.playerHands.player1 = state.playerHands.player1.map((card) =>
+      state.playerHand = state.playerHand.map((card) =>
         card.id === action.payload.id
           ? { ...card, clicked: true }
           : { ...card, clicked: false }
@@ -90,7 +74,7 @@ const playerDeckSlice = createSlice({
     },
     // Replace card played in round by end card in unused array.
     dealNewCard(state, action) {
-      state.playerHands.player1 = state.playerHands.player1.map((card) =>
+      state.playerHand = state.playerHand.map((card) =>
         card.id === action.payload.id
           ? state.dungeonCards[state.dungeonCards.length - 1]
           : card

@@ -1,50 +1,88 @@
-import React from "react";
+import React, { Fragment } from "react";
 // import classes from "./Header.module.css";
 import {
-  Card,
   makeStyles,
-  CardContent,
   Typography,
 } from "@material-ui/core";
 
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider
+} from "@material-ui/core/styles";
+
 const useStyles = makeStyles({
   root: {
+    width: "100%",
+    padding: "0 1",
+
+  },
+
+  headerText: {
     backgroundColor: "#4169E1",
-    position: "relative",
+    position: "fixed",
     display: "block",
-    '& .MuiCardContent-root': {
-      padding: '0',
-      height: '6rem',
-    },
-    headerText: {
-      m: '0',
-    }
+    width: "100%",
+    alignItems: "center",
+    height: "5rem",
+    zIndex: "2",
+    transform: "rotateZ(-1deg) ",
   },
   quote: {
     fontStyle: "italic",
+  },
+
+  imgContainer: {
+    backgroundColor: "#4169E1",
+    paddingTop: "5rem",
+    width: "100%",
+    height: "16rem",
+    zIndex: "0",
+    overflow: "hidden",
+  },
+  imageData: {
+    width: "100%",
+    height: "300px",
+    objectFit: "cover",
+    zIndex: "2",
+    transform: "rotateZ(-1deg) ",
   },
 });
 
 const Header = () => {
   const classes = useStyles();
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
   return (
-    <Card className={classes.root}>
-      <CardContent >
-        <Typography m={0} variant="body2" component="h1" className={classes.headerText}>
+    <Fragment >
+      {/* <CardContent> */}
+      <ThemeProvider theme={theme}>
+        <Typography variant="h1"className={classes.headerText}>
           Bounty Hunters
+          <Typography component="h3"  className={classes.quote}>
+            "Explore together, win as one"
+          </Typography>
         </Typography>
-        <Typography m={0}variant="body2" component="h3" className={classes.quote}>
-          "Explore together, win as one"
-        </Typography>
-        <div>
-          <img src={`${process.env.PUBLIC_URL}/static/frontPage_banner/.png`}/>
-        </div>
-      </CardContent>
+      </ThemeProvider>
+
+      {/* <CardMedia
+        className={classes.headerMedia}
+        // image={`${process.env.PUBLIC_URL}/static/frontPage_banner.png`}
+        // alt="frontPage banner"
+      > */}
+      <div className={[[classes.imgContainer]]}>
+        <img
+          className={[classes.imageData]}
+          src={`${process.env.PUBLIC_URL}/static/frontPage_banner.png`}
+        />
+      </div>
+      {/* </CardMedia> */}
+      {/* </CardContent> */}
       {/* <header className={classes.header}>
         <h1>Bounty Hunters</h1>
         <h3 className={classes.quote}>"Explore together, win as one"</h3>
       </header> */}
-    </Card>
+    </Fragment>
   );
 };
 export default Header;

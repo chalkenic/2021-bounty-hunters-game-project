@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import AppPrimaryButton from "../../../appComponents/AppPrimaryButton";
 import {
-  IconButton,
   makeStyles,
   createStyles,
   Card,
@@ -9,11 +8,13 @@ import {
   Typography,
   Divider,
   Grid,
+  TextField,
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useStylesBase from "../../../styles/StylesBase";
 import SetupPlayerList from "./SetupPlayerList";
+import { setCurrentPlayerName } from "../../../store/slices/currentPlayer-slice";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -51,7 +52,14 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const SetupLobby = (props) => {
+const SetupLobby = () => {
+  const submitNameHandler = (e) => {
+    setPlayerName(e);
+  };
+
+  const [playerName, setPlayerName] = useState("");
+
+  const dispatch = useDispatch();
   const classes = useStyles();
   const classesBase = useStylesBase();
   return (
@@ -63,6 +71,18 @@ const SetupLobby = (props) => {
         <Divider className={classes.headerSeparate} />
         <Grid container>
           <Grid item xs={5} sm={5} md={4}>
+            <TextField
+              value={playerName}
+              onChange={(e) => submitNameHandler(e.target.value)}
+            />
+
+            <AppPrimaryButton
+              onClick={() => {
+                dispatch(setCurrentPlayerName(playerName));
+              }}
+            >
+              Submit Name
+            </AppPrimaryButton>
             <SetupPlayerList />
             <Divider className={classes.lineSeparate} />
           </Grid>
@@ -85,9 +105,9 @@ const SetupLobby = (props) => {
           </Grid>
         </Grid>
         <AppPrimaryButton className={classes.blackButton}>
-          <IconButton>
+          {/* <IconButton>
             <ArrowBackIosIcon />
-          </IconButton>
+          </IconButton> */}
         </AppPrimaryButton>
       </CardContent>
     </Card>

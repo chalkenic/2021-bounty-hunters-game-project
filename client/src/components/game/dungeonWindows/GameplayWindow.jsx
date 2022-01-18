@@ -1,12 +1,11 @@
 import React from "react";
 import { Grid, Paper } from "@material-ui/core";
 import DungeonCard from "../cards/DungeonCard";
-import { roomDeckPyramidActions } from "../../../store/slices/roomDeck_Pyramid-slice";
 import { useSelector } from "react-redux";
 import TurnTracker from "../gameTracking/TurnTracker";
 import ScoreTracker from "../gameTracking/ScoreTracker";
 
-const GameplayWindow = (props) => {
+const GameplayWindow = () => {
   const currentRoomCard = useSelector(
     (state) => state.pyramidRoomDeck.currentCard
   );
@@ -28,10 +27,16 @@ const GameplayWindow = (props) => {
           <Paper>
             Dungeon
             <DungeonCard card={currentRoomCard} />
-            <p>
-              {currentRoomCard.hitChance}% chance of {currentRoomCard.damage}{" "}
-              energy loss
-            </p>
+            {currentRoomCard &&
+            currentRoomCard.hitChance &&
+            currentRoomCard.damage ? (
+              <p>
+                {currentRoomCard.hitChance}% chance of {currentRoomCard.damage}{" "}
+                energy loss
+              </p>
+            ) : (
+              <p>Nothin exists</p>
+            )}
           </Paper>
         </Grid>
         <Grid item xs={6} style={{ padding: "0 5px" }}>
