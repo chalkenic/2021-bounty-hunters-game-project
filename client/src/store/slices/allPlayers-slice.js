@@ -68,6 +68,10 @@ const allPlayersSlice = createSlice({
       );
     },
 
+    updatePlayers(state, action) {
+      state.players = action.payload;
+    },
+
     playerChosenCard(state, action) {
       state.players = state.players.map((player) =>
         player.id === action.payload

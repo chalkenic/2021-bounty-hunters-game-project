@@ -1,3 +1,7 @@
+// import {  rollHitChance } from "./helpers/LogicHelpers.js";
+
+var helperFunctions = require("./helpers/LogicHelpers.js");
+
 const express = require("express");
 const mongoose = require("mongoose");
 const http = require("http");
@@ -138,14 +142,38 @@ io.on("connection", (socket) => {
       }
     });
 
+    //     if (
+    //   currentRoomCard.target.includes(idx) &&
+    //   rollHitChance(currentRoomCard.hitChance)
+    // ) {
+    //   // console.log("player", players[idx], "taking damage!");
+    //   dispatch(
+    //     allPlayerActions.reducePlayerEnergy({
+    //       id: players[idx].id,
+    //       damage: currentRoomCard.damage,
+    //     })
+
     if (allTurnsEnded) {
       for (let p = 0; p < players.length; p++) {
         progress.value += parseInt(players[p].chosenCardValue);
         players[p].turnHasEnded = false;
         players[p].chosenCardValue = 0;
-        
+
+        console.log(currentRoomCard.target);
+        console.log(
+          helperFunctions.rollDamageChance(currentRoomCard.hitChance)
+        );
+
+        if (
+          currentRoomCard.target.includes(p) &&
+          helperFunctions.rollDamageChance(currentRoomCard.hitChance)
+        ) {
+          players[p].energy -= parseInt(currentRoomCard.damage);
+        }
       }
-      io.emit("PROGRESS_ADDED", progress.value);
+
+      var data = { progress: progress.value, players: players };
+      io.emit("PROGRESS_ADDED", JSON.stringify(data));
     } else {
       io.emit("PLAYER_ENDED_TURN", socket.id);
     }

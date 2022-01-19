@@ -55,9 +55,12 @@ const gameSockets = (dispatch) => {
   });
 
   socket.on("PROGRESS_ADDED", (data) => {
-    // console.log("socket test progress");
-    // console.log("value to be added to progress bars:", data);
-    dispatch(progressBarActions.setProgress(data));
+
+    let gameState = JSON.parse(data);
+    console.log(gameState);
+
+    dispatch(progressBarActions.setProgress(gameState.progress));
+    dispatch(allPlayerActions.updatePlayers(gameState.players));
     dispatch(allPlayerActions.resetTurn());
   });
 
