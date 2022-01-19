@@ -4,7 +4,7 @@ import clsx from "clsx";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { playerDeckActions } from "../../../store/slices/playerCardDeck-slice";
-import { gamePlayerActions } from "../../../store/slices/gamePlayers-slice";
+import { allPlayerActions } from "../../../store/slices/allPlayers-slice";
 
 const useStyles = makeStyles((theme) => ({
   cardSize: {
@@ -43,7 +43,7 @@ const PlayerCard = ({ card }) => {
   const cardClickedHandler = () => {
     dispatch(playerDeckActions.cardClicked(card));
     console.log('card:', card,'selected');
-    dispatch(gamePlayerActions.roundCardChosen(1));
+    dispatch(allPlayerActions.roundCardChosen(1));
   };
 
   const classes = useStyles();

@@ -4,7 +4,7 @@ import Player from "../player/Player";
 import {useSelector } from "react-redux";
 
 const PlayerTeamWindow = () => {
-  const players = useSelector((state) => state.gamePlayers.players);
+  const players = useSelector((state) => state.allPlayers.players);
 
   return (
     <Grid container spacing={1} item xs={12} sm={12} md={12}>

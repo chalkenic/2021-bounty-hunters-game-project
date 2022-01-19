@@ -1,21 +1,17 @@
 import React, { Fragment } from "react";
 // import classes from "./Header.module.css";
-import {
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 
 import {
   createTheme,
   responsiveFontSizes,
-  ThemeProvider
+  ThemeProvider,
 } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
     padding: "0 1",
-
   },
 
   headerText: {
@@ -25,11 +21,14 @@ const useStyles = makeStyles({
     width: "100%",
     alignItems: "center",
     height: "5rem",
-    zIndex: "2",
     transform: "rotateZ(-1deg) ",
   },
   quote: {
+    width: "100%",
+    display: "block",
     fontStyle: "italic",
+    position: "relative",
+    alignItems: "center",
   },
 
   imgContainer: {
@@ -54,14 +53,14 @@ const Header = () => {
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
   return (
-    <Fragment >
+    <Fragment>
       {/* <CardContent> */}
       <ThemeProvider theme={theme}>
-        <Typography variant="h1"className={classes.headerText}>
+        <Typography variant="h1" className={classes.headerText}>
           Bounty Hunters
-          <Typography component="h3"  className={classes.quote}>
-            "Explore together, win as one"
-          </Typography>
+        </Typography>
+        <Typography variant="h3" className={classes.quote}>
+          "Explore together, win as one"
         </Typography>
       </ThemeProvider>
 

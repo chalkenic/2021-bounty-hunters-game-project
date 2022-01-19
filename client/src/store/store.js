@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage";
 import progressBarReducer from "./slices/progressBar-slice";
 import playerDeckReducer from "./slices/playerCardDeck-slice";
 import pyramidDeckReducer from "./slices/roomDeck_Pyramid-slice";
-import gamePlayersReducer from "./slices/gamePlayers-slice";
+import allPlayersReducer from "./slices/allPlayers-slice";
 import gameSocket from "./sockets/gameSockets";
 import { handlePlayerCommands } from "./sagas/playerSaga";
 import { handleProgressCommands } from "./sagas/progressSaga";
@@ -20,7 +20,7 @@ const appReducer = combineReducers({
   progressBar: progressBarReducer,
   playerDeck: playerDeckReducer,
   pyramidRoomDeck: pyramidDeckReducer,
-  gamePlayers: gamePlayersReducer,
+  allPlayers: allPlayersReducer,
   currentPlayer: currentPlayerReducer
 });
 

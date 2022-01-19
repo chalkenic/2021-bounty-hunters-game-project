@@ -1,9 +1,5 @@
-import {
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { useEffect } from "react";
+import { Button, Container, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
 import PlayerHand from "./player/PlayerHand";
@@ -16,17 +12,20 @@ import CardDeckWindow from "./dungeonWindows/CardDeckWindow";
 import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
-import { gamePlayerActions } from "../../store/slices/gamePlayers-slice";
+import { allPlayerActions } from "../../store/slices/allPlayers-slice";
 import {
   rollHitChance,
   checkRoundEnded,
   shufflePlayers,
 } from "../helpers/gameHelpers";
 
-
-
 import { increaseProgress } from "../../store/actions/progressActions";
-import { submitRoomCards, getRoomCards } from "../../store/actions/roomDeckActions";
+import {
+  submitRoomCards,
+  getRoomCards,
+} from "../../store/actions/roomDeckActions";
+
+import { addValueToPlayer } from "../../store/actions/playerActions";
 
 const useStyles = makeStyles((theme) => ({
   gameBoard: {
@@ -58,74 +57,124 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GameWindow = () => {
-
-
   const dispatch = useDispatch();
   const classes = useStyles();
-  const playerHand = useSelector(
-    (state) => state.playerDeck.playerHand
-  );
-  const players = useSelector((state) => state.gamePlayers.players);
-  const progress = useSelector((state) => state.progressBar.progress);
+  const playerHand = useSelector((state) => state.playerDeck.playerHand);
+  const players = useSelector((state) => state.allPlayers.players);
+  const currentPlayer = useSelector((state) => state.currentPlayer);
+  const progress = useSelector((state) => state.progressBar.value);
   const currentRoomCard = useSelector(
     (state) => state.pyramidRoomDeck.currentCard
   );
-  const dungeonDeck = useSelector(
-    (state) => state.pyramidRoomDeck.dungeonDeck
-  );
 
-  if(getRoomCards().length === 0) {
+  // const turnEnded = useSelector((state) => state.allPlayers.turnEnded);
+  const dungeonDeck = useSelector((state) => state.pyramidRoomDeck.dungeonDeck);
+
+  const playerDeck = useSelector((state) => state.playerDeck.dungeonCards);
+
+  if (playerHand === undefined) {
+    dispatch(playerDeckActions.setUpHands());
+  }
+
+  // useEffect(() => {
+  //   if (turnEnded) {
+  //     handleAllTurnsEnded();
+  //   }
+  // }, [turnEnded]);
+
+  // useEffect(() => {}, [progress]);
+
+  const playerTurnEnded = () => {
+    let cardClicked = playerHand.find((card) => card.clicked);
+    // dispatch(requestId());
+    dispatch(addValueToPlayer(cardClicked.value));
+    // console.log("id sourced:", playerId);
+    // dispatch(
+    //   allPlayerActions.assignCardValue({
+    //     card: cardClicked,
+    //     // player: playerId,
+    //   })
+    // );
+  };
+
+  if (getRoomCards().length === 0) {
+    console.log("am i firing?");
     // console.log('dispatch submitRoomCards B', dungeonDeck)
-    dispatch(submitRoomCards(dungeonDeck))
+    dispatch(submitRoomCards(dungeonDeck));
   }
 
   // console.log("current card:", currentRoomCard);
 
   // dispatch(submitRoomCards(dungeonDeck));
-  const handleEndTurn = () => {
-    // dispatch(
-    //   progressBarActions.increaseProgress(
-    //     playerHand.find((card) => card.clicked)
-    //   )
-    // );
+  // const handleAllTurnsEnded = () => {
+  //   // dispatch(
+  //   //   progressBarActions.increaseProgress(
+  //   //     playerHand.find((card) => card.clicked)
+  //   //   )
+  //   // );
+  //   for (let p = 0; p < players.length; p++) {
+  //     // dispatch(increaseProgress(players[p]));
+  //     // console.log("what am i", progress);
+  //     // console.log(currentRoomCard.health);
 
-    
+  //     console.log(currentRoomCard.health, progress);
 
-    dispatch(increaseProgress(playerHand.find((card) => card.clicked)));
-    if (checkRoundEnded(currentRoomCard.health, progress)) {
-      for (let idx = 0; idx < players.length; idx++) {
-        // console.log("checking player", players[idx]);
-        // console.log("targets of card:", currentRoomCard.target);
-        if (
-          currentRoomCard.target.includes(idx) &&
-          rollHitChance(currentRoomCard.hitChance)
-        ) {
-          // console.log("player", players[idx], "taking damage!");
-          dispatch(
-            gamePlayerActions.reducePlayerEnergy({
-              id: players[idx].id,
-              damage: currentRoomCard.damage,
-            })
-          );
-        }
-      }
-    }
-    dispatch(
-      playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
-    );
-    handlePlayerOrder();
-  };
+  //     if (checkRoundEnded(currentRoomCard.health, progress)) {
+  //       if (
+  //         currentRoomCard.target.includes(p) &&
+  //         rollHitChance(currentRoomCard.hitChance)
+  //       ) {
+  //         dispatch(
+  //           allPlayerActions.reducePlayerEnergy({
+  //             id: players[p].id,
+  //             damage: currentRoomCard.damage,
+  //           })
+  //         );
+  //       }
+  //       dispatch(allPlayerActions.resetPlayerTurn(players[p]));
+  //       dispatch(allPlayerActions.resetTurn());
+  //     } else {
+  //       console.log("game over!");
+  //     }
+
+  //     dispatch(
+  //       playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
+  //     );
+
+  //     // dispatch();
+  //   }
+
+  //   // dispatch(increaseProgress(playerHand.find((card) => card.clicked)));
+  //   // if (checkRoundEnded(currentRoomCard.health, progress)) {
+  //   //   for (let idx = 0; idx < players.length; idx++) {
+  //   //     // console.log("checking player", players[idx]);
+  //   //     // console.log("targets of card:", currentRoomCard.target);
+  //   //     if (
+  //   //       currentRoomCard.target.includes(idx) &&
+  //   //       rollHitChance(currentRoomCard.hitChance)
+  //   //     ) {
+  //   //       // console.log("player", players[idx], "taking damage!");
+  //   //       dispatch(
+  //   //         allPlayerActions.reducePlayerEnergy({
+  //   //           id: players[idx].id,
+  //   //           damage: currentRoomCard.damage,
+  //   //         })
+  //   //       );
+  //   //     }
+  //   //   }
+  //   // }
+  //   // dispatch(
+  //   //   playerDeckActions.dealNewCard(playerHand.find((card) => card.clicked))
+  //   // );
+  //   handlePlayerOrder();
+  // };
 
   const handlePlayerOrder = () => {
     let shuffledPlayers = shufflePlayers(players);
     shuffledPlayers.map((player, index) =>
-      dispatch(
-        gamePlayerActions.addTurnToPlayer({ id: player.id, turn: index })
-      )
+      dispatch(allPlayerActions.addTurnToPlayer({ id: player.id, turn: index }))
     );
   };
-
-  
 
   return (
     <Container
@@ -178,7 +227,7 @@ const GameWindow = () => {
             style={{ padding: "0 5px", width: "100%" }}
           >
             <PlayerHandWindow className={classes.handWindow}>
-              <Button variant="contained" onClick={() => handleEndTurn()}>
+              <Button variant="contained" onClick={() => playerTurnEnded()}>
                 End turn
               </Button>
               <PlayerHand />

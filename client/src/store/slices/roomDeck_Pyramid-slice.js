@@ -12,7 +12,7 @@ const initialPyramidState = {
   currentCard: CURRENT_CARD,
   discardedCards: DISCARDED_CARDS,
   deckSize: SHUFFLED_DECK.length,
-  initialized: undefined,
+  initialized: false,
 };
 
 const roomDeckPyramid = createSlice({
@@ -30,6 +30,11 @@ const roomDeckPyramid = createSlice({
       console.log("wadq asfasfeEAFAFAFFAEWFEFE");
       state.dungeonDeck = generatePyramidDeck();
       console.log("new deck:", state.dungeonDeck);
+      state.initialized = true;
+    },
+
+    resetGame(state) {
+      state.initialized = false;
     },
 
     // InitializeDeck(state) {
@@ -37,17 +42,13 @@ const roomDeckPyramid = createSlice({
     // },
 
     resetDeck(state) {
-      // if (!state.dungeonDeck === undefined) {
-      state.dungeonDeck = [];
-      // }
-      // if (!state.currentCard === undefined) {
-      state.currentCard = {};
-      // }
-      // if (!state.initialized === undefined) {
+      if (!state.dungeonDeck === undefined) {
+        state.dungeonDeck = state.dungeonDeck.length = 0;
+      }
+      if (!state.currentCard === undefined) {
+        state.currentCard = state.currentCard.length = 0;
+      }
       state.initialized = false;
-      // }
-
-      console.log("reset players to ", state.players);
     },
 
     // endRound(state, action) {
@@ -63,7 +64,7 @@ const roomDeckPyramid = createSlice({
       state.dungeonDeck.pop();
     },
     setCurrentCard(state, action) {
-state.currentCard = action.payload;
+      state.currentCard = action.payload;
     },
 
     setGameDeck(state, action) {
@@ -71,7 +72,6 @@ state.currentCard = action.payload;
       console.log("10.5. payload inside:", action.payload);
 
       state.dungeonDeck = action.payload;
-
 
       console.log("11: new dungeon deck:", state.dungeonDeck);
       console.log(

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Grid, Paper } from "@material-ui/core";
 
 const TurnTracker = () => {
-  const players = useSelector((state) => state.gamePlayers.players);
+  const players = useSelector((state) => state.allPlayers.players);
   return (
     <div>
       <>Turn Order</>

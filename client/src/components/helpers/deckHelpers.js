@@ -36,13 +36,4 @@ export function generatePyramidDeck() {
   console.log("new deck before shuffle:", PYRAMID_DECK_CARDS);
 
   return PYRAMID_DECK_CARDS.sort(() => 0.5 - Math.random());
-
-  // Mozilla basic function to return random number. available at:
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-  // function getRandomInt(min, max) {
-  //   min = Math.ceil(min);
-  //   max = Math.floor(max);
-  //   return Math.floor(Math.random() * (max - min) + min);
-  // }
-  // Loop creates all pyramid room cards for access via game for creation of card components.
 }

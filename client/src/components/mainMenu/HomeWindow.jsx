@@ -12,10 +12,17 @@ import {
   roomDeckPyramidActions,
   getRoomCardState,
 } from "../../store/slices/roomDeck_Pyramid-slice";
-import { resetGame, submitPlayer } from "../../store/actions/playerActions";
+import {
+  resetGame,
+  submitPlayer,
+  saveLocalPlayer,
+} from "../../store/actions/playerActions";
 
 import { setCurrentPlayerName } from "../../store/slices/currentPlayer-slice";
-import { submitRoomCards,getRoomCards } from "../../store/actions/roomDeckActions";
+import {
+  submitRoomCards,
+  getRoomCards,
+} from "../../store/actions/roomDeckActions";
 
 import store from "../../store/store";
 
@@ -47,114 +54,44 @@ const HomeWindow = (props) => {
   const classesBase = useStylesBase();
   // const currentPlayerCheck = 0;
   const currentPlayerCheck = useSelector(
-    (state) => state.gamePlayers.players.length
+    (state) => state.allPlayers.players.length
   );
+
+  let playerSubmitted = false;
 
   const currentGameCheck = useSelector((state) => state.pyramidRoomDeck);
 
   const roomCards = useSelector((state) => state.pyramidRoomDeck.dungeonDeck);
-  // const roomCardsInitialized = useSelector(
-  //   (state) => state.pyramidRoomDeck.initialized
-  // );
+  const roomCardsInitialized = useSelector(
+    (state) => state.pyramidRoomDeck.initialized
+  );
 
   const { player } = useSelector((state) => state.currentPlayer);
 
-  // const [playerName, setPlayerName] = useState("");
-  const [currentGame] = useState(currentGameCheck);
+  useEffect(() => {
+    if (player.name !== undefined && !playerSubmitted) {
+      dispatch(submitPlayer(player));
+      // dispatch(saveLocalPlayer(player));
+    }
+  }, [player.name]);
 
   useEffect(() => {
-    if (player.name !== undefined) {
-      dispatch(submitPlayer(player));
+    if (roomCardsInitialized === false) {
+      dispatch(roomDeckPyramidActions.generateNewDeck());
     }
   }, [player]);
 
-
-  // let tempNames = ["cheese", "biscuits", "crackers"];
-
   const onGameStart = () => {
+    console.log("0. current deck", roomCards);
     console.log("1. starting the game");
     console.log("2. Is there a player master?", player.master);
-    // store.dispatch("NEW_GAME");
     if (player.master) {
-      console.log("3. Master exists. Host is setting up the game...");
-      console.log("4. current game check: ", currentGameCheck);
-      console.log('room card length:', roomCards)
-      if (roomCards.length === 0 || roomCards === undefined) {
-        console.log("game doesn't exist, creating a new one...")
-        console.log('Cards for dispatch A',roomCards);
-        dispatch(roomDeckPyramidActions.generateNewDeck());}
-
-        else {
-          console.log('dispatch submitRoomCards A',roomCards);
-          dispatch(submitRoomCards(roomCards))
-        }
-      
-      // for (let index = 0; index < 3; index++) {
-      //   newPlayers[index] = {
-      //     id: index,0
-      //     name: tempNames[index],
-      //   };
-      // }
-
-      // console.log("5. does a game already exist?", currentGameCheck);
-
-      // if (roomCardsInitialized === undefined) {
-        // console.log("5.a. game does not exist! creating a game...");
-        // console.log(
-        //   "6. Checking if a deck has been generated:",
-        //   roomCards.length
-        // );
-        // if (roomCards.length === 0 || roomCards.length === undefined) {
-        //   console.log("6.a: generating room deck...");
-        //   dispatch(roomDeckPyramidActions.generateNewDeck());
-        //   // dispatch(submitRoomCards(state.pyramidRoomDeck.dungeonDeck  ));
-        //   console.log(
-        //     "7. Room cards made! sending to server! Game window has finished tasks."
-        //   );
-
-        //   // console.log(
-        //   //   "are there room cards?",
-        //   //   store.getState().pyramidRoomDeck.dungeonDeck
-        //   // );#
-
-        //   console.log(currentGameCheck);
-        //   console.log(roomCards);
-
-        //   dispatch(submitRoomCards(roomCards));
-
-        //   // dispatch(submitRoomCards(roomCards));
-        // } else {
-        //   console.log("8. Deck already created! moving to game");
-        // }
-
-        // dispatch(submitRoomCards(roomCards));
-      // } else {
-      //   console.log("5.b. A game exists. taking you to it... ");
-      // }
-    // } else {
-    //   console.log(
-    //     "player is not master. attempting load into a current game..."
-    //   );
-      // roomDeckPyramidActions.setCurrentCard(currentGame);
+      console.log(roomCardsInitialized);
+      dispatch(submitRoomCards(roomCards));
     } else {
-      console.log('Setting player up into game...');
-      dispatch(getRoomCards())
-
+      dispatch(getRoomCards());
     }
   };
-
-  // const onGameContinue = () => {};
-
-  useEffect(() => {
-    console.log('am i getting here?')
-    if (roomCards.length === 0 || roomCards === undefined) {
-    dispatch(roomDeckPyramidActions.generateNewDeck());
-    }
-    // dispatch(submitRoomCards(newDeck));
-  }, [])
-  
-
-
 
   return (
     <Container className={classesBase.homeOverride}>

@@ -1,8 +1,5 @@
 import { takeEvery } from "redux-saga/effects";
-import {
-  increaseProgress, resetProgress
-
-} from "../actions/progressActions";
+import { increaseProgress, resetProgress } from "../actions/progressActions";
 
 // * symbol turns function into generator, allowing multiple return values.
 // code adapted from JavaScript Generators info. available at:
@@ -10,15 +7,11 @@ import {
 export function* handleProgressCommands(appSocket) {
   const socket = appSocket;
 
-
-  yield takeEvery(increaseProgress, (value) => {
-    console.log("adding progress...", parseInt(value.payload.value));
-    socket.emit("INCREASING_PROGRESS", parseInt(value.payload.value));
+  yield takeEvery(increaseProgress, (player) => {
+    socket.emit("INCREASING_PROGRESS", player.payload);
   });
 
   yield takeEvery(resetProgress, () => {
-    console.log("resetting progress...");
-    socket.emit("RESETTING_PROGRESS");
+    socket.emit("END_TURN_BAR");
   });
-
 }

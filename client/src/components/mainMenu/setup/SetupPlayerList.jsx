@@ -7,7 +7,7 @@ const HomePlayerList = () => {
 
   useEffect(() => {}, []);
 
-  const players = useSelector((state) => state.gamePlayers.players);
+  const players = useSelector((state) => state.allPlayers.players);
 
 
   // useEffect(() => {

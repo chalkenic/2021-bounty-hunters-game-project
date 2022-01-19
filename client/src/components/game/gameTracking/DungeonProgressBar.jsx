@@ -80,6 +80,8 @@ const DungeonProgressBar = (props) => {
   // }
 
   useEffect(() => {
+    console.log("progress bar:", progress);
+    console.log("current card hp:", currentRoomCard.health);
     if (progress >= currentRoomCard.health) {
       console.log("love a log");
       dispatch(resetProgress());

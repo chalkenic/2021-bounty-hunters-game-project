@@ -29,6 +29,7 @@ mongoose
 app.use("/api/DungeonCards", dungeonCards);
 
 const port = process.env.port || 5000;
+const sessionsMap = {};
 let players = [];
 let roomCards = {};
 let currentRoomCard = {};
@@ -38,29 +39,49 @@ let progress = { value: 0, max: 200 };
 io.on("connection", (socket) => {
   console.log("a user connected: ", socket.id);
 
-  socket.on("ADDING_PLAYER", (data) => {
-    console.log("receiving player", data);
+  socket.on("REQUEST_ID", () => {
+    socket.emit("SENDING_ID", socket.id);
+  });
 
+  socket.on("ADDING_PLAYER", (data) => {
     if (players.length === 0) {
       players.push({
         ...data,
         id: socket.id,
         key: players.length,
         master: true,
+        turnHasEnded: false,
       });
 
-      console.log("current player count:", players);
-
       io.emit("ADDING_COMPLETED_MASTER", JSON.stringify(players));
+
+      // const newPlayerMaster = players.find((p) => p.id === socket.id);
+
+      // socket.broadcast
+      //   .to(newPlayerMaster.id)
+      //   .emit("PLAYER_CREATED_MASTER", JSON.stringify(newPlayerMaster));
     } else {
       players.push({
         ...data,
         id: socket.id,
         key: players.length,
         master: false,
+        turnHasEnded: false,
       });
       io.emit("ADDING_COMPLETED", JSON.stringify(players));
+
+      // const newPlayer = players.find((p) => p.id === socket.id);
+
+      // socket.broadcast
+      //   .to(newPlayer.id)
+      //   .emit("PLAYER_CREATED_MASTER", JSON.stringify(newPlayer));
     }
+  });
+
+  socket.on("ADDING_LOCAL_PLAYER", () => {
+    const newPlayer = players.find((p) => p.id === socket.id);
+
+    socket.emit("SAVED_LOCAL_PLAYER", JSON.stringify(newPlayer.id));
   });
 
   socket.on("GET_PLAYERS", (data) => {
@@ -81,53 +102,69 @@ io.on("connection", (socket) => {
     io.emit("ADDING_COMPLETED", JSON.stringify(players));
   });
 
-  socket.on("PLAYER_END_TURN", (data) => {
-    const player = JSON.parse(data);
+  // socket.on("PLAYER_END_TURN", (data) => {
+  //   const player = JSON.parse(data);
 
-    players.map((p) => (player.id === p.id ? player : p));
+  //   players.map((p) => (player.id === p.id ? player : p));
+
+  //   let allTurnsEnded = true;
+  //   players.map((p) => {
+  //     if (!p.turnEnded) {
+  //       allTurnsEnded = false;
+  //     }
+  //   });
+
+  //   if (allTurnsEnded) {
+  //     // find master player socket id
+  //     const master = players.find((p) => p.master === true);
+
+  //     socket.broadcast.to(master.id).emit("END_TURN", JSON.stringify(players)); //sending to individual socketid
+  //   }
+  // });
+
+  socket.on("ADDING_PLAYER_VALUE", (data) => {
+    players = players.map((p) =>
+      p.id === socket.id
+        ? { ...p, chosenCardValue: parseInt(data), turnHasEnded: true }
+        : { ...p }
+    );
+
+    // console.log
 
     let allTurnsEnded = true;
     players.map((p) => {
-      if (!p.turnEnded) {
+      if (!p.turnHasEnded) {
         allTurnsEnded = false;
       }
     });
 
     if (allTurnsEnded) {
-      // find master player socket id
-      const master = players.find((p) => p.master === true);
-
-      socket.broadcast.to(master.id).emit("END_TURN", JSON.stringify(players)); //sending to individual socketid
+      for (let p = 0; p < players.length; p++) {
+        progress.value += parseInt(players[p].chosenCardValue);
+        players[p].turnHasEnded = false;
+        players[p].chosenCardValue = 0;
+        
+      }
+      io.emit("PROGRESS_ADDED", progress.value);
+    } else {
+      io.emit("PLAYER_ENDED_TURN", socket.id);
     }
+    // io.emit("VALUE_ADDED", JSON.stringify({ value: data, id: socket.id }));
   });
 
-  socket.on("INCREASING_PROGRESS", (data) => {
-    progress.value += data;
-    io.emit("PROGRESS_ADDED", data);
-  });
-
-  socket.on("RESETTING_PROGRESS", () => {
-    console.log("NMSFKJSFNDFAKDLSEF");
+  socket.on("END_TURN_BAR", () => {
     progress.value = 0;
     io.emit("PROGRESS_RESET");
   });
 
   socket.on("ADDING_ROOM_CARDS", (data) => {
     let cards = JSON.stringify(data);
-    console.log("1?????");
-    console.log("2...!", data);
-    console.log("3...!", data.payload);
-    console.log("oh no!", cards);
-    console.log(data.payload.length);
     if (roomCards.length === 0) {
-      console.log("HELLO AGAIN???");
-
       roomCards = data.payload;
       currentRoomCard = roomCards[roomCards.length - 1];
 
       progress.max = currentRoomCard.health;
     }
-    console.log("HELLO SIR!", roomCards);
     io.emit("ROOM_CARD_DECK_BUILT", {
       deck: JSON.stringify(roomCards),
       current: JSON.stringify(currentRoomCard),
@@ -136,7 +173,6 @@ io.on("connection", (socket) => {
 
   socket.on("CHOOSING_CURRENT_ROOM", (data) => {
     currentRoomCard = data;
-    console.log("am i firing loilololololo?");
     io.emit("CURRENT_ROOM_CONFIRMED", data);
   });
 
