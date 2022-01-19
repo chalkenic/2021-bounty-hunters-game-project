@@ -36,8 +36,10 @@ const port = process.env.port || 5000;
 const sessionsMap = {};
 let players = [];
 let roomCards = {};
+let playerCards = {};
 let currentRoomCard = {};
 let progress = { value: 0, max: 200 };
+let roundCardValues = [];
 // let unusedCards = [];
 
 io.on("connection", (socket) => {
@@ -55,6 +57,7 @@ io.on("connection", (socket) => {
         key: players.length,
         master: true,
         turnHasEnded: false,
+        receivedDamage: false,
       });
 
       io.emit("ADDING_COMPLETED_MASTER", JSON.stringify(players));
@@ -71,6 +74,7 @@ io.on("connection", (socket) => {
         key: players.length,
         master: false,
         turnHasEnded: false,
+        receivedDamage: false,
       });
       io.emit("ADDING_COMPLETED", JSON.stringify(players));
 
@@ -96,6 +100,7 @@ io.on("connection", (socket) => {
     players = [];
     roomCards = [];
     currentRoomCard = {};
+    roundCardValues = [];
     progress = { value: 0, max: 0 };
     io.emit("GAME_RESET");
   });
@@ -127,14 +132,12 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("ADDING_PLAYER_VALUE", (data) => {
+    let scoreCompleted = false;
     players = players.map((p) =>
       p.id === socket.id
         ? { ...p, chosenCardValue: parseInt(data), turnHasEnded: true }
         : { ...p }
     );
-
-    // console.log
-
     let allTurnsEnded = true;
     players.map((p) => {
       if (!p.turnHasEnded) {
@@ -142,37 +145,52 @@ io.on("connection", (socket) => {
       }
     });
 
-    //     if (
-    //   currentRoomCard.target.includes(idx) &&
-    //   rollHitChance(currentRoomCard.hitChance)
-    // ) {
-    //   // console.log("player", players[idx], "taking damage!");
-    //   dispatch(
-    //     allPlayerActions.reducePlayerEnergy({
-    //       id: players[idx].id,
-    //       damage: currentRoomCard.damage,
-    //     })
-
     if (allTurnsEnded) {
       for (let p = 0; p < players.length; p++) {
         progress.value += parseInt(players[p].chosenCardValue);
+        roundCardValues.push(players[p].chosenCardValue);
         players[p].turnHasEnded = false;
         players[p].chosenCardValue = 0;
 
-        console.log(currentRoomCard.target);
-        console.log(
-          helperFunctions.rollDamageChance(currentRoomCard.hitChance)
-        );
+        if (progress.value >= progress.max && !scoreCompleted) {
+          console.log("player scoring:", players[p].name);
+          players[p].score += parseInt(currentRoomCard.score);
+          var data = { players: players };
+          scoreCompleted = true;
 
-        if (
-          currentRoomCard.target.includes(p) &&
-          helperFunctions.rollDamageChance(currentRoomCard.hitChance)
-        ) {
+          io.emit("PROGRESS_COMPLETED", JSON.stringify(players));
+        }
+
+        // If more than 1 player exists in game
+        if (players.length >= 2) {
+          if (
+            currentRoomCard.target.includes(p) &&
+            helperFunctions.rollDamageChance(currentRoomCard.hitChance)
+          ) {
+            players[p].energy -= parseInt(currentRoomCard.damage);
+            players[p].receivedDamage = true;
+          }
+        } else {
+          helperFunctions.rollDamageChance(currentRoomCard.hitChance);
           players[p].energy -= parseInt(currentRoomCard.damage);
+          players[p].receivedDamage = true;
         }
       }
 
-      var data = { progress: progress.value, players: players };
+      helperFunctions.shuffle(players);
+
+      for (let turnOrder = 0; turnOrder < players.length; turnOrder++) {
+        players[turnOrder].turn = turnOrder + 1;
+      }
+
+      var data = {
+        progress: progress.value,
+        players: players,
+        damage: currentRoomCard.damage,
+        cardValues: roundCardValues,
+      };
+
+      roundCardValues = [];
       io.emit("PROGRESS_ADDED", JSON.stringify(data));
     } else {
       io.emit("PLAYER_ENDED_TURN", socket.id);
@@ -186,10 +204,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("ADDING_ROOM_CARDS", (data) => {
-    let cards = JSON.stringify(data);
     if (roomCards.length === 0) {
       roomCards = data.payload;
       currentRoomCard = roomCards[roomCards.length - 1];
+
+      if (players.length < 2) {
+        currentRoomCard.target = 1;
+      }
 
       progress.max = currentRoomCard.health;
     }

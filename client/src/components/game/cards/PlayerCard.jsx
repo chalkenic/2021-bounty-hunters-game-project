@@ -43,7 +43,6 @@ const PlayerCard = ({ card }) => {
   const cardClickedHandler = () => {
     dispatch(playerDeckActions.cardClicked(card));
     console.log('card:', card,'selected');
-    dispatch(allPlayerActions.roundCardChosen(1));
   };
 
   const classes = useStyles();

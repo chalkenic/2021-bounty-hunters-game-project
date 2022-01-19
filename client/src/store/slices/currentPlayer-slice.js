@@ -15,6 +15,7 @@ const currentPlayerSlice = createSlice({
       turnHasEnded: false,
       master: "",
       chosenCardValue: 0,
+      cardHand: [],
     },
   },
   reducers: {
@@ -37,9 +38,7 @@ const currentPlayerSlice = createSlice({
       state.player.id = action.payload[0].id;
     },
 
-    resetPlayer(state, action) {
-      
-    },
+    resetPlayer(state, action) {},
   },
 });
 

@@ -1,8 +1,10 @@
 import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
 import { allPlayerActions } from "../slices/allPlayers-slice";
 import { progressBarActions } from "../slices/progressBar-slice";
 import { roomDeckPyramidActions } from "../slices/roomDeck_Pyramid-slice";
 import { setPlayerAsMaster, setPlayer } from "../slices/currentPlayer-slice";
+import { historyActions } from "../slices/gameHistory-slice";
 
 const gameSockets = (dispatch) => {
   const socket = io("http://localhost:5000");
@@ -41,23 +43,21 @@ const gameSockets = (dispatch) => {
     // console.log("current player data:", JSON.parse(data));
   });
 
-  socket.on("VALUE_ADDED", (data) => {
-    console.log(data);
-    dispatch(allPlayerActions.assignCardPlayedValue(JSON.parse(data)));
-  });
-
   socket.on("GAME_RESET", () => {
     dispatch(allPlayerActions.resetPlayers());
     dispatch(progressBarActions.resetProgress());
     dispatch(roomDeckPyramidActions.resetDeck());
+    dispatch(historyActions.resetRecords());
     // dispatch(roomDeckPyramidActions.resetDeck());
     console.log("Game reset");
   });
 
   socket.on("PROGRESS_ADDED", (data) => {
-
     let gameState = JSON.parse(data);
     console.log(gameState);
+
+    console.log("history trial");
+    dispatch(historyActions.addTurnDetailsRecord(gameState));
 
     dispatch(progressBarActions.setProgress(gameState.progress));
     dispatch(allPlayerActions.updatePlayers(gameState.players));
@@ -91,6 +91,11 @@ const gameSockets = (dispatch) => {
   socket.on("PLAYER_ENDED_TURN", (data) => {
     console.log("data to change:", data);
     dispatch(allPlayerActions.playerChosenCard(data));
+  });
+
+  socket.on("PROGRESS_COMPLETED", (data) => {
+    dispatch(allPlayerActions.updatePlayers(JSON.parse(data)));
+    dispatch(allPlayerActions.resetTurn());
   });
 
   return socket;

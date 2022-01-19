@@ -16,13 +16,12 @@ import {
 export function* handlePlayerCommands(appSocket) {
   const socket = appSocket;
 
+  // Add new player to game server.
   yield takeEvery(submitPlayer, (player) => {
-    console.log("global 1");
     socket.emit("ADDING_PLAYER", player.payload);
   });
 
   yield takeEvery(requestId, () => {
-    console.log("do i get here");
     socket.emit("REQUEST_ID");
   });
 
@@ -47,9 +46,8 @@ export function* handlePlayerCommands(appSocket) {
     socket.emit("ADDING_LOCAL_PLAYER", player.payload);
   });
 
+  //Append value of card to player in server.
   yield takeEvery(addValueToPlayer, (value) => {
-    console.log('dqawkjdnwqaejknfbjkwes\fn awekj,s\fred');
-    console.log(value);
     socket.emit("ADDING_PLAYER_VALUE", value.payload);
   });
 }

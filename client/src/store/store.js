@@ -7,6 +7,7 @@ import progressBarReducer from "./slices/progressBar-slice";
 import playerDeckReducer from "./slices/playerCardDeck-slice";
 import pyramidDeckReducer from "./slices/roomDeck_Pyramid-slice";
 import allPlayersReducer from "./slices/allPlayers-slice";
+import historyReducer from "./slices/gameHistory-slice";
 import gameSocket from "./sockets/gameSockets";
 import { handlePlayerCommands } from "./sagas/playerSaga";
 import { handleProgressCommands } from "./sagas/progressSaga";
@@ -21,14 +22,14 @@ const appReducer = combineReducers({
   playerDeck: playerDeckReducer,
   pyramidRoomDeck: pyramidDeckReducer,
   allPlayers: allPlayersReducer,
-  currentPlayer: currentPlayerReducer
+  currentPlayer: currentPlayerReducer,
+  history: historyReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
 };
-
 
 const persistedReducer = persistReducer(persistConfig, appReducer);
 
