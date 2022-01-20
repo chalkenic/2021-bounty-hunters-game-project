@@ -1,6 +1,15 @@
-import { Grid, Typography, Card, CardContent } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
+import NavMenu from "../../appComponents/NavMenu";
 
 const GameHeader = (props) => {
   const currentPlayer = useSelector((state) => state.currentPlayer.player);
@@ -13,10 +22,14 @@ const GameHeader = (props) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={9} s={9} m={9}>
-        <Typography variant="h1" align="center"  gutterBottom>
+      <Grid item xs={7} s={7} m={7}>
+        <Typography variant="h1" align="center" gutterBottom>
           BOUNTY HUNTERS
         </Typography>
+      </Grid>
+
+      <Grid item xs={2}>
+        <NavMenu />
       </Grid>
     </>
   );

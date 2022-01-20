@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     button: {
       borderRadius: 5,
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.common.white,
       height: 40,
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,

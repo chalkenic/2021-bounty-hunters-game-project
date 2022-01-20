@@ -6,19 +6,18 @@ import { useSelector } from "react-redux";
 import ScoreTracker from "../gameTracking/ScoreTracker";
 import CardDamageTracker from "../gameTracking/CardDamageTracker";
 import CardTargetTracker from "../gameTracking/CardTargetTracker";
-import CardScoreTracker from "../gameTracking/CardScoreTracker";
+import CardPointsTracker from "../gameTracking/CardPointsTracker";
 
 const useStyles = makeStyles(() =>
   createStyles({
     border: {
-      border: "1px solid white",
-      marginBottom: "5px",
+      padding: "5",
     },
   })
 );
 
 const CardDeckWindow = () => {
-  // const classes = useStyles();
+  const classes = useStyles();
   const currentRoomCard = useSelector(
     (state) => state.pyramidRoomDeck.currentCard
   );
@@ -37,7 +36,7 @@ const CardDeckWindow = () => {
       </Paper>
       {/* </Grid> */}
       <Paper>
-        <CardScoreTracker roomCard={currentRoomCard}></CardScoreTracker>
+        <CardPointsTracker roomCard={currentRoomCard}></CardPointsTracker>
       </Paper>
       <Card xs={11}>
         <TutorialModal />

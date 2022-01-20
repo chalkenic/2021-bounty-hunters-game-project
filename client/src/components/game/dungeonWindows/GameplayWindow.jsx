@@ -1,17 +1,7 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  Typography,
-  createStyles,
-  makeStyles,
-} from "@material-ui/core";
+import { Grid, Paper, createStyles, makeStyles } from "@material-ui/core";
 import DungeonCard from "../cards/DungeonCard";
 import { useSelector } from "react-redux";
-import ScoreTracker from "../gameTracking/ScoreTracker";
-import CardDamageTracker from "../gameTracking/CardDamageTracker";
-import CardTargetTracker from "../gameTracking/CardTargetTracker";
-import CardScoreTracker from "../gameTracking/CardScoreTracker";
 import GamePlayLog from "../gameTracking/GamePlayLog";
 
 const useStyles = makeStyles(() =>
@@ -34,6 +24,7 @@ const GameTrackingWindow = () => {
   return (
     <>
       <Grid container spacing={1} style={{ width: "100%", minHeight: 450 }}>
+        <Grid item xs={1} />
         <Grid item xs={4}>
           <Paper>
             <h3>Room Card</h3>

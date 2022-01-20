@@ -3,7 +3,7 @@ import { Grid, Typography } from "@material-ui/core";
 
 const CardDamageTracker = (props) => {
   return (
-    <Grid style={{ paddingTop: 60 }}>
+    <Grid style={{ paddingTop: 30 }}>
       <Typography variant="h6">Card Damage</Typography>
 
       {props.roomCard && props.roomCard && props.roomCard ? (

@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
-const CardScoreTracker = (props) => {
+const CardPointsTracker = (props) => {
   return (
-    <Grid style={{ paddingTop: 60 }}>
+    <Grid style={{ paddingTop: 40 }}>
       <Typography variant="h6">Available Points</Typography>
 
       {props.roomCard && props.roomCard !== undefined && props.roomCard ? (
@@ -16,4 +16,4 @@ const CardScoreTracker = (props) => {
     </Grid>
   );
 };
-export default CardScoreTracker;
+export default CardPointsTracker;

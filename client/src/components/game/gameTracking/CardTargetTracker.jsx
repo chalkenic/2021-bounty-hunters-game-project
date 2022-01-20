@@ -9,13 +9,13 @@ const CardTargetTracker = (props) => {
   const currentCard = useSelector((state) => state.pyramidRoomDeck.currentCard);
 
   return (
-    <Grid item style={{ paddingTop: 60 }}>
+    <Grid item style={{ paddingTop: 40 }}>
       <Typography variant="h6">Card Target(s)</Typography>
 
       {currentCard &&
       currentCard.hitChance &&
       currentCard.damage &&
-      players.length > 1 ? (
+      players.length >= 2 ? (
         <>
           {currentCard.target.map((target) => {
             return (
