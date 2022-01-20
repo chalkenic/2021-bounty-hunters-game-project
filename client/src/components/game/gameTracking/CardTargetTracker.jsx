@@ -9,23 +9,28 @@ const CardTargetTracker = (props) => {
   const currentCard = useSelector((state) => state.pyramidRoomDeck.currentCard);
 
   return (
-    <>
+    <Grid item style={{ paddingTop: 60 }}>
       <Typography variant="h6">Card Target(s)</Typography>
-      <Grid item>
-        {currentCard &&
-        currentCard.hitChance &&
-        currentCard.damage &&
-        players.length > 1 ? (
-          <>
-            {currentCard.target.map((target) => {
-              return <Typography key={target}>Player {target + 1}</Typography>;
-            })}
-          </>
-        ) : (
-          <Typography>Single Player</Typography>
-        )}
-      </Grid>
-    </>
+
+      {currentCard &&
+      currentCard.hitChance &&
+      currentCard.damage &&
+      players.length > 1 ? (
+        <>
+          {currentCard.target.map((target) => {
+            return (
+              <Typography style={{ fontStyle: "italic" }} key={target}>
+                Player {target + 1}
+              </Typography>
+            );
+          })}
+        </>
+      ) : (
+        <Typography style={{ fontStyle: "italic" }}>
+          Single Player Game
+        </Typography>
+      )}
+    </Grid>
   );
 };
 export default CardTargetTracker;

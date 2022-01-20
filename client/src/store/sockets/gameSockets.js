@@ -93,9 +93,13 @@ const gameSockets = (dispatch) => {
     dispatch(allPlayerActions.playerChosenCard(data));
   });
 
-  socket.on("PROGRESS_COMPLETED", (data) => {
-    dispatch(allPlayerActions.updatePlayers(JSON.parse(data)));
+  socket.on("ROOM_COMPLETED", (data) => {
+    let gameState = JSON.parse(data);
+    dispatch(allPlayerActions.updatePlayers(gameState.players));
     dispatch(allPlayerActions.resetTurn());
+    dispatch(roomDeckPyramidActions.setCurrentCard(gameState.current));
+    dispatch(roomDeckPyramidActions.setGameDeck(gameState.room));
+    dispatch(progressBarActions.setProgressMax(gameState.current.health));
   });
 
   return socket;

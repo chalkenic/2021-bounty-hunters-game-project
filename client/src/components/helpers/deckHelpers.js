@@ -23,9 +23,9 @@ export function generatePyramidDeck() {
     let hitChance = getRandomInt(30, 70);
     let health = 0;
     if (damage < 5 && hitChance < 50) {
-      health = getRandomInt(200, 350);
+      health = getRandomInt(300, 450);
     } else {
-      health = getRandomInt(100, 200);
+      health = getRandomInt(200, 300);
     }
 
     PYRAMID_DECK_CARDS[card] = {
@@ -43,8 +43,6 @@ export function generatePyramidDeck() {
       current: false,
     };
   }
-
-  console.log("new deck before shuffle:", PYRAMID_DECK_CARDS);
 
   return PYRAMID_DECK_CARDS.sort(() => 0.5 - Math.random());
 }

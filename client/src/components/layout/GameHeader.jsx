@@ -9,12 +9,14 @@ const GameHeader = (props) => {
       <Grid item xs={3} s={3} m={3}>
         <Card variant="outlined">
           <CardContent>
-            <Typography variant="h3">{currentPlayer.name}</Typography>
+            <Typography variant="h3">Player: {currentPlayer.name}</Typography>
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={9} s={9} m={9}>
-        <Typography variant="h1">BOUNTY HUNTERS</Typography>
+        <Typography variant="h1" align="center"  gutterBottom>
+          BOUNTY HUNTERS
+        </Typography>
       </Grid>
     </>
   );

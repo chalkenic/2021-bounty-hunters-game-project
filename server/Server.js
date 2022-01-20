@@ -61,12 +61,6 @@ io.on("connection", (socket) => {
       });
 
       io.emit("ADDING_COMPLETED_MASTER", JSON.stringify(players));
-
-      // const newPlayerMaster = players.find((p) => p.id === socket.id);
-
-      // socket.broadcast
-      //   .to(newPlayerMaster.id)
-      //   .emit("PLAYER_CREATED_MASTER", JSON.stringify(newPlayerMaster));
     } else {
       players.push({
         ...data,
@@ -77,12 +71,6 @@ io.on("connection", (socket) => {
         receivedDamage: false,
       });
       io.emit("ADDING_COMPLETED", JSON.stringify(players));
-
-      // const newPlayer = players.find((p) => p.id === socket.id);
-
-      // socket.broadcast
-      //   .to(newPlayer.id)
-      //   .emit("PLAYER_CREATED_MASTER", JSON.stringify(newPlayer));
     }
   });
 
@@ -111,26 +99,6 @@ io.on("connection", (socket) => {
     io.emit("ADDING_COMPLETED", JSON.stringify(players));
   });
 
-  // socket.on("PLAYER_END_TURN", (data) => {
-  //   const player = JSON.parse(data);
-
-  //   players.map((p) => (player.id === p.id ? player : p));
-
-  //   let allTurnsEnded = true;
-  //   players.map((p) => {
-  //     if (!p.turnEnded) {
-  //       allTurnsEnded = false;
-  //     }
-  //   });
-
-  //   if (allTurnsEnded) {
-  //     // find master player socket id
-  //     const master = players.find((p) => p.master === true);
-
-  //     socket.broadcast.to(master.id).emit("END_TURN", JSON.stringify(players)); //sending to individual socketid
-  //   }
-  // });
-
   socket.on("ADDING_PLAYER_VALUE", (data) => {
     let scoreCompleted = false;
     players = players.map((p) =>
@@ -153,12 +121,31 @@ io.on("connection", (socket) => {
         players[p].chosenCardValue = 0;
 
         if (progress.value >= progress.max && !scoreCompleted) {
-          console.log("player scoring:", players[p].name);
           players[p].score += parseInt(currentRoomCard.score);
           var data = { players: players };
           scoreCompleted = true;
-
-          io.emit("PROGRESS_COMPLETED", JSON.stringify(players));
+          if (roomCards.length > 0) {
+            roomCards.pop();
+            currentRoomCard = roomCards[roomCards.length - 1];
+            progress.value = 0;
+            progress.max = currentRoomCard.health;
+            console.log(
+              "room card:",
+              currentRoomCard,
+              "cards left:",
+              roomCards.length
+            );
+            io.emit(
+              "ROOM_COMPLETED",
+              JSON.stringify({
+                room: roomCards,
+                players: players,
+                current: currentRoomCard,
+              })
+            );
+          } else {
+            io.emit("GAME_COMPLETED", JSON.stringify({ players: players }));
+          }
         }
 
         // If more than 1 player exists in game
@@ -208,8 +195,9 @@ io.on("connection", (socket) => {
       roomCards = data.payload;
       currentRoomCard = roomCards[roomCards.length - 1];
 
-      if (players.length < 2) {
+      if (players.length == 1) {
         currentRoomCard.target = 1;
+        players[0].energy = 200;
       }
 
       progress.max = currentRoomCard.health;

@@ -13,6 +13,10 @@ const progressBarSlice = createSlice({
       state.value = action.payload;
     },
 
+    setProgressMax(state, action) {
+      state.max = action.payload
+    },
+
     // Reducer decreases game progress by card value given.
     decreaseProgress(state, action) {
       state.value = state.value - action.payload;

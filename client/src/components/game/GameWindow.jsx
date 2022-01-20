@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PlayerTeamWindow from "./dungeonWindows/PlayerTeamWindow";
 import AppTheme from "../../styles/AppTheme";
 // import GamePlayLog from "./gameLog/GamePlayLog";
-import CardDeckWindow from "./dungeonWindows/CardDeckWindow";
+import GameTrackingWindow from "./dungeonWindows/GameTrackingWindow";
 import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
@@ -128,7 +128,7 @@ const GameWindow = () => {
         </Grid>
         <Grid item xs={2} style={{ padding: "0 5px" }}>
           {/* <GamePlayLog /> */}
-          <CardDeckWindow />
+          <GameTrackingWindow />
         </Grid>
       </Grid>
     </Container>

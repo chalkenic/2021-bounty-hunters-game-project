@@ -31,23 +31,20 @@ const TableRowStyled = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
   container: {
-    maxHeight: 450,
+    maxHeight: 350,
   },
   tableHeader: {
     backgroundColor: "black",
   },
   table: {
-    minWidth: 200,
+    minWidth: 180,
   },
 });
 
 const logColumns = [
-  { id: "Player", label: "Player", minWidth: 40 },
-  { id: "Action", label: "Action", minWidth: 200 },
+  { id: "Player", label: "Player", minWidth: 20 },
+  { id: "Action", label: "Action", minWidth: 160 },
 ];
 
 // function createData(name, log) {

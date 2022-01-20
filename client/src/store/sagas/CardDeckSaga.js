@@ -5,7 +5,7 @@ import {
   submitRoomCards,
 } from "../actions/roomDeckActions";
 
-export function* handleRoomDeckCommands(appSocket) {
+export function* handleCardDeckCommands(appSocket) {
   const socket = appSocket;
 
   yield takeEvery(selectRoomCard, (card) => {

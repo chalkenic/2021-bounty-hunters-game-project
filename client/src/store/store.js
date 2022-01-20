@@ -12,7 +12,7 @@ import gameSocket from "./sockets/gameSockets";
 import { handlePlayerCommands } from "./sagas/playerSaga";
 import { handleProgressCommands } from "./sagas/progressSaga";
 import currentPlayerReducer from "./slices/currentPlayer-slice";
-import { handleRoomDeckCommands } from "./sagas/roomDeckSaga";
+import { handleCardDeckCommands } from "./sagas/CardDeckSaga";
 
 // code adapted from Redux toolkit.js usage guide: available at:
 // https://redux-toolkit.js.org/usage/usage-guide
@@ -45,6 +45,6 @@ const store = configureStore({
 const socket = gameSocket(store.dispatch);
 sagaMiddleware.run(handlePlayerCommands, socket);
 sagaMiddleware.run(handleProgressCommands, socket);
-sagaMiddleware.run(handleRoomDeckCommands, socket);
+sagaMiddleware.run(handleCardDeckCommands, socket);
 
 export default store;

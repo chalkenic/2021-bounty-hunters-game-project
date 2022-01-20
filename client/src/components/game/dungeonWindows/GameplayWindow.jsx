@@ -20,37 +20,30 @@ const useStyles = makeStyles(() =>
       border: "1px solid white",
       marginBottom: "5px",
     },
+    gameLog: {
+      maxHeight: 400,
+    },
   })
 );
 
-const GameplayWindow = () => {
+const GameTrackingWindow = () => {
   const classes = useStyles();
   const currentRoomCard = useSelector(
     (state) => state.pyramidRoomDeck.currentCard
   );
   return (
     <>
-      <Grid container spacing={1} style={{ width: "100%" }}>
-        <Grid item xs={2}>
-          <Paper className={classes.border}>
-            <ScoreTracker />
-          </Paper>
-          <Paper className={classes.border}>
-            <CardDamageTracker roomCard={currentRoomCard}></CardDamageTracker>
-          </Paper>
-          <Paper className={classes.border}>
-            <CardTargetTracker roomCard={currentRoomCard}></CardTargetTracker>
-          </Paper>
-        </Grid>
+      <Grid container spacing={1} style={{ width: "100%", minHeight: 450 }}>
         <Grid item xs={4}>
           <Paper>
             <h3>Room Card</h3>
             <DungeonCard card={currentRoomCard} />
-            <CardScoreTracker roomCard={currentRoomCard}></CardScoreTracker>
           </Paper>
         </Grid>
-        <Grid item xs={6} style={{ padding: "0 5px" }}>
-          <Paper>
+        <Grid item xs={1} />
+        <Grid item xs={6}>
+          <Paper className={classes.gameLog}>
+            <h3>Game log</h3>
             <GamePlayLog />
           </Paper>
         </Grid>
@@ -58,4 +51,4 @@ const GameplayWindow = () => {
     </>
   );
 };
-export default GameplayWindow;
+export default GameTrackingWindow;
