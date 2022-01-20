@@ -52,6 +52,9 @@ const useStylesBase = makeStyles((theme) =>
         padding: 0,
         maxWidth: "100",
       },
+      "&. .MuiTableCell-stickyHeader": {
+        backgroundColor: "black",
+      },
     },
 
     homeOverride: {
@@ -63,8 +66,8 @@ const useStylesBase = makeStyles((theme) =>
 
     cardLastChildOverride: {
       "& .MuiCardContent-root:last-child": {
-        paddingBottom: 0
-      }
+        paddingBottom: 0,
+      },
     },
 
     rootOverride: {
@@ -75,9 +78,9 @@ const useStylesBase = makeStyles((theme) =>
     },
 
     cardOverride: {
-"& .MuiCardContent-root": {
-  padding: 5
-}
+      "& .MuiCardContent-root": {
+        padding: 5,
+      },
     },
 
     homeGrid: {

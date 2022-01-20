@@ -39,15 +39,11 @@ const useStyles = makeStyles((theme) =>
       },
     },
     codeCardContent: {
-      padding: 0,
+      padding: 20,
     },
     codeCard: {
-      padding: 0,
-      border: "1px solid #fff",
+      padding: 20,
       display: "inline-block",
-      "& .MuiCardContent-root:last-child": {
-        paddingBottom: 0,
-      },
     },
   })
 );
@@ -70,38 +66,38 @@ const SetupLobby = () => {
         </Typography>
         <Divider className={classes.headerSeparate} />
         <Grid container>
-          <Grid item xs={5} sm={5} md={4}>
+          <Grid item xs={5} sm={5} md={5}>
+            <Typography variant="h6" component="h4">
+              New Player
+            </Typography>
+            <Divider className={classes.lineSeparate} />
             <TextField
               value={playerName}
               onChange={(e) => submitNameHandler(e.target.value)}
             />
 
-            <AppPrimaryButton
-              onClick={() => {
-                dispatch(setCurrentPlayerName(playerName));
-              }}
-            >
-              Submit Name
-            </AppPrimaryButton>
-            <SetupPlayerList />
-            <Divider className={classes.lineSeparate} />
+            <div className={classes.codeCard}>
+              <AppPrimaryButton
+                onClick={() => {
+                  dispatch(setCurrentPlayerName(playerName));
+                }}
+              >
+                Submit Name
+              </AppPrimaryButton>
+            </div>
           </Grid>
-          <Grid item xs={1} sm={1} md={2}></Grid>
           <Grid
             item
-            xs={5}
-            sm={5}
-            md={4}
+            xs={6}
+            sm={6}
+            md={6}
             style={{ justifyContent: "flex-end" }}
           >
             <Typography variant="h6" component="h4">
-              Invite Code
+              Current players
             </Typography>
-            <Card className={classes.codeCard}>
-              <CardContent className={classes.codeCard}>
-                <Typography>CODE: </Typography>
-              </CardContent>
-            </Card>
+            <Divider className={classes.headerSeparate} />
+            <SetupPlayerList />
           </Grid>
         </Grid>
         <AppPrimaryButton className={classes.blackButton}>

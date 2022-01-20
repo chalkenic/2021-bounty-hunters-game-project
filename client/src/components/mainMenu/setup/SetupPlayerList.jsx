@@ -6,9 +6,6 @@ const HomePlayerList = () => {
 
   return (
     <>
-      <Typography variant="h6" component="h4">
-        Players
-      </Typography>
       <Grid container spacing={1} item xs={12} sm={12} md={12}>
         {players.map((player) => {
           return (
