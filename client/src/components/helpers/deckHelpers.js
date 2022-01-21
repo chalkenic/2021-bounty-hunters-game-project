@@ -1,31 +1,44 @@
 import { getRandomInt } from "./gameHelpers";
 
 export function generatePyramidDeck() {
-  console.log("generating new deck...");
+  console.log("generating room deck...");
   let PYRAMID_DECK_CARDS = [];
   let PYRAMID_DECK_CARD_DATA = [
-    { name: "deadEnd", target: [1], damageMulti: 1 },
-    { name: "gas", target: [1], damageMulti: 1 },
-    { name: "lowCeiling", target: [0], damageMulti: 1 },
-    { name: "mud", target: [0], damageMulti: 1 },
-    { name: "pits", target: [1], damageMulti: 1.5 },
-    { name: "sand", target: [0], damageMulti: 1.5 },
-    { name: "sarcophagus", target: [0, 1], damageMulti: 1 },
-    { name: "spears", target: [0, 1], damageMulti: 1 },
-    { name: "spikes", target: [0, 1], damageMulti: 1 },
-    { name: "treasure", target: [0, 1], damageMulti: 1.5 },
+    { name: "deadEnd", target: ["1"], healthMod: 3, hitMod: 4, dmgMod: 1 },
+    { name: "gas", target: ["1"], healthMod: 17, hitMod: 7, dmgMod: 1 },
+    { name: "lowCeiling", target: ["0"], healthMod: 40, hitMod: 2, dmgMod: 1 },
+    { name: "mud", target: ["0"], healthMod: 48, hitMod: 2, dmgMod: 1 },
+    { name: "pits", target: ["1"], healthMod: 9, hitMod: 4, dmgMod: 1.5 },
+    { name: "sand", target: ["0"], healthMod: 50, hitMod: 0, dmgMod: 1.5 },
+    {
+      name: "sarcophagus",
+      target: ["0", "1"],
+      healthMod: 1,
+      hitMod: 7,
+      dmgMod: 1,
+    },
+    { name: "spears", target: ["0", "1"], healthMod: 14, hitMod: 5, dmgMod: 1 },
+    { name: "spikes", target: ["0", "1"], healthMod: 13, hitMod: 4, dmgMod: 1 },
+    {
+      name: "treasure",
+      target: ["0", "1"],
+      healthMod: 70,
+      hitMod: 2,
+      dmgMod: 1.5,
+    },
   ];
 
   for (let card = 0; card < parseInt(PYRAMID_DECK_CARD_DATA.length); card++) {
     let damage = Math.round(
-      getRandomInt(3, 10) * PYRAMID_DECK_CARD_DATA[card].damageMulti
+      getRandomInt(3, 10) * PYRAMID_DECK_CARD_DATA[card].dmgMod
     );
-    let hitChance = getRandomInt(30, 70);
+    let hitChance = getRandomInt(25, 50) + PYRAMID_DECK_CARD_DATA[card].hitMod;
+    console.log(hitChance);
     let health = 0;
-    if (damage < 5 && hitChance < 50) {
-      health = getRandomInt(300, 450);
+    if (damage < 5 && hitChance < 30) {
+      health = getRandomInt(230, 350) + PYRAMID_DECK_CARD_DATA[card].healthMod;
     } else {
-      health = getRandomInt(200, 300);
+      health = getRandomInt(120, 180) + PYRAMID_DECK_CARD_DATA[card].healthMod;
     }
 
     PYRAMID_DECK_CARDS[card] = {
@@ -48,8 +61,9 @@ export function generatePyramidDeck() {
 }
 
 export function generatePlayerDeck() {
-  let PLAYER_CARD_VALUES = [1, 5, 10, 20, 25, 30, 40, 50, 80];
-  let PLAYER_CARD_COUNT = [7, 10, 14, 13, 11, 7, 5, 4, 2];
+  console.log("generating player deck...");
+  let PLAYER_CARD_VALUES = [0, 2, 5, 10, 15, 20, 25, 30, 35, 40];
+  let PLAYER_CARD_COUNT = [2, 7, 10, 14, 13, 11, 7, 5, 4, 2];
   let PLAYER_CARDS = [];
 
   let cardDeckSize = 0;

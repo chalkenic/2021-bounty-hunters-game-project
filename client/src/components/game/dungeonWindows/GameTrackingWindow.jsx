@@ -16,7 +16,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const CardDeckWindow = () => {
+const CardDeckWindow = (props) => {
   const classes = useStyles();
   const currentRoomCard = useSelector(
     (state) => state.pyramidRoomDeck.currentCard
@@ -32,7 +32,10 @@ const CardDeckWindow = () => {
         <CardDamageTracker roomCard={currentRoomCard}></CardDamageTracker>
       </Paper>
       <Paper>
-        <CardTargetTracker roomCard={currentRoomCard}></CardTargetTracker>
+        <CardTargetTracker
+          roomCard={currentRoomCard}
+          players={props.players}
+        ></CardTargetTracker>
       </Paper>
       {/* </Grid> */}
       <Paper>

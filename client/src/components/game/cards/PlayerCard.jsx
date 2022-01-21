@@ -55,9 +55,9 @@ const PlayerCard = ({ card }) => {
           classes.cardImgSize,
           card.clicked ? classes.cardSelectedColor : classes.cardUnselectedColor
         )}
-        src={`${process.env.PUBLIC_URL}/static/playerCardImages/${card.src}.svg`}
+        src={`${process.env.PUBLIC_URL}/static/playerCardImages/${card.src}.png`}
         alt={card.alt}
-        back={`${process.env.PUBLIC_URL}/static/playerCardImages/playerCard_back.svg`}
+        back={`${process.env.PUBLIC_URL}/static/playerCardImages/playerCard_back.png`}
 
         // className={card.type}
       />

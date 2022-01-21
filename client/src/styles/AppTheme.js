@@ -14,10 +14,11 @@ const AppTheme = createTheme({
       default: "#79d6e7",
       paper: "#31394E",
       board: "#0277bd",
+      grey: "##e7e7e7",
     },
     text: {
       primary: "#fff",
-      secondary: "#fff",
+      secondary: "black",
     },
 
     progressBar: {
@@ -25,6 +26,8 @@ const AppTheme = createTheme({
       medProgress: "##FFEB3B",
       highProgress: "##1B5E20",
     },
+
+    menu: {},
   },
 });
 export default AppTheme;

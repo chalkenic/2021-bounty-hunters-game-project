@@ -10,11 +10,10 @@ import AppPrimaryButton from "../../appComponents/AppPrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { roomDeckPyramidActions } from "../../store/slices/roomDeck_Pyramid-slice";
 import { resetGame, submitPlayer } from "../../store/actions/playerActions";
+import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
+import { allPlayerActions } from "../../store/slices/allPlayers-slice";
 
-import {
-  submitRoomCards,
-  getRoomCards,
-} from "../../store/actions/roomDeckActions";
+import { submitRoomCards } from "../../store/actions/roomDeckActions";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -44,6 +43,8 @@ const HomeWindow = () => {
     (state) => state.pyramidRoomDeck.initialized
   );
 
+  // allPlayerActions.checkIfDuplicates();
+
   const { player } = useSelector((state) => state.currentPlayer);
 
   useEffect(() => {
@@ -55,14 +56,13 @@ const HomeWindow = () => {
   useEffect(() => {
     if (roomCardsInitialized === false) {
       dispatch(roomDeckPyramidActions.generateNewDeck());
+      dispatch(playerDeckActions.generateNewDeck());
     }
   }, [player]);
 
   const onGameStart = () => {
     if (player.master) {
       dispatch(submitRoomCards(roomCards));
-    } else {
-      // dispatch(getRoomCards());
     }
   };
 

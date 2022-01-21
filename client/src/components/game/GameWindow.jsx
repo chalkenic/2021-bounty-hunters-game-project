@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Container, Grid, Typography } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
 import PlayerHand from "./player/PlayerHand";
@@ -7,15 +7,10 @@ import DungeonProgressBar from "./gameTracking/DungeonProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import PlayerTeamWindow from "./dungeonWindows/PlayerTeamWindow";
 import AppTheme from "../../styles/AppTheme";
-// import GamePlayLog from "./gameLog/GamePlayLog";
 import GameTrackingWindow from "./dungeonWindows/GameTrackingWindow";
 import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
-import {
-  submitRoomCards,
-  getRoomCards,
-} from "../../store/actions/roomDeckActions";
 
 import { addValueToPlayer } from "../../store/actions/playerActions";
 import GameHeader from "../layout/GameHeader";
@@ -53,19 +48,27 @@ const GameWindow = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const playerHand = useSelector((state) => state.playerDeck.playerHand);
+  let players = useSelector((state) => state.allPlayers.players);
   console.log("hand:", playerHand);
-  const progress = useSelector((state) => state.progressBar.progress);
+  // const progress = useSelector((state) => state.progressBar.progress);
 
-  const dungeonDeck = useSelector((state) => state.pyramidRoomDeck.dungeonDeck);
+  // const dungeonDeck = useSelector((state) => state.pyramidRoomDeck.dungeonDeck);
 
   if (playerHand === undefined) {
     // console.log("helooooooooooo");
+    dispatch(playerDeckActions.generateNewDeck());
     dispatch(playerDeckActions.setUpHands());
   }
 
   useEffect(() => {
     // console.log("hand:", playerHand);
   }, [playerHand]);
+
+  useEffect(() => {
+    if (players.length === undefined || players.length < 2) {
+      players = 0;
+    }
+  }, [players]);
 
   // useEffect(() => {
   //   const cardClicked = playerHand.find((card) => card.clicked);
@@ -128,7 +131,7 @@ const GameWindow = () => {
         </Grid>
         <Grid item xs={2} style={{ padding: "0 5px" }}>
           {/* <GamePlayLog /> */}
-          <GameTrackingWindow />
+          <GameTrackingWindow players={players} />
         </Grid>
       </Grid>
     </Container>

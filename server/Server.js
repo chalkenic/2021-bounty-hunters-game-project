@@ -33,21 +33,18 @@ mongoose
 app.use("/api/DungeonCards", dungeonCards);
 
 const port = process.env.port || 5000;
-const sessionsMap = {};
 let players = [];
 let roomCards = {};
 let playerCards = {};
-let currentRoomCard = {};
 let progress = { value: 0, max: 200 };
 let roundCardValues = [];
-// let unusedCards = [];
 
 io.on("connection", (socket) => {
   console.log("a user connected: ", socket.id);
 
-  socket.on("REQUEST_ID", () => {
-    socket.emit("SENDING_ID", socket.id);
-  });
+  // socket.on("REQUEST_ID", () => {
+  //   socket.emit("SENDING_ID", socket.id);
+  // });
 
   socket.on("ADDING_PLAYER", (data) => {
     if (players.length === 0) {
@@ -78,10 +75,6 @@ io.on("connection", (socket) => {
     const newPlayer = players.find((p) => p.id === socket.id);
 
     socket.emit("SAVED_LOCAL_PLAYER", JSON.stringify(newPlayer.id));
-  });
-
-  socket.on("GET_PLAYERS", (data) => {
-    io.emit("SENDING_PLAYERS", JSON.stringify(data));
   });
 
   socket.on("RESETTING_GAME", () => {
@@ -151,14 +144,14 @@ io.on("connection", (socket) => {
         // If more than 1 player exists in game
         if (players.length >= 2) {
           if (
-            currentRoomCard.target.includes(p) &&
+            currentRoomCard.target.includes(String(p)) &&
             helperFunctions.rollDamageChance(currentRoomCard.hitChance)
           ) {
             players[p].energy -= parseInt(currentRoomCard.damage);
             players[p].receivedDamage = true;
           }
         } else {
-          helperFunctions.rollDamageChance(currentRoomCard.hitChance);
+          helperFunctions.rollLoneDamageChance(currentRoomCard.hitChance);
           players[p].energy -= parseInt(currentRoomCard.damage);
           players[p].receivedDamage = true;
         }
@@ -173,7 +166,7 @@ io.on("connection", (socket) => {
       var data = {
         progress: progress.value,
         players: players,
-        damage: currentRoomCard.damage,
+        card: currentRoomCard,
         cardValues: roundCardValues,
       };
 
@@ -182,7 +175,6 @@ io.on("connection", (socket) => {
     } else {
       io.emit("PLAYER_ENDED_TURN", socket.id);
     }
-    // io.emit("VALUE_ADDED", JSON.stringify({ value: data, id: socket.id }));
   });
 
   socket.on("END_TURN_BAR", () => {
@@ -207,33 +199,6 @@ io.on("connection", (socket) => {
       current: JSON.stringify(currentRoomCard),
     });
   });
-
-  socket.on("CHOOSING_CURRENT_ROOM", (data) => {
-    currentRoomCard = data;
-    io.emit("CURRENT_ROOM_CONFIRMED", data);
-  });
-
-  socket.on("GET_CURRENT_ROOM", () => {
-    io.emit("SENDING_CURRENT_ROOM", {
-      deck: JSON.stringify(roomCards),
-      current: JSON.stringify(currentRoomCard),
-    });
-  });
 });
 
 server.listen(port, () => console.log(`Server started on port ${port}`));
-
-// socket.emit('message', "this is a test"); //sending to sender-client only
-// socket.broadcast.emit('message', "this is a test"); //sending to all clients except sender
-// socket.broadcast.to('game').emit('message', 'nice game'); //sending to all clients in 'game' room(channel) except sender
-// socket.to('game').emit('message', 'enjoy the game'); //sending to sender client, only if they are in 'game' room(channel)
-// socket.broadcast.to(socketid).emit('message', 'for your eyes only'); //sending to individual socketid
-// io.emit('message', "this is a test"); //sending to all clients, include sender
-// io.in('game').emit('message', 'cool game'); //sending to all clients in 'game' room(channel), include sender
-// io.of('myNamespace').emit('message', 'gg'); //sending to all clients in namespace 'myNamespace', include sender
-// socket.emit(); //send to all connected clients
-// socket.broadcast.emit(); //send to all connected clients except the one that sent the message
-// socket.on(); //event listener, can be called on client to execute on server
-// io.sockets.socket(); //for emiting to specific clients
-// io.sockets.emit(); //send to all connected clients (same as socket.emit)
-// io.sockets.on() ; //initial connection from a client.

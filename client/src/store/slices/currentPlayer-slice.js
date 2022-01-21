@@ -15,7 +15,7 @@ const currentPlayerSlice = createSlice({
       turnHasEnded: false,
       master: "",
       chosenCardValue: 0,
-      cardHand: [],
+      knockedOut: false,
     },
   },
   reducers: {

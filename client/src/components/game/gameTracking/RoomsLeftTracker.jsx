@@ -2,31 +2,25 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
-const CardTargetTracker = (props) => {
+const RoomsLeftTracker = (props) => {
   const players = useSelector((state) => state.allPlayers.players);
   console.log("players:", players);
   console.log("players length:", players.length);
-  console.log(props.roomCard);
-  let targets = "";
-  try {
-    targets = props.roomCard.target;
-  } catch (error) {
-    targets = ["1"];
-  }
-
-  console.log(typeof targets);
+  const currentCard = useSelector((state) => state.pyramidRoomDeck.currentCard);
 
   return (
     <Grid item style={{ paddingTop: 40 }}>
-      <Typography variant="h6">Card Target(s)</Typography>
+      <Typography variant="h6">Rooms Remaining</Typography>
 
-      {props.roomCard && players.length > 1 && !isNaN(targets) ? (
+      {props.roomCard &&
+      props.roomCard.hitChance &&
+      props.roomCard.damage &&
+      props.players >= 2 ? (
         <>
-          {targets.map((target) => {
-            var playerTarget = parseInt(target);
+          {props.roomCard.target.map((target) => {
             return (
               <Typography style={{ fontStyle: "italic" }} key={target}>
-                Player {playerTarget + 1}
+                Player {target + 1}
               </Typography>
             );
           })}

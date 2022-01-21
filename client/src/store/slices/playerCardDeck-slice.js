@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { generatePlayerDeck } from "../../components/helpers/deckHelpers";
 
 let DISCARDED_CARDS = [];
-
+let PLAYER_CARDS = generatePlayerDeck();
 
 const initialPlayerCardsState = {
-  dungeonCards: generatePlayerDeck(),
+  playerCards: PLAYER_CARDS,
   discardedCards: DISCARDED_CARDS,
+  initialized: true,
   playerHand: [],
 };
 
@@ -15,13 +16,20 @@ const playerDeckSlice = createSlice({
   initialState: initialPlayerCardsState,
   reducers: {
     // Get full deck of cards from state.
-    getFullDeck(state) {
-      console.log(state.dungeonCards.length);
+    generateNewDeck(state) {
+      state.playerCards = generatePlayerDeck();
+      state.initialized = true;
     },
     setUpHands(state) {
-      state.playerHand = state.dungeonCards.splice(
-        state.dungeonCards.length - 7
-      );
+      console.log(state.playerCards);
+      for (let i = 0; i < 7; i++) {
+        state.playerHand[i] = state.playerCards[state.playerCards.length - 1];
+        state.playerCards.pop();
+      }
+    },
+
+    resetHand(state) {
+      state.playerHand = [];
     },
 
     // If card clicked, change value on component to true. Change all other
@@ -37,17 +45,17 @@ const playerDeckSlice = createSlice({
     dealNewCard(state, action) {
       state.playerHand = state.playerHand.map((card) =>
         card.id === action.payload.id
-          ? state.dungeonCards[state.dungeonCards.length - 1]
+          ? state.playerCards[state.playerCards.length - 1]
           : card
       );
 
       //Remove card given to player from unused deck.
-      state.dungeonCards.pop();
+      state.playerCards.pop();
 
       // Append played card into discard deck.
       state.discardedCards.push(action.payload);
 
-      console.log("unused cards:", state.dungeonCards.length);
+      console.log("unused cards:", state.playerCards.length);
       console.log("discarded cards:", state.discardedCards.length);
     },
   },

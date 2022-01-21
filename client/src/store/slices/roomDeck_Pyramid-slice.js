@@ -35,21 +35,18 @@ const roomDeckPyramid = createSlice({
       }
       state.initialized = false;
     },
-    dealRoomCard(state) {
-      state.currentCard = state.dungeonDeck[state.dungeonDeck.length - 1];
-
-      state.dungeonDeck.pop();
-    },
     setCurrentCard(state, action) {
       state.currentCard = action.payload;
+      console.log("current card before:", (state.currentCard = action.payload));
+      if (state.currentCard.target.length < 2) {
+        state.currentCard.target = [state.currentCard.target];
+      }
+
+      console.log("current card after:", (state.currentCard = action.payload));
     },
 
     setGameDeck(state, action) {
       state.dungeonDeck = action.payload;
-    },
-    completeRoom(state, action) {
-      state.discardedCards.push(state.currentCard);
-      state.dealRoomCard();
     },
   },
 });

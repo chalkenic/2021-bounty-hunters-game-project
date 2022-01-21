@@ -11,6 +11,7 @@ const allPlayersSlice = createSlice({
   reducers: {
     // add one or more players to the state.
     addPlayersToGame(state, action) {
+      console.log("am i adding a player?");
       state.players = action.payload;
     },
 
@@ -40,6 +41,10 @@ const allPlayersSlice = createSlice({
           ? { ...player, src: `playerCard_backChosen` }
           : { ...player }
       );
+    },
+
+    filterDuplicates(state) {
+      state.players = [...new Set(state.players)];
     },
   },
 });

@@ -3,10 +3,9 @@ import {
   submitPlayer,
   resetGame,
   updatePlayer,
-  getPlayers,
   playerEndTurn,
   saveLocalPlayer,
-  requestId,
+  // requestId,
   addValueToPlayer,
 } from "../actions/playerActions";
 
@@ -21,9 +20,9 @@ export function* handlePlayerCommands(appSocket) {
     socket.emit("ADDING_PLAYER", player.payload);
   });
 
-  yield takeEvery(requestId, () => {
-    socket.emit("REQUEST_ID");
-  });
+  // yield takeEvery(requestId, () => {
+  //   socket.emit("REQUEST_ID");
+  // });
 
   yield takeEvery(resetGame, () => {
     socket.emit("RESETTING_GAME");
@@ -31,10 +30,6 @@ export function* handlePlayerCommands(appSocket) {
 
   yield takeEvery(updatePlayer, (player) => {
     socket.emit("UPDATING_PLAYER", player.payload);
-  });
-
-  yield takeEvery(getPlayers, () => {
-    socket.emit("GET_PLAYERS");
   });
 
   yield takeEvery(playerEndTurn, (player) => {

@@ -11,10 +11,12 @@ import {
   TableCell,
   TableBody,
   TablePagination,
+  useTheme,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import AppTheme from "../../../styles/AppTheme";
 
 const TableCellStyled = withStyles((theme) => ({
   body: {
@@ -48,6 +50,7 @@ const logColumns = [
   { id: "Action", label: "Action", minWidth: 160 },
 ];
 const GamePlayLog = () => {
+  const theme = useTheme(AppTheme);
   const classes = useStyles();
   const history = useSelector((state) => state.history.gameHistory);
 
@@ -55,7 +58,9 @@ const GamePlayLog = () => {
     <Paper>
       <TableContainer className={classes.container}>
         <Table className={classes.table} size="small" aria-label="sticky table">
-          <caption>Log for recording player actions</caption>
+          <caption style={{ color: theme.palette.text.primary }}>
+            Log for recording player actions
+          </caption>
           <TableHead>
             <TableRow className={classes.tableHeader}>
               {logColumns.map((column, index) => (
