@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import SetupCreator from "../mainMenu/setup/SetupCreator";
-import WelcomeSummary from "../../components/mainMenu/WelcomeSummary";
+import WelcomeSummary from "../../components/mainMenu/setup/WelcomeSummary";
 import Header from "../layout/Header";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Divider, Grid } from "@material-ui/core";
 import useStylesBase from "../../styles/StylesBase";
 import { makeStyles, createStyles, Paper } from "@material-ui/core";
 import SetupPlayerLobby from "./setup/SetupPlayerLobby";
@@ -12,6 +12,7 @@ import { roomDeckPyramidActions } from "../../store/slices/roomDeck_Pyramid-slic
 import { resetGame, submitPlayer } from "../../store/actions/playerActions";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
 import { allPlayerActions } from "../../store/slices/allPlayers-slice";
+import { resetPlayer } from "../../store/slices/currentPlayer-slice";
 
 import { submitRoomCards } from "../../store/actions/roomDeckActions";
 
@@ -39,13 +40,18 @@ const HomeWindow = () => {
   let playerSubmitted = false;
 
   const roomCards = useSelector((state) => state.pyramidRoomDeck.dungeonDeck);
+  const allPlayers = useSelector((state) => state.allPlayers.players);
   const roomCardsInitialized = useSelector(
     (state) => state.pyramidRoomDeck.initialized
   );
 
-  // allPlayerActions.checkIfDuplicates();
-
   const { player } = useSelector((state) => state.currentPlayer);
+
+  // Checks if game over.
+  if (roomCards.length === 0) {
+    dispatch(resetPlayer());
+    dispatch(resetGame("homewindow"));
+  }
 
   useEffect(() => {
     if (player.name !== undefined && !playerSubmitted) {
@@ -61,6 +67,8 @@ const HomeWindow = () => {
   }, [player]);
 
   const onGameStart = () => {
+    dispatch(roomDeckPyramidActions.startGame());
+
     if (player.master) {
       dispatch(submitRoomCards(roomCards));
     }
@@ -93,12 +101,9 @@ const HomeWindow = () => {
           >
             Start Game
           </AppPrimaryButton>
-          <AppPrimaryButton onClick={() => dispatch(resetGame())}>
+          <AppPrimaryButton onClick={() => dispatch(resetGame("button"))}>
             reset players
           </AppPrimaryButton>
-        </Grid>
-        <Grid item xs={1}>
-          <AppPrimaryButton to="/game/game1">new Game</AppPrimaryButton>
         </Grid>
         <Grid item xs={5}>
           <Paper className={classes.paper}>

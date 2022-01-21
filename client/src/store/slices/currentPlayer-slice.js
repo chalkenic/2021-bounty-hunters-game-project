@@ -21,28 +21,29 @@ const currentPlayerSlice = createSlice({
   reducers: {
     setCurrentPlayerName(state, action) {
       state.player.name = action.payload;
-      // console.log("player now:", state.player);
     },
 
     setPlayerAsMaster(state, action) {
       state.player.master = true;
-      // console.log("something 1", action.payload);
-      // console.log("something 2", action.payload[0].id);
       state.player.id = action.payload[0].id;
       state.player.key = action.payload[0].key;
-
-      // console.log("player id now:", state.player.id);
     },
 
     setPlayer(state, action) {
       state.player.id = action.payload[0].id;
     },
 
-    resetPlayer(state, action) {},
+    resetPlayer(state) {
+      state.player.name = undefined;
+    },
   },
 });
 
-export const { setCurrentPlayerName, setPlayerAsMaster, setPlayer } =
-  currentPlayerSlice.actions;
+export const {
+  setCurrentPlayerName,
+  setPlayerAsMaster,
+  setPlayer,
+  resetPlayer,
+} = currentPlayerSlice.actions;
 
 export default currentPlayerSlice.reducer;

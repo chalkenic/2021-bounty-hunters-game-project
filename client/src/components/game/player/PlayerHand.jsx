@@ -18,21 +18,13 @@ const useStyles = makeStyles((theme) => ({
 const PlayerHand = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  // console.log("list size: " + PLAYER_CARDS.length);
   const playerHand = useSelector((state) => state.playerDeck.playerHand);
 
-  // for (let index = 0; index < gameDeck.length; index++) {
-  //   console.log(gameDeck[index]);
-  // }
-
-  // let tempDeck = gameDeck.slice(gameDeck.length - 7);
 
   useEffect(() => {
     if (playerHand.length === 0) {
-      console.log("player hand empty!");
       dispatch(playerDeckActions.setUpHands("player1"));
     } else if (playerHand.length <= 7) {
-      // playerHand.slice(1);
     }
   }, [playerHand]);
 

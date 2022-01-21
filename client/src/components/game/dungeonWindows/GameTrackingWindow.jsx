@@ -7,6 +7,7 @@ import ScoreTracker from "../gameTracking/ScoreTracker";
 import CardDamageTracker from "../gameTracking/CardDamageTracker";
 import CardTargetTracker from "../gameTracking/CardTargetTracker";
 import CardPointsTracker from "../gameTracking/CardPointsTracker";
+import RoomsLeftTracker from "../gameTracking/RoomsLeftTracker";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -41,9 +42,9 @@ const CardDeckWindow = (props) => {
       <Paper>
         <CardPointsTracker roomCard={currentRoomCard}></CardPointsTracker>
       </Paper>
-      <Card xs={11}>
-        <TutorialModal />
-      </Card>
+      <Paper>
+        <RoomsLeftTracker />
+      </Paper>
     </Paper>
   );
 };

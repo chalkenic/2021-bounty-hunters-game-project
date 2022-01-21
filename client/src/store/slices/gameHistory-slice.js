@@ -11,7 +11,6 @@ const gameHistorySlice = createSlice({
   initialState: initialHistoryState,
   reducers: {
     addTurnDetailsRecord(state, action) {
-      console.log("test", action.payload.players);
       for (let i = 0; i < action.payload.players.length; i++) {
         let cardPlayedRecord = `Played card value ${action.payload.cardValues[i]}`;
         let lostEnergyRecord = "";
@@ -31,9 +30,6 @@ const gameHistorySlice = createSlice({
           };
         }
 
-        console.log("prog", action.payload.progress);
-        console.log("hp", action.payload.card.health);
-
         if (
           action.payload.progress >= action.payload.card.health ||
           action.payload.progress === 0
@@ -47,12 +43,7 @@ const gameHistorySlice = createSlice({
           player: action.payload.players[i].name,
           log: increasedProgressRecord,
         };
-        // state.history = state.history[
-        //   state.history.length
-        // ] = `Player ${action.payload.players[i].name}: played card value ${action.payload.players[i].chosenCardValue}`;
       }
-
-      // console.log("new history:", state.history);
     },
 
     resetRecords(state) {

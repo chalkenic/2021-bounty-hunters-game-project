@@ -1,16 +1,33 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
-import AppPrimaryButton from "./AppPrimaryButton";
-import { useTheme } from "@material-ui/core";
+import { useTheme, withStyles } from "@material-ui/core";
 import AppTheme from "../styles/AppTheme";
 import { useNavigate } from "react-router-dom";
+import { resetPlayer } from "../store/slices/currentPlayer-slice";
+import { resetGame } from "../store/actions/playerActions";
+
+import { purple, green } from "@material-ui/core/colors";
 
 // Code adapted from Material UI menus: available at:
 // https://v4.mui.com/components/menus/#menus
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    border: "1px solid grey",
+    color: theme.palette.getContrastText(green[700]),
+    backgroundColor: green[900],
+    "&:hover": {
+      backgroundColor: purple[900],
+    },
+  },
+}))(Button);
+
 const NavMenu = () => {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -22,19 +39,24 @@ const NavMenu = () => {
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleExit = () => {
     navigate("/");
+    dispatch(resetPlayer());
+    dispatch(resetGame("navmenu"));
   };
 
   return (
     <div>
-      <Button
+      <ColorButton
         aria-controls="fade-menu"
         aria-haspopup="true"
         onClick={handleClick}
-        style={{ backgroundColor: theme.palette.background.paper }}
       >
         Menu
-      </Button>
+      </ColorButton>
       <Menu
         id="fade-menu"
         anchorEl={anchorEl}
@@ -44,7 +66,7 @@ const NavMenu = () => {
         TransitionComponent={Fade}
         style={{ backgroundColor: theme.palette.background.grey }}
       >
-        <MenuItem onClick={handleClose}>Exit Game</MenuItem>
+        <MenuItem onClick={handleExit}>Exit Game</MenuItem>
       </Menu>
     </div>
   );

@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { generatePyramidDeck } from "../../components/helpers/deckHelpers";
 
 let CURRENT_CARD = {};
-let DISCARDED_CARDS = [];
+let gameOver = false;
 let SHUFFLED_DECK = generatePyramidDeck();
 
 const initialPyramidState = {
   dungeonDeck: SHUFFLED_DECK,
   currentCard: CURRENT_CARD,
-  discardedCards: DISCARDED_CARDS,
   deckSize: SHUFFLED_DECK.length,
   initialized: false,
+  gameOver: gameOver,
 };
 
 const roomDeckPyramid = createSlice({
@@ -24,6 +24,12 @@ const roomDeckPyramid = createSlice({
 
     resetGame(state) {
       state.initialized = false;
+      gameOver = false;
+    },
+
+    // reset game deck after completion.
+    emptyDeck(state) {
+      state.dungeonDeck = [];
     },
 
     resetDeck(state) {
@@ -37,16 +43,25 @@ const roomDeckPyramid = createSlice({
     },
     setCurrentCard(state, action) {
       state.currentCard = action.payload;
-      console.log("current card before:", (state.currentCard = action.payload));
       if (state.currentCard.target.length < 2) {
         state.currentCard.target = [state.currentCard.target];
       }
-
-      console.log("current card after:", (state.currentCard = action.payload));
     },
 
     setGameDeck(state, action) {
       state.dungeonDeck = action.payload;
+      state.deckSize = action.payload.length;
+    },
+
+    endGame(state, action) {
+      state.roomCards = action.payload;
+      state.gameOver = true;
+
+      console.log(state.gameOver);
+    },
+
+    startGame(state) {
+      state.gameOver = false;
     },
   },
 });

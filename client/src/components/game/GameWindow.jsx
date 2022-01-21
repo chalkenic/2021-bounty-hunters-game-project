@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Button, Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
@@ -12,8 +12,12 @@ import GameplayWindow from "./dungeonWindows/GameplayWindow";
 import PlayerHandWindow from "./dungeonWindows/PlayerHandWindow";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
 
-import { addValueToPlayer } from "../../store/actions/playerActions";
+import { addValueToPlayer, resetGame } from "../../store/actions/playerActions";
 import GameHeader from "../layout/GameHeader";
+import { useNavigate } from "react-router-dom";
+import CardErrorModal from "./tutorial/CardErrorModal";
+import GameCompletedModal from "./tutorial/GameCompletedModal";
+import { roomDeckPyramidActions } from "../../store/slices/roomDeck_Pyramid-slice";
 
 const useStyles = makeStyles((theme) => ({
   gameBoard: {
@@ -30,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
-  expandOpen: {
+  expandgameOver: {
     transform: "rotate(180deg)",
   },
   avatar: {
@@ -47,28 +51,61 @@ const useStyles = makeStyles((theme) => ({
 const GameWindow = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const playerHand = useSelector((state) => state.playerDeck.playerHand);
-  let players = useSelector((state) => state.allPlayers.players);
-  console.log("hand:", playerHand);
-  // const progress = useSelector((state) => state.progressBar.progress);
+  const navigate = useNavigate();
+  const currentPlayer = useSelector((state) => state.currentPlayer.player);
+  const isGameOver = useSelector((state) => state.pyramidRoomDeck.gameOver);
 
-  // const dungeonDeck = useSelector((state) => state.pyramidRoomDeck.dungeonDeck);
+  const [gameOver, setGameOver] = useState(false);
+  const [valueError, setValueError] = useState(false);
+  const playerHand = useSelector((state) => state.playerDeck.playerHand);
+
+  // const [players, setPlayers] = useState({});
+  let players = useRef(useSelector((state) => state.allPlayers.players));
 
   if (playerHand === undefined) {
-    // console.log("helooooooooooo");
     dispatch(playerDeckActions.generateNewDeck());
     dispatch(playerDeckActions.setUpHands());
   }
 
-  useEffect(() => {
-    // console.log("hand:", playerHand);
-  }, [playerHand]);
+  // useEffect(() => {
+
+  // })
+
+  useEffect(() => {}, [playerHand]);
 
   useEffect(() => {
+    const player = players.current;
     if (players.length === undefined || players.length < 2) {
       players = 0;
     }
   }, [players]);
+
+  useEffect(() => {
+    if (isGameOver) {
+      // dispatch(resetGame());
+      handleGameOverOpen();
+    }
+  }, [isGameOver]);
+
+  const handleGameOverClose = () => {
+    setGameOver(false);
+    dispatch(roomDeckPyramidActions.emptyDeck());
+
+    navigate("/");
+    dispatch(resetGame("game window"));
+  };
+
+  const handleGameOverOpen = () => {
+    setGameOver(true);
+  };
+
+  const handleValueErrorClose = () => {
+    setValueError(false);
+  };
+
+  const handleValueError = () => {
+    setValueError(true);
+  };
 
   // useEffect(() => {
   //   const cardClicked = playerHand.find((card) => card.clicked);
@@ -76,8 +113,16 @@ const GameWindow = () => {
   // }, [progress]);
 
   const playerTurnEnded = () => {
-    let cardClicked = playerHand.find((card) => card.clicked);
-    dispatch(addValueToPlayer(cardClicked.value));
+    try {
+      let cardClicked = playerHand.find((card) => card.clicked);
+      dispatch(addValueToPlayer(cardClicked.value));
+    } catch (error) {
+      console.log("No card selected!");
+
+      // const handleValueOpen = () => {
+      handleValueError();
+      // };
+    }
     // dispatch(playerDeckActions.dealNewCard(cardClicked));
   };
 
@@ -86,8 +131,10 @@ const GameWindow = () => {
       style={{ padding: "5px", maxHeight: window.innerHeight }}
       className={classes.root}
     >
+      <CardErrorModal open={valueError} handleClose={handleValueErrorClose} />
+      <GameCompletedModal open={gameOver} handleClose={handleGameOverClose} />
       <Grid container className={classes.gameBoard}>
-        <GameHeader />
+        <GameHeader player={currentPlayer} />
         <Grid item xs={12}>
           <DungeonProgressBar />
         </Grid>

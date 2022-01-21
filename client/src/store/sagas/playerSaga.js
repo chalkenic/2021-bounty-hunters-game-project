@@ -24,8 +24,9 @@ export function* handlePlayerCommands(appSocket) {
   //   socket.emit("REQUEST_ID");
   // });
 
-  yield takeEvery(resetGame, () => {
-    socket.emit("RESETTING_GAME");
+  yield takeEvery(resetGame, (msg) => {
+    console.log("message:", msg);
+    socket.emit("RESET_GAME");
   });
 
   yield takeEvery(updatePlayer, (player) => {
@@ -37,7 +38,6 @@ export function* handlePlayerCommands(appSocket) {
   });
 
   yield takeEvery(saveLocalPlayer, (player) => {
-    console.log("local 1");
     socket.emit("ADDING_LOCAL_PLAYER", player.payload);
   });
 

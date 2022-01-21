@@ -33,7 +33,6 @@ export function generatePyramidDeck() {
       getRandomInt(3, 10) * PYRAMID_DECK_CARD_DATA[card].dmgMod
     );
     let hitChance = getRandomInt(25, 50) + PYRAMID_DECK_CARD_DATA[card].hitMod;
-    console.log(hitChance);
     let health = 0;
     if (damage < 5 && hitChance < 30) {
       health = getRandomInt(230, 350) + PYRAMID_DECK_CARD_DATA[card].healthMod;

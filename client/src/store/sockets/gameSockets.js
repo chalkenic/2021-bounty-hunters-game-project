@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import { useSelector } from "react-redux";
 import { allPlayerActions } from "../slices/allPlayers-slice";
 import { progressBarActions } from "../slices/progressBar-slice";
 import { roomDeckPyramidActions } from "../slices/roomDeck_Pyramid-slice";
@@ -40,6 +39,8 @@ const gameSockets = (dispatch) => {
   socket.on("PROGRESS_ADDED", (data) => {
     let gameState = JSON.parse(data);
 
+    console.log(gameState);
+
     dispatch(historyActions.addTurnDetailsRecord(gameState));
 
     dispatch(progressBarActions.setProgress(gameState.progress));
@@ -59,7 +60,6 @@ const gameSockets = (dispatch) => {
   });
 
   socket.on("PLAYER_ENDED_TURN", (data) => {
-    console.log("data to change:", data);
     dispatch(allPlayerActions.playerChosenCard(data));
   });
 
@@ -70,6 +70,11 @@ const gameSockets = (dispatch) => {
     dispatch(roomDeckPyramidActions.setCurrentCard(gameState.current));
     dispatch(roomDeckPyramidActions.setGameDeck(gameState.room));
     dispatch(progressBarActions.setProgressMax(gameState.current.health));
+  });
+
+  socket.on("GAME_COMPLETED", (data) => {
+    let gameState = JSON.parse(data);
+    dispatch(roomDeckPyramidActions.endGame(gameState.roomCards));
   });
 
   return socket;

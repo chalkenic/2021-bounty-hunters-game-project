@@ -2,6 +2,8 @@
 
 var helperFunctions = require("./helpers/LogicHelpers.js");
 
+// Basic MongoDb server created in order to implement decks into game.
+// NOT CURRENTLY MVP
 const express = require("express");
 const mongoose = require("mongoose");
 const http = require("http");
@@ -24,6 +26,7 @@ app.use(express.json());
 const database = require("./config/Keys").mongoURI;
 const { syncIndexes } = require("./models/DungeonDeck");
 
+// Access MongoDB
 mongoose
   .connect(database)
   .then(() => console.log("MongoDB connection established."))
@@ -32,6 +35,7 @@ mongoose
 // Route usage
 app.use("/api/DungeonCards", dungeonCards);
 
+// Server port
 const port = process.env.port || 5000;
 let players = [];
 let roomCards = {};
@@ -77,13 +81,13 @@ io.on("connection", (socket) => {
     socket.emit("SAVED_LOCAL_PLAYER", JSON.stringify(newPlayer.id));
   });
 
-  socket.on("RESETTING_GAME", () => {
+  socket.on("RESET_GAME", (data) => {
     players = [];
     roomCards = [];
     currentRoomCard = {};
     roundCardValues = [];
     progress = { value: 0, max: 0 };
-    io.emit("GAME_RESET");
+    io.emit("GAME_RESET", data);
   });
 
   socket.on("UPDATE_PLAYER", (data) => {
@@ -96,7 +100,12 @@ io.on("connection", (socket) => {
     let scoreCompleted = false;
     players = players.map((p) =>
       p.id === socket.id
-        ? { ...p, chosenCardValue: parseInt(data), turnHasEnded: true }
+        ? {
+            ...p,
+            chosenCardValue: parseInt(data),
+            turnHasEnded: true,
+            receivedDamage: false,
+          }
         : { ...p }
     );
     let allTurnsEnded = true;
@@ -106,28 +115,35 @@ io.on("connection", (socket) => {
       }
     });
 
+    // If every player's turn has ended.
     if (allTurnsEnded) {
+      // Scroll through all players to apply game state updates.
       for (let p = 0; p < players.length; p++) {
+        // Apply player's value into server's progress bar
         progress.value += parseInt(players[p].chosenCardValue);
+        // Assign value submitted by player into array in order to track on logs.
         roundCardValues.push(players[p].chosenCardValue);
+
+        // Mark turn as ended and reset their card value.
         players[p].turnHasEnded = false;
         players[p].chosenCardValue = 0;
 
+        // Check if player's card submission exceeds current card's hp.
         if (progress.value >= progress.max && !scoreCompleted) {
+          // Apply room card's score to player.
           players[p].score += parseInt(currentRoomCard.score);
-          var data = { players: players };
+          // Confirm score appended.
           scoreCompleted = true;
-          if (roomCards.length > 0) {
+          // Check if game ends. More than 1 card remaining means another  room
+          // can be dealt.
+          if (roomCards.length > 1) {
+            // Reset current card to last in deck, assign new values to server.
             roomCards.pop();
             currentRoomCard = roomCards[roomCards.length - 1];
             progress.value = 0;
             progress.max = currentRoomCard.health;
-            console.log(
-              "room card:",
-              currentRoomCard,
-              "cards left:",
-              roomCards.length
-            );
+
+            // API call to client that provides new game state.
             io.emit(
               "ROOM_COMPLETED",
               JSON.stringify({
@@ -136,33 +152,61 @@ io.on("connection", (socket) => {
                 current: currentRoomCard,
               })
             );
+            // Conditional ends game and emits final data to client.
           } else {
-            io.emit("GAME_COMPLETED", JSON.stringify({ players: players }));
+            roomCards.pop();
+            io.emit(
+              "GAME_COMPLETED",
+              JSON.stringify({ players: players, roomCards: roomCards })
+            );
           }
-        }
 
-        // If more than 1 player exists in game
-        if (players.length >= 2) {
-          if (
-            currentRoomCard.target.includes(String(p)) &&
-            helperFunctions.rollDamageChance(currentRoomCard.hitChance)
-          ) {
-            players[p].energy -= parseInt(currentRoomCard.damage);
-            players[p].receivedDamage = true;
-          }
+          // If round doesn't end, test for damage.
         } else {
-          helperFunctions.rollLoneDamageChance(currentRoomCard.hitChance);
-          players[p].energy -= parseInt(currentRoomCard.damage);
-          players[p].receivedDamage = true;
+          let playerHit = false;
+
+          // Check if more than 1 player.
+          if (players.length >= 2) {
+            // Roll damage of card against 1-100 random return function.
+
+            // If current card is targeting player, reduce player energy.
+            if (currentRoomCard.target.includes(String(p))) {
+              playerHit = helperFunctions.rollDamageChance(
+                currentRoomCard.hitChance
+              );
+
+              console.log(players[p].name, playerHit);
+              console.log(currentRoomCard.target);
+              console.log(String(p));
+
+              if (playerHit) {
+                players[p].energy -= parseInt(currentRoomCard.damage);
+                players[p].receivedDamage = true;
+              }
+            }
+
+            // If one player, roll against function that offers better odds
+            // for game balance.
+          } else {
+            playerHit = helperFunctions.rollLoneDamageChance(
+              currentRoomCard.hitChance
+            );
+            if (playerHit) {
+              players[p].energy -= parseInt(currentRoomCard.damage);
+              players[p].receivedDamage = true;
+            }
+          }
         }
       }
-
+      //  Shuffle  player array in order to assign turn order.
       helperFunctions.shuffle(players);
 
+      // Apply new turn order to players
       for (let turnOrder = 0; turnOrder < players.length; turnOrder++) {
         players[turnOrder].turn = turnOrder + 1;
       }
 
+      // Send back updated game state for new round
       var data = {
         progress: progress.value,
         players: players,
@@ -170,9 +214,9 @@ io.on("connection", (socket) => {
         cardValues: roundCardValues,
       };
 
-      roundCardValues = [];
       io.emit("PROGRESS_ADDED", JSON.stringify(data));
     } else {
+      // Emit only simple data to sockets to inform specific player has ended turn.
       io.emit("PLAYER_ENDED_TURN", socket.id);
     }
   });

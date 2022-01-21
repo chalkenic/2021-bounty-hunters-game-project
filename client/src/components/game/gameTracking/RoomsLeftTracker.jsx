@@ -2,35 +2,21 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
-const RoomsLeftTracker = (props) => {
-  const players = useSelector((state) => state.allPlayers.players);
-  console.log("players:", players);
-  console.log("players length:", players.length);
-  const currentCard = useSelector((state) => state.pyramidRoomDeck.currentCard);
+const RoomsLeftTracker = () => {
+  const cardCount = useSelector((state) => state.pyramidRoomDeck.deckSize);
 
   return (
-    <Grid item style={{ paddingTop: 40 }}>
-      <Typography variant="h6">Rooms Remaining</Typography>
+    <Grid style={{ paddingTop: 40, paddingBottom: 20 }}>
+      <Typography variant="h6">Rooms Left</Typography>
 
-      {props.roomCard &&
-      props.roomCard.hitChance &&
-      props.roomCard.damage &&
-      props.players >= 2 ? (
+      {cardCount > 0 ? (
         <>
-          {props.roomCard.target.map((target) => {
-            return (
-              <Typography style={{ fontStyle: "italic" }} key={target}>
-                Player {target + 1}
-              </Typography>
-            );
-          })}
+          <Typography variant="body2">{cardCount}</Typography>
         </>
       ) : (
-        <Typography style={{ fontStyle: "italic" }}>
-          Single Player Game
-        </Typography>
+        <Typography>No cards Left!.</Typography>
       )}
     </Grid>
   );
 };
-export default CardTargetTracker;
+export default RoomsLeftTracker;

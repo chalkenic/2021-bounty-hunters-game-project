@@ -1,8 +1,5 @@
 import {
-  Container,
   Paper,
-  Typography,
-  List,
   makeStyles,
   TableContainer,
   Table,
@@ -10,11 +7,10 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  TablePagination,
   useTheme,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import AppTheme from "../../../styles/AppTheme";
 

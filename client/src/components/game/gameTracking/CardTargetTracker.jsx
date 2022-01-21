@@ -4,9 +4,6 @@ import { useSelector } from "react-redux";
 
 const CardTargetTracker = (props) => {
   const players = useSelector((state) => state.allPlayers.players);
-  console.log("players:", players);
-  console.log("players length:", players.length);
-  console.log(props.roomCard);
   let targets = "";
   try {
     targets = props.roomCard.target;
@@ -14,13 +11,11 @@ const CardTargetTracker = (props) => {
     targets = ["1"];
   }
 
-  console.log(typeof targets);
-
   return (
     <Grid item style={{ paddingTop: 40 }}>
       <Typography variant="h6">Card Target(s)</Typography>
 
-      {props.roomCard && players.length > 1 && !isNaN(targets) ? (
+      {players.length > 1 ? (
         <>
           {targets.map((target) => {
             var playerTarget = parseInt(target);

@@ -42,7 +42,6 @@ const PlayerCard = ({ card }) => {
 
   const cardClickedHandler = () => {
     dispatch(playerDeckActions.cardClicked(card));
-    console.log('card:', card,'selected');
   };
 
   const classes = useStyles();

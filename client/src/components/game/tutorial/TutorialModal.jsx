@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -6,16 +6,16 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/styles";
-import { purple, blue } from "@material-ui/core/colors";
+import { purple, red, green } from "@material-ui/core/colors";
 import { Divider, makeStyles, useTheme } from "@material-ui/core";
 import AppTheme from "../../../styles/AppTheme";
 
 const ColorButton = withStyles((theme) => ({
   root: {
-    color: theme.palette.getContrastText(blue[500]),
-    backgroundColor: blue[600],
+    color: theme.palette.getContrastText(green[700]),
+    backgroundColor: green[900],
     "&:hover": {
-      backgroundColor: blue[900],
+      backgroundColor: purple[900],
     },
   },
 }))(Button);
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme, barColor) => ({
 const TutorialModal = () => {
   const theme = useTheme(AppTheme);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
+  const [open, setOpen] = useState(false);
+  const [scroll, setScroll] = useState("paper");
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -66,8 +66,8 @@ const TutorialModal = () => {
     setOpen(false);
   };
 
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
+  const descriptionElementRef = useRef(null);
+  useEffect(() => {
     if (open) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
@@ -161,8 +161,8 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
                   <DialogContentText className={classes.listText}>
                     All players have an 'energy' bar, showing the strength you
                     have left to continue looting rooms. If your value hits
-                    zero, you lose your will to continue, and leave the game
-                    with all current loot (score) collected.
+                    zero, you'll stumble on your journey, and reset your score
+                    back to
                   </DialogContentText>
                   <Divider className={classes.headerSeparate} />
                   <DialogContentText
@@ -192,12 +192,14 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
                     through the room deck. However only the person who plays the
                     final card to completes the progress bar for each room
                     scores the room's points.
-                    <DialogContentText />
+                  </DialogContentText>
+                  <DialogContentText className={classes.listText}>
                     Think carefully about which card you play. for example, if
                     another player has been targeted for energy loss, you could
                     play a lower value card, forcing them to use their higher
                     value cards to end the round sooner, or else lose energy!
-                    <DialogContentText />
+                  </DialogContentText>
+                  <DialogContentText className={classes.listText}>
                     Likewise, if you're the targeted player, you may choose to
                     speed up the round's progress by playing high value cards,
                     rather than aiming to win that room's points and risk losing

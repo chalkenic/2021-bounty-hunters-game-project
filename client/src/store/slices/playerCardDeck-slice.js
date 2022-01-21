@@ -21,7 +21,6 @@ const playerDeckSlice = createSlice({
       state.initialized = true;
     },
     setUpHands(state) {
-      console.log(state.playerCards);
       for (let i = 0; i < 7; i++) {
         state.playerHand[i] = state.playerCards[state.playerCards.length - 1];
         state.playerCards.pop();
@@ -55,8 +54,6 @@ const playerDeckSlice = createSlice({
       // Append played card into discard deck.
       state.discardedCards.push(action.payload);
 
-      console.log("unused cards:", state.playerCards.length);
-      console.log("discarded cards:", state.discardedCards.length);
     },
   },
 });

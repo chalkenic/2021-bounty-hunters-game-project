@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Card, CardContent, Typography, useTheme } from "@material-ui/core";
-import useStylesBase from "../../styles/StylesBase";
-import AppTheme from "../../styles/AppTheme";
+import useStylesBase from "../../../styles/StylesBase";
+import AppTheme from "../../../styles/AppTheme";
 
 const WelcomeSummary = () => {
   const theme = useTheme(AppTheme);

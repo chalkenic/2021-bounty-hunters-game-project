@@ -29,6 +29,6 @@ module.exports = {
 
   // Single player has higher chance to dodge hit.
   rollLoneDamageChance: function rollLoneHitChance(hitChance) {
-    return this.randomNumber(1, 150) < hitChance ? true : false;
+    return this.randomNumber(1, 110) < hitChance ? true : false;
   },
 };
