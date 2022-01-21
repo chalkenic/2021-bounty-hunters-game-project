@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
   headerText: {
     backgroundColor: "#4169E1",
-    position: "fixed",
+    position: "sticky",
     display: "block",
     width: "100%",
     alignItems: "center",
@@ -24,8 +24,9 @@ const useStyles = makeStyles({
     transform: "rotateZ(-1deg) ",
   },
   quote: {
+    color: "#000080",
     width: "100%",
-    display: "block",
+    display: "relative",
     fontStyle: "italic",
     position: "relative",
     alignItems: "center",
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
     overflow: "hidden",
   },
   imageData: {
+    display: "relative",
     width: "100%",
     height: "300px",
     objectFit: "cover",
@@ -53,7 +55,7 @@ const Header = () => {
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
   return (
-    <Fragment>
+    <Fragment className={classes.headerContainer}>
       {/* <CardContent> */}
       <ThemeProvider theme={theme}>
         <Typography variant="h1" className={classes.headerText}>
@@ -63,24 +65,12 @@ const Header = () => {
           "Explore together, win as one"
         </Typography>
       </ThemeProvider>
-
-      {/* <CardMedia
-        className={classes.headerMedia}
-        // image={`${process.env.PUBLIC_URL}/static/frontPage_banner.png`}
-        // alt="frontPage banner"
-      > */}
       <div className={[[classes.imgContainer]]}>
         <img
           className={[classes.imageData]}
           src={`${process.env.PUBLIC_URL}/static/frontPage_banner.png`}
         />
       </div>
-      {/* </CardMedia> */}
-      {/* </CardContent> */}
-      {/* <header className={classes.header}>
-        <h1>Bounty Hunters</h1>
-        <h3 className={classes.quote}>"Explore together, win as one"</h3>
-      </header> */}
     </Fragment>
   );
 };

@@ -182,6 +182,11 @@ io.on("connection", (socket) => {
               if (playerHit) {
                 players[p].energy -= parseInt(currentRoomCard.damage);
                 players[p].receivedDamage = true;
+
+                if (players[p].energy <= 0) {
+                  players[p].score = 0;
+                  players[p].energy = 100;
+                }
               }
             }
 
@@ -194,6 +199,10 @@ io.on("connection", (socket) => {
             if (playerHit) {
               players[p].energy -= parseInt(currentRoomCard.damage);
               players[p].receivedDamage = true;
+              if (players[p].energy <= 0) {
+                players[p].score = 0;
+                players[p].energy = 100;
+              }
             }
           }
         }

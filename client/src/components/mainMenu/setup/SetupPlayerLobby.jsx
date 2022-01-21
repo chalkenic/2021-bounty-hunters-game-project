@@ -9,6 +9,7 @@ import {
   Divider,
   Grid,
   TextField,
+  Container,
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import useStylesBase from "../../../styles/StylesBase";
@@ -21,6 +22,14 @@ const useStyles = makeStyles((theme) =>
     headerSeparate: {
       borderBottom: "2px solid #fff",
       marginBottom: "1%",
+      marginLeft: "12.5%",
+      marginRight: "12.5%",
+    },
+
+    buttonSeparator: {
+      borderTop: "5px solid #fff",
+      marginTop: "3%",
+      marginBottom: "5%",
       marginLeft: "12.5%",
       marginRight: "12.5%",
     },
@@ -45,10 +54,30 @@ const useStyles = makeStyles((theme) =>
       padding: 20,
       display: "inline-block",
     },
+
+    buttonStartGame: {
+      backgroundColor: "green !important",
+      color: "white",
+      fontWeight: "bolder",
+      maxWidth: "200px",
+      "&:hover": {
+        backgroundColor: `${theme.palette.primary.dark} !important`,
+      },
+    },
+
+    buttonResetGame: {
+      backgroundColor: "orange !important",
+      color: "black",
+      fontWeight: "bolder",
+      maxWidth: "200px",
+      "&:hover": {
+        backgroundColor: `${theme.palette.primary.dark} !important`,
+      },
+    },
   })
 );
 
-const SetupLobby = () => {
+const SetupLobby = (props) => {
   const submitNameHandler = (e) => {
     setPlayerName(e);
   };
@@ -59,14 +88,35 @@ const SetupLobby = () => {
   const classes = useStyles();
   const classesBase = useStylesBase();
   return (
-    <Card className={classesBase.homeGrid}>
+    <Container className={classesBase.homeGrid}>
       <CardContent>
+        <Grid container>
+          <Grid xs={6}>
+            <AppPrimaryButton
+              className={classes.buttonResetGame}
+              onClick={props.onClickReset}
+            >
+              reset players
+            </AppPrimaryButton>
+          </Grid>
+          <Grid xs={6}>
+            <AppPrimaryButton
+              className={classes.buttonStartGame}
+              onClick={props.onClickStart}
+              to="/game"
+            >
+              Begin Game
+            </AppPrimaryButton>
+          </Grid>
+        </Grid>
+        <Divider className={classes.buttonSeparator} />
+
         <Typography variant="h5" component="h2">
           Lobby
         </Typography>
         <Divider className={classes.headerSeparate} />
         <Grid container>
-          <Grid item xs={5} sm={5} md={5}>
+          <Grid item xs={4} sm={4} md={4}>
             <Typography variant="h6" component="h4">
               New Player
             </Typography>
@@ -88,9 +138,9 @@ const SetupLobby = () => {
           </Grid>
           <Grid
             item
-            xs={6}
-            sm={6}
-            md={6}
+            xs={8}
+            sm={8}
+            md={8}
             style={{ justifyContent: "flex-end" }}
           >
             <Typography variant="h6" component="h4">
@@ -100,13 +150,8 @@ const SetupLobby = () => {
             <SetupPlayerList />
           </Grid>
         </Grid>
-        <AppPrimaryButton className={classes.blackButton}>
-          {/* <IconButton>
-            <ArrowBackIosIcon />
-          </IconButton> */}
-        </AppPrimaryButton>
       </CardContent>
-    </Card>
+    </Container>
   );
 };
 

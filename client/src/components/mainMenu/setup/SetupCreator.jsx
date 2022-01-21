@@ -53,17 +53,9 @@ const SetupCreator = () => {
         <Divider className={classes.lineSeparate} />
         <Grid container>
           <Grid item xs={12} sm={12} md={6}>
-            <PlayerCount />
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
             <DeckDropdown />
           </Grid>
         </Grid>
-        <AppPrimaryButton className={classes.blackButton}>
-          {/* <IconButton>
-            <ArrowForwardIosIcon />
-          </IconButton> */}
-        </AppPrimaryButton>
       </CardContent>
     </Card>
     // </section>

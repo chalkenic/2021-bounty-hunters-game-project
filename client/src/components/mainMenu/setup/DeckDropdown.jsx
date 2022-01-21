@@ -4,6 +4,7 @@ import {
   MenuItem,
   Select,
   makeStyles,
+  withStyles,
 } from "@material-ui/core";
 import React from "react";
 
@@ -17,7 +18,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DeckDropdown = (props) => {
+const ColoredLabel = withStyles((theme) => ({
+  root: {
+    color: theme.palette.common.white,
+  },
+}))(InputLabel);
+
+const DeckDropdown = () => {
   const classes = useStyles();
   const [deck, setDeck] = React.useState("");
 
@@ -28,16 +35,16 @@ const DeckDropdown = (props) => {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="game-deck-label">Game Deck</InputLabel>
+        <ColoredLabel id="game-deck-label">Game Deck</ColoredLabel>
         <Select
           labelId="game-deck-label"
           id="game-deck-choice"
           value={deck}
           onChange={handleDeckChange}
         >
-          <MenuItem value={"Base"}>Base Dungeon</MenuItem>
-          <MenuItem value={"TEMP1"}>UNDER CONSTRUCTION</MenuItem>
-          <MenuItem value={"TEMP2"}>UNDER CONSTRUCTION</MenuItem>
+          <MenuItem value={"Base"}>Pyramid</MenuItem>
+          <MenuItem value={"TEMP1"}>DLC</MenuItem>
+          <MenuItem value={"TEMP2"}>DLC</MenuItem>
         </Select>
       </FormControl>
     </div>

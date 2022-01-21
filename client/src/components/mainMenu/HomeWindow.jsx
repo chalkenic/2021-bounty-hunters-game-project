@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import SetupCreator from "../mainMenu/setup/SetupCreator";
 import WelcomeSummary from "../../components/mainMenu/setup/WelcomeSummary";
-import Header from "../layout/Header";
+import HomeHeader from "../layout/HomeHeader";
 import { Container, Divider, Grid } from "@material-ui/core";
 import useStylesBase from "../../styles/StylesBase";
 import { makeStyles, createStyles, Paper } from "@material-ui/core";
@@ -13,6 +13,7 @@ import { resetGame, submitPlayer } from "../../store/actions/playerActions";
 import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
 import { allPlayerActions } from "../../store/slices/allPlayers-slice";
 import { resetPlayer } from "../../store/slices/currentPlayer-slice";
+import { useNavigate } from "react-router-dom";
 
 import { submitRoomCards } from "../../store/actions/roomDeckActions";
 
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 const HomeWindow = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const classes = useStyles();
   const classesBase = useStylesBase();
@@ -67,18 +69,24 @@ const HomeWindow = () => {
   }, [player]);
 
   const onGameStart = () => {
-    dispatch(roomDeckPyramidActions.startGame());
+    if (allPlayers.length > 0) {
+      navigate("/");
+      dispatch(roomDeckPyramidActions.startGame());
 
-    if (player.master) {
-      dispatch(submitRoomCards(roomCards));
+      if (player.master) {
+        dispatch(submitRoomCards(roomCards));
+      }
     }
   };
 
+  const resetOnclick = () => {
+    dispatch(resetGame("button"));
+  };
   return (
     <Container className={classesBase.homeOverride}>
       <Grid container>
         <Grid item xs={12}>
-          <Header />
+          <HomeHeader />
         </Grid>
       </Grid>
       <Grid container>
@@ -88,26 +96,15 @@ const HomeWindow = () => {
       </Grid>
 
       <Grid container>
+        <Grid item xs={2}>
+        </Grid>
+        <Grid item xs={1}></Grid>
         <Grid item xs={5}>
           <Paper className={classes.paper}>
-            <SetupCreator />
-          </Paper>
-        </Grid>
-        <Grid item xs={1}>
-          <AppPrimaryButton
-            className={classes.buttonStartGame}
-            onClick={onGameStart}
-            to="/game/game1"
-          >
-            Start Game
-          </AppPrimaryButton>
-          <AppPrimaryButton onClick={() => dispatch(resetGame("button"))}>
-            reset players
-          </AppPrimaryButton>
-        </Grid>
-        <Grid item xs={5}>
-          <Paper className={classes.paper}>
-            <SetupPlayerLobby />
+            <SetupPlayerLobby
+              onClickReset={resetOnclick}
+              onClickStart={onGameStart}
+            />
           </Paper>
         </Grid>
       </Grid>

@@ -84,10 +84,8 @@ const useStylesBase = makeStyles((theme) =>
     },
 
     homeGrid: {
-      marginLeft: 10,
-      marginRight: 10,
       position: "relative",
-      marginTop: 30,
+
     },
     fullWidthHeight: {
       height: "100%",

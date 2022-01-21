@@ -16,7 +16,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<HomeWindow />} />
 
-          <Route path="/game/:gameId" element={<GameWindow />} />
+          <Route path="/game" element={<GameWindow />} />
         </Routes>
       </Provider>
     </BrowserRouter>
