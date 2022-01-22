@@ -92,52 +92,49 @@ const TutorialModal = () => {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Game Rules</DialogTitle>
-        <DialogContent dividers={scroll === "paper"}>
-          <DialogContentText
+        <DialogTitle id="scroll-dialog-title" component="div">
+          Game Rules
+        </DialogTitle>
+        <DialogContent dividers={scroll === "paper"} component="div">
+          <DialogContent
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
+            component="div"
           >
-            {/* {[...new Array(50)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-              )
-              .join("\n")} */}
-            <DialogContentText>
+            <DialogContent>
               <DialogContent
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
+                component="div"
               >
                 How to win?
               </DialogContent>
-              {/* <hr /> */}
-              <DialogContentText className={classes.answerText}>
+              <DialogContentText className={classes.answerText} component="div">
                 Complete the progress bar to score points in each room round.
                 The player with the most points at the end of the game wins!
               </DialogContentText>
               <DialogContentText
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
+                component="div"
               >
                 How do I make floor progress?
               </DialogContentText>
 
-              <DialogContentText className={classes.answerText}>
+              <DialogContentText className={classes.answerText} component="div">
                 Choosing cards in your hand will increase the round's progress
                 by the value on the card!
               </DialogContentText>
               <DialogContentText
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
+                component="div"
               >
                 That's great! So what's the catch?
               </DialogContentText>
 
-              <DialogContentText className={classes.answerText}>
+              <DialogContentText className={classes.answerText} component="div">
                 Only one player can reach the end first, and the order of
                 players adding their cards to the progress bar is randomised
                 every turn.
@@ -145,72 +142,90 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
               <DialogContentText
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
+                component="div"
               >
                 And...what's to stop me from just rushing through the progress
                 bar as fast as I can?
               </DialogContentText>
-
-              <DialogContentText className={classes.listText}>
-                <DialogContentText className={classes.listBox}>
+              {/* <DialogContent component="div"> */}
+              <DialogContent className={classes.listText} component="div">
+                <DialogContent className={classes.listBox} component="div">
                   <DialogContentText
                     className={classes.listText}
                     style={{ fontWeight: 200, fontSize: "20px" }}
+                    component="div"
                   >
                     Energy
                   </DialogContentText>
-                  <DialogContentText className={classes.listText}>
+                  <DialogContentText
+                    className={classes.listText}
+                    component="div"
+                  >
                     All players have an 'energy' bar, showing the strength you
                     have left to continue looting rooms. If your value hits
                     zero, you'll stumble on your journey, and reset your score
                     back to
                   </DialogContentText>
-                  <Divider className={classes.headerSeparate} />
+                  <Divider className={classes.headerSeparate} component="div" />
                   <DialogContentText
                     className={classes.listText}
                     style={{ fontWeight: 400, fontSize: "20px" }}
+                    component="div"
                   >
-                    {" "}
                     Room Card damage
                   </DialogContentText>
-                  <DialogContentText className={classes.listText}>
+                  <DialogContentText
+                    className={classes.listText}
+                    component="div"
+                  >
                     At the beginning of each turn (before players have selected
                     a card) the room card will target player(s) to lose energy.
                     If the round is not completed (progress bar not filled)
                     during the turn, player(s) will lose energy as the room card
                     specifies.
                   </DialogContentText>
-                  <Divider className={classes.headerSeparate} />
+                  <Divider className={classes.headerSeparate} component="div" />
                   <DialogContentText
                     className={classes.listText}
                     style={{ fontWeight: 400, fontSize: "20px" }}
+                    component="div"
                   >
-                    {" "}
                     Strategy
                   </DialogContentText>
-                  <DialogContentText className={classes.listText}>
+                  <DialogContentText
+                    className={classes.listText}
+                    component="div"
+                  >
                     You'll want to work together as a team in order to progress
                     through the room deck. However only the person who plays the
                     final card to completes the progress bar for each room
                     scores the room's points.
                   </DialogContentText>
-                  <DialogContentText className={classes.listText}>
+                  <DialogContentText
+                    className={classes.listText}
+                    component="div"
+                  >
                     Think carefully about which card you play. for example, if
                     another player has been targeted for energy loss, you could
                     play a lower value card, forcing them to use their higher
                     value cards to end the round sooner, or else lose energy!
                   </DialogContentText>
-                  <DialogContentText className={classes.listText}>
+                  <DialogContentText
+                    className={classes.listText}
+                    component="div"
+                  >
                     Likewise, if you're the targeted player, you may choose to
                     speed up the round's progress by playing high value cards,
                     rather than aiming to win that room's points and risk losing
                     energy.
                   </DialogContentText>
-                </DialogContentText>
-              </DialogContentText>
-            </DialogContentText>
-          </DialogContentText>
+                </DialogContent>
+              </DialogContent>
+              {/* </DialogContent> */}
+            </DialogContent>
+          </DialogContent>
         </DialogContent>
-        <DialogActions>
+        <DialogActions component="div">
           <Button onClick={handleClose} color="primary">
             Close
           </Button>

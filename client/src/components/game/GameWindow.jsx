@@ -15,7 +15,7 @@ import { playerDeckActions } from "../../store/slices/playerCardDeck-slice";
 import { addValueToPlayer, resetGame } from "../../store/actions/playerActions";
 import GameHeader from "../layout/GameHeader";
 import { useNavigate } from "react-router-dom";
-import CardErrorModal from "./tutorial/CardErrorModal";
+import ErrorModal from "./tutorial/ErrorModal";
 import GameCompletedModal from "./tutorial/GameCompletedModal";
 import { roomDeckPyramidActions } from "../../store/slices/roomDeck_Pyramid-slice";
 
@@ -118,12 +118,8 @@ const GameWindow = () => {
       dispatch(addValueToPlayer(cardClicked.value));
     } catch (error) {
       console.log("No card selected!");
-
-      // const handleValueOpen = () => {
       handleValueError();
-      // };
     }
-    // dispatch(playerDeckActions.dealNewCard(cardClicked));
   };
 
   return (
@@ -131,7 +127,9 @@ const GameWindow = () => {
       style={{ padding: "5px", maxHeight: window.innerHeight }}
       className={classes.root}
     >
-      <CardErrorModal open={valueError} handleClose={handleValueErrorClose} />
+      <ErrorModal open={valueError} handleClose={handleValueErrorClose}>
+        A card must be clicked before ending your turn. Please try again.
+      </ErrorModal>
       <GameCompletedModal open={gameOver} handleClose={handleGameOverClose} />
       <Grid container className={classes.gameBoard}>
         <GameHeader player={currentPlayer} />

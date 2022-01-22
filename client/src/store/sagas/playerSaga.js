@@ -20,12 +20,7 @@ export function* handlePlayerCommands(appSocket) {
     socket.emit("ADDING_PLAYER", player.payload);
   });
 
-  // yield takeEvery(requestId, () => {
-  //   socket.emit("REQUEST_ID");
-  // });
-
   yield takeEvery(resetGame, (msg) => {
-    console.log("message:", msg);
     socket.emit("RESET_GAME");
   });
 
@@ -35,10 +30,6 @@ export function* handlePlayerCommands(appSocket) {
 
   yield takeEvery(playerEndTurn, (player) => {
     socket.emit("PLAYER_END_TURN", player.payload);
-  });
-
-  yield takeEvery(saveLocalPlayer, (player) => {
-    socket.emit("ADDING_LOCAL_PLAYER", player.payload);
   });
 
   //Append value of card to player in server.

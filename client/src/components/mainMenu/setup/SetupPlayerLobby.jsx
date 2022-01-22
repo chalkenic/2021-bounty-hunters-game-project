@@ -15,7 +15,8 @@ import { red } from "@material-ui/core/colors";
 import useStylesBase from "../../../styles/StylesBase";
 import SetupPlayerList from "./SetupPlayerList";
 import { setCurrentPlayerName } from "../../../store/slices/currentPlayer-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -81,12 +82,24 @@ const SetupLobby = (props) => {
   const submitNameHandler = (e) => {
     setPlayerName(e);
   };
-
-  const [playerName, setPlayerName] = useState("");
-
   const dispatch = useDispatch();
   const classes = useStyles();
   const classesBase = useStylesBase();
+  const [playerName, setPlayerName] = useState("");
+  let [buttonDisabled, setButtonDisabled] = useState(false);
+
+  function onClickReset() {
+    props.onClickReset();
+    setButtonDisabled = true;
+  }
+
+  function onClickSubmit() {
+    setButtonDisabled = false;
+    dispatch(setCurrentPlayerName(playerName));
+  }
+
+  const players = useSelector((state) => state.allPlayers.players);
+
   return (
     <Container className={classesBase.homeGrid}>
       <CardContent>
@@ -94,16 +107,17 @@ const SetupLobby = (props) => {
           <Grid xs={6}>
             <AppPrimaryButton
               className={classes.buttonResetGame}
-              onClick={props.onClickReset}
+              onClick={onClickReset}
             >
               reset players
             </AppPrimaryButton>
           </Grid>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <AppPrimaryButton
               className={classes.buttonStartGame}
               onClick={props.onClickStart}
               to="/game"
+              buttonDisabled={buttonDisabled}
             >
               Begin Game
             </AppPrimaryButton>
@@ -127,11 +141,7 @@ const SetupLobby = (props) => {
             />
 
             <div className={classes.codeCard}>
-              <AppPrimaryButton
-                onClick={() => {
-                  dispatch(setCurrentPlayerName(playerName));
-                }}
-              >
+              <AppPrimaryButton onClick={onClickSubmit}>
                 Submit Name
               </AppPrimaryButton>
             </div>

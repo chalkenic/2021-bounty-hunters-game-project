@@ -9,9 +9,6 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import { dynamicSort } from "../../helpers/gameHelpers";
 import AppPrimaryButton from "../../../appComponents/AppPrimaryButton";
 
 const ColoredDialogContentText = withStyles((theme) => ({
@@ -27,10 +24,8 @@ const StyledDialogTitle = withStyles((theme) => ({
 }))(DialogTitle);
 
 const GameCompletedModal = (props) => {
-  const navigate = useNavigate();
   const players = useSelector((state) => state.allPlayers.players);
   const [open, setOpen] = useState(false);
-  console.log(players);
 
   var finalPlayers = [];
 

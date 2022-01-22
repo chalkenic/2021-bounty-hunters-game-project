@@ -23,7 +23,7 @@ const StyledDialogTitle = withStyles((theme) => ({
   },
 }))(DialogTitle);
 
-const CardErrorModal = (props) => {
+const ErrorModal = (props) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -49,8 +49,9 @@ const CardErrorModal = (props) => {
     >
       <StyledDialogTitle id="alert-dialog-title">{"ERROR"}</StyledDialogTitle>
       <DialogContent>
+          
         <ColoredDialogContentText id="alert-dialog-description">
-          A card must be clicked before ending your turn. Please try again
+          {props.children}
         </ColoredDialogContentText>
       </DialogContent>
       <DialogActions>
@@ -62,4 +63,4 @@ const CardErrorModal = (props) => {
   );
 };
 
-export default CardErrorModal;
+export default ErrorModal;

@@ -16,6 +16,8 @@ import { resetPlayer } from "../../store/slices/currentPlayer-slice";
 import { useNavigate } from "react-router-dom";
 
 import { submitRoomCards } from "../../store/actions/roomDeckActions";
+import { useState } from "react";
+import ErrorModal from "../game/tutorial/ErrorModal";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -48,12 +50,15 @@ const HomeWindow = () => {
   );
 
   const { player } = useSelector((state) => state.currentPlayer);
+  const [valueError, setValueError] = useState(false);
 
-  // Checks if game over.
-  if (roomCards.length === 0) {
-    dispatch(resetPlayer());
-    dispatch(resetGame("homewindow"));
-  }
+  const handleValueErrorClose = () => {
+    setValueError(false);
+  };
+
+  const handleValueError = () => {
+    setValueError(true);
+  };
 
   useEffect(() => {
     if (player.name !== undefined && !playerSubmitted) {
@@ -69,47 +74,53 @@ const HomeWindow = () => {
   }, [player]);
 
   const onGameStart = () => {
-    if (allPlayers.length > 0) {
-      navigate("/");
-      dispatch(roomDeckPyramidActions.startGame());
+    navigate("/");
+    dispatch(roomDeckPyramidActions.startGame());
 
-      if (player.master) {
-        dispatch(submitRoomCards(roomCards));
-      }
+    if (player.master) {
+      dispatch(submitRoomCards(roomCards));
     }
   };
 
   const resetOnclick = () => {
     dispatch(resetGame("button"));
   };
-  return (
-    <Container className={classesBase.homeOverride}>
-      <Grid container>
-        <Grid item xs={12}>
-          <HomeHeader />
+  try {
+    return (
+      <Container className={classesBase.homeOverride}>
+        <Grid container>
+          <Grid item xs={12}>
+            <HomeHeader />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={12}>
-          <WelcomeSummary />
+        <Grid container>
+          <Grid item xs={12}>
+            <WelcomeSummary />
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid container>
-        <Grid item xs={2}>
+        <Grid container>
+          <Grid item xs={2}></Grid>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={5}>
+            <Paper className={classes.paper}>
+              <SetupPlayerLobby
+                onClickReset={resetOnclick}
+                onClickStart={onGameStart}
+              />
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={5}>
-          <Paper className={classes.paper}>
-            <SetupPlayerLobby
-              onClickReset={resetOnclick}
-              onClickStart={onGameStart}
-            />
-          </Paper>
-        </Grid>
-      </Grid>
-      <Grid container></Grid>
-    </Container>
-  );
+        <Grid container></Grid>
+      </Container>
+    );
+  } catch {
+    handleValueError = true;
+    return (
+      <ErrorModal open={valueError} handleClose={handleValueErrorClose}>
+        An error occurred on attempting to launch the game. Please try again.
+      </ErrorModal>
+    );
+  }
 };
 export default HomeWindow;

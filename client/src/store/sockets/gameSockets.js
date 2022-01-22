@@ -39,8 +39,6 @@ const gameSockets = (dispatch) => {
   socket.on("PROGRESS_ADDED", (data) => {
     let gameState = JSON.parse(data);
 
-    console.log(gameState);
-
     dispatch(historyActions.addTurnDetailsRecord(gameState));
 
     dispatch(progressBarActions.setProgress(gameState.progress));

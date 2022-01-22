@@ -23,8 +23,15 @@ const useStyles = makeStyles((theme) =>
 );
 
 // Pass Button component with optional parameters. Button can convert to link if designated.
-const AppPrimaryButton = ({ className, to, onClick, children }) => {
+const AppPrimaryButton = ({
+  className,
+  to,
+  onClick,
+  children,
+  buttonDisabled,
+}) => {
   const classes = useStyles();
+
   return (
     <Button
       component={to ? Link : Button}
@@ -32,8 +39,9 @@ const AppPrimaryButton = ({ className, to, onClick, children }) => {
       variant="contained"
       className={clsx(classes.button, className)}
       onClick={onClick}
+      disabled={buttonDisabled}
     >
-       {children}
+      {children}
     </Button>
   );
 };

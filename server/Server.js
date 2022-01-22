@@ -1,5 +1,3 @@
-// import {  rollHitChance } from "./helpers/LogicHelpers.js";
-
 var helperFunctions = require("./helpers/LogicHelpers.js");
 
 // Basic MongoDb server created in order to implement decks into game.
@@ -46,10 +44,7 @@ let roundCardValues = [];
 io.on("connection", (socket) => {
   console.log("a user connected: ", socket.id);
 
-  // socket.on("REQUEST_ID", () => {
-  //   socket.emit("SENDING_ID", socket.id);
-  // });
-
+  // API call parses new player data into server for state access.
   socket.on("ADDING_PLAYER", (data) => {
     if (players.length === 0) {
       players.push({
@@ -61,6 +56,8 @@ io.on("connection", (socket) => {
         receivedDamage: false,
       });
 
+      // First player created marked as master. Game updates go by their data to largely
+      // avoid de-sync.
       io.emit("ADDING_COMPLETED_MASTER", JSON.stringify(players));
     } else {
       players.push({

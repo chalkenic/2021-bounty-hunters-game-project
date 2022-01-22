@@ -55,7 +55,7 @@ const Header = () => {
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
   return (
-    <Fragment className={classes.headerContainer}>
+    <Fragment>
       {/* <CardContent> */}
       <ThemeProvider theme={theme}>
         <Typography variant="h1" className={classes.headerText}>

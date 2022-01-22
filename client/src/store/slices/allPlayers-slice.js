@@ -11,7 +11,6 @@ const allPlayersSlice = createSlice({
   reducers: {
     // add one or more players to the state.
     addPlayersToGame(state, action) {
-      console.log("am i adding a player?");
       state.players = action.payload;
     },
 
@@ -19,7 +18,6 @@ const allPlayersSlice = createSlice({
     resetPlayers(state) {
       state.players.length = 0;
       state.turnEnded = false;
-      console.log("reset players to ", state.players);
     },
 
     // Reset all players images on game to original card image.
