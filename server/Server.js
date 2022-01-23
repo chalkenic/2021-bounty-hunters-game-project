@@ -15,29 +15,23 @@ const io = new Server(server, {
   },
 });
 
-const dungeonCards = require("./routes/api/DungeonCards");
-
 //Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const database = require("./config/Keys").mongoURI;
-const { syncIndexes } = require("./models/DungeonDeck");
 
-// Access MongoDB
+// Access MongoDB (BEYOND MVP)
 mongoose
   .connect(database)
   .then(() => console.log("MongoDB connection established."))
   .catch((err) => console.log(err));
 
-// Route usage
-app.use("/api/DungeonCards", dungeonCards);
-
 // Server port
 const port = process.env.port || 5000;
+
 let players = [];
 let roomCards = {};
-let playerCards = {};
 let progress = { value: 0, max: 200 };
 let roundCardValues = [];
 

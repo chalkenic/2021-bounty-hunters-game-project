@@ -59,7 +59,6 @@ const GameWindow = () => {
   const [valueError, setValueError] = useState(false);
   const playerHand = useSelector((state) => state.playerDeck.playerHand);
 
-  // const [players, setPlayers] = useState({});
   let players = useRef(useSelector((state) => state.allPlayers.players));
 
   if (playerHand === undefined) {
@@ -67,9 +66,6 @@ const GameWindow = () => {
     dispatch(playerDeckActions.setUpHands());
   }
 
-  // useEffect(() => {
-
-  // })
 
   useEffect(() => {}, [playerHand]);
 
@@ -82,7 +78,6 @@ const GameWindow = () => {
 
   useEffect(() => {
     if (isGameOver) {
-      // dispatch(resetGame());
       handleGameOverOpen();
     }
   }, [isGameOver]);
@@ -106,11 +101,6 @@ const GameWindow = () => {
   const handleValueError = () => {
     setValueError(true);
   };
-
-  // useEffect(() => {
-  //   const cardClicked = playerHand.find((card) => card.clicked);
-  //   dispatch(playerDeckActions.dealNewCard(cardClicked));
-  // }, [progress]);
 
   const playerTurnEnded = () => {
     try {
