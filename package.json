@@ -11,15 +11,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chalkenic/bounty-hunters.git"
+    "url": "git+https://git.cardiff.ac.uk/c1936922/bounty-hunters.git"
   },
   "author": "Nick White",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/chalkenic/bounty-hunters/issues"
+    "url": "https://git.cardiff.ac.uk/c1936922/bounty-hunters/-/issues"
   },
-  "homepage": "https://github.com/chalkenic/bounty-hunters#readme",
+  "homepage": "https://git.cardiff.ac.uk/c1936922/bounty-hunters",
   "devDependencies": {
-    "concurrently": "^6.3.0"
+    "concurrently": "^6.4.0"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.15",
+    "react-scripts": "^4.0.3",
+    "redux-persist": "^6.0.0",
+    "web-vitals": "^2.1.2"
   }
 }

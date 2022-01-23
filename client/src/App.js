@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import "./App.css";
+import AppTheme from "./styles/AppTheme";
+import useStylesBase from "./styles/StylesBase";
+import clsx from "clsx";
+import AppRouter from "./pages/AppRouter";
 
 function App() {
+  const classesBase = useStylesBase();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={AppTheme}>
+        <CssBaseline />
+        <div className={clsx(classesBase.root, classesBase.overrides)}>
+          <main>
+            <AppRouter />
+          </main>
+        </div>
+      </ThemeProvider>
     </div>
   );
 }
