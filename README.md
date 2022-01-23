@@ -2,13 +2,13 @@
 
 <div class="boxBorder">
 
-### Bounty Hunters is a web application written primarily using React and Nodejs, allowing multiple users to play a card game together within the same shared window/
+### Bounty Hunters is a web application written primarily using React and Nodejs, allowing multiple users to play a card game together within the same shared window.
 
 ## Usability Assumptions
 
-This application was created with the assumption of users accessing the game using a web application. Additionally, the application has been programmed against currently the most popular web browser foundation, Chromium (Google Chrome & Microsoft Edge). Incompatibility issues may occur when testing against Safari and Mozilla fixes, which may require further development in order to run correctly.
+This application was created with the assumption of users accessing the game using a web application. Additionally, the application has been programmed against currently the most popular web browser foundation, Chromium (Google Chrome & Microsoft Edge). (https://www.zdnet.com/article/most-popular-web-browser-in-2021/)
 
-Progam tests occurred within the Google Chrome browser (Chromium).
+Incompatibility issues may occur when playing game using Safari and Mozilla browsers, which require further development in order for MVP to run correctly.Progam tests occurred within the Google Chrome browser (Chromium).
 
 
 ## Code Setup - complete via Command Prompt/Git Bash
