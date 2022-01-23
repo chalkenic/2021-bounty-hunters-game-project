@@ -10,7 +10,7 @@ This application was created with the assumption of users accessing the game usi
 
 Incompatibility issues may occur when playing game using Safari and Mozilla browsers, which require further development in order for MVP to run correctly. Progam tests occurred within the Google Chrome browser (Chromium).
 
-### Installation assumptions:
+## Installation assumptions:
 
 - Git installed - [Windows Link](https://gitforwindows.org/)
 - Node.js installed - [Link](https://nodejs.org/en/download/)
