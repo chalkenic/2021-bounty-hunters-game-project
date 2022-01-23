@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"cd client && npm start\" \"cd server && npm run server\" ",
-    "prod": "concurrently \"cd client && npm run-script build\" \"cd server && npm run server\" ",
+    "start": "concurrently \"cd client && npm start\" \"cd server && npm run server\" ",
+    "build": "concurrently \"cd client && npm run-script build\" \"cd server && npm run server\" ",
     "packageInstall": "concurrently  \"cd client && npm install\" \"cd server && npm install\""
   },
   "repository": {
@@ -19,9 +19,7 @@
     "url": "https://git.cardiff.ac.uk/c1936922/bounty-hunters/-/issues"
   },
   "homepage": "https://git.cardiff.ac.uk/c1936922/bounty-hunters",
-  "devDependencies": {
-    
-  },
+  "devDependencies": {},
   "dependencies": {
     "concurrently": "^6.4.0",
     "nodemon": "^2.0.15",
