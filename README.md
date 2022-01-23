@@ -64,6 +64,19 @@ npm run start
 |  |  | Player receives points if card chosen reaches progress bar end first |
 |  |  | Player resets points if energy brought to zero |
 
+## Architecture Diagrams (C4)
+
+
+- ### [System Context](https://git.cardiff.ac.uk/c1936922/bounty-hunters/-/blob/main/Diagrams/Bounty-Hunters-Diagram-SystemContext.png)
+- ### [Containers](https://git.cardiff.ac.uk/c1936922/bounty-hunters/-/blob/main/Diagrams/Bounty-Hunters-Diagram-Containers.png)
+- ### [Components](https://git.cardiff.ac.uk/c1936922/bounty-hunters/-/blob/main/Diagrams/Bounty-Hunters-Diagram-Components.png)
+
+UML Code Diagram has not been implemented due to unnecessarily degree of complexity where current diagrams can already explain architecture without. George Fairbanks mentions in his book 'Just Enough Software Architecture: A Risk-Driven Approach' that software architecture that is "simple" does not need to be provided complex diagrams to explain the system.
+
+Additionally, with this being a solo project, no other developer will be joining the experience and as such does not require deep knowledge regarding the code structure and how each component communicates internally.
+
+
+
 ## Programming tools used
 
 
