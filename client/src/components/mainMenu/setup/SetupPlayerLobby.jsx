@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) =>
       maxWidth: "200px",
       "&:hover": {
         backgroundColor: `${theme.palette.primary.dark} !important`,
+        color: "white",
       },
     },
   })
