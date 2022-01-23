@@ -8,7 +8,7 @@
 
 This application was created with the assumption of users accessing the game using a web application. Additionally, the application has been programmed against currently the most popular web browser foundation, Chromium (Google Chrome & Microsoft Edge). (https://www.zdnet.com/article/most-popular-web-browser-in-2021/)
 
-Incompatibility issues may occur when playing game using Safari and Mozilla browsers, which require further development in order for MVP to run correctly.Progam tests occurred within the Google Chrome browser (Chromium).
+Incompatibility issues may occur when playing game using Safari and Mozilla browsers, which require further development in order for MVP to run correctly. Progam tests occurred within the Google Chrome browser (Chromium).
 
 
 ## Code Setup - complete via Command Prompt/Git Bash
