@@ -20,9 +20,10 @@
   },
   "homepage": "https://git.cardiff.ac.uk/c1936922/bounty-hunters",
   "devDependencies": {
-    "concurrently": "^6.4.0"
+    
   },
   "dependencies": {
+    "concurrently": "^6.4.0",
     "nodemon": "^2.0.15",
     "react-scripts": "^4.0.3",
     "redux-persist": "^6.0.0",
