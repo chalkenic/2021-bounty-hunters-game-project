@@ -166,10 +166,6 @@ io.on("connection", (socket) => {
                 currentRoomCard.hitChance
               );
 
-              console.log(players[p].name, playerHit);
-              console.log(currentRoomCard.target);
-              console.log(String(p));
-
               if (playerHit) {
                 players[p].energy -= parseInt(currentRoomCard.damage);
                 players[p].receivedDamage = true;
