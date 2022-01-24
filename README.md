@@ -18,7 +18,7 @@ Incompatibility issues may occur when playing game using Safari and Mozilla brow
 
 ## Code Setup - complete via Command Prompt/Git Bash
 
-### 1. Initial clone from Main (Production)
+### 1. Initial clone from Main branch (Production)
 ```bash
 # Clone repository
 git clone https://git.cardiff.ac.uk/c1936922/bounty-hunters.git
@@ -49,25 +49,42 @@ npm run start
 
 ## MVP Requirements 
 
-| Requirement |  Location | Details |
-| ---------| -------- | -------- |
-| Lobby | CLIENT  |   Lobby player creation |
-|  |  | Multiple players allowed |
-|  |  | Game can be launched with 1 or more players |
-| Game Interaction| CLIENT | Interactions available |
-|  |  | Players can choose a card to play |
-|  |  | Players can view other player submissions |
-|  |  | Room details presented |
-|  |  | Game progress bar presented |
-|  |  | Player actions log presented |
-|  |  | Game progresses when all players choose a card to play |
-|  |  | New room card chosen when progress bar full  |
-| |  | Game ends when no room cards left in deck  |
-| Game logic | SERVER | Official activity creation |
-|  |  | Room card holds details on player targets when player turns end |
-|  |  | player loses energy values if hit by room card |
-|  |  | Player receives points if card chosen reaches progress bar end first |
-|  |  | Player resets points if energy brought to zero |
+| Requirement |  Location | Details | Met?
+| ---------| -------- | -------- | ------- |
+| Lobby | CLIENT  |   Lobby player creation | yes |
+|  |  | Player can submit own name | yes |
+|  |  | Game can be launched with 1 player | yes |
+| Game Interaction| CLIENT | Interactions available | yes |
+|  |  | Players can choose a card to play | yes |
+|  |  | Players can view other player submissions | yes |
+|  |  | Room details presented | yes |
+|  |  | Game progress bar presented | yes |
+|  |  | Player actions log presented | yes |
+|  |  | Game progresses when player chooses a card to play | yes |
+|  |  | New room card chosen when progress bar full  | yes |
+| |  | Game ends when no room cards left in deck  | yes |
+| Game logic | SERVER | Official activity creation | yes |
+|  |  | Room card holds details on player targets when player turns end | yes |
+|  |  | player loses energy values if hit by room card | yes |
+|  |  | Player receives points if card chosen reaches progress bar end first | yes |
+|  |  | Player resets points if energy brought to zero | yes |
+|  |  | How to play window implemented with basic instructions | yes |
+
+## Multiplayer (Beyond Scope Requirements)
+
+| Requirement |  Location | Details | Met? |
+| ---------| -------- | -------- | ------- |
+| Multiplayer | CLIENT | Multiple players allowed | yes |
+|  |  | Players all viewable within  lobby | yes |
+|  |  | Players all viewable within game | yes |
+|  |  | PLayers can only end turn when all players have | yes |
+|  |  | Players can visibly see who has ended their turn | yes |
+|  |  | Only one player scores points for completing round | yes |
+|  |  | Players have their own unique card set (randomised) | yes |
+|  |  | Highest scorer wins the game | yes |
+|  |  | View of all game scores at end | yes |
+
+
 
 ## tests
 
