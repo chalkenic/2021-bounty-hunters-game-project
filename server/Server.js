@@ -1,4 +1,4 @@
-var helperFunctions = require("./helpers/LogicHelpers.js");
+var helpers = require("./helpers/LogicHelpers.js");
 
 // Basic MongoDb server created in order to implement decks into game.
 // NOT CURRENTLY MVP
@@ -111,7 +111,11 @@ io.on("connection", (socket) => {
       // Scroll through all players to apply game state updates.
       for (let p = 0; p < players.length; p++) {
         // Apply player's value into server's progress bar
-        progress.value += parseInt(players[p].chosenCardValue);
+        progress.value = helpers.increaseProgress(
+          progress.value,
+          parseInt(players[p].chosenCardValue)
+        );
+
         // Assign value submitted by player into array in order to track on logs.
         roundCardValues.push(players[p].chosenCardValue);
 
@@ -122,17 +126,20 @@ io.on("connection", (socket) => {
         // Check if player's card submission exceeds current card's hp.
         if (progress.value >= progress.max && !scoreCompleted) {
           // Apply room card's score to player.
-          players[p].score += parseInt(currentRoomCard.score);
-          // Confirm score appended.
+          console.log("0.", players[p]);
+          players[p] = helpers.applyScore(players[p], currentRoomCard.score);
+
+          // Confirm score given to player.
           scoreCompleted = true;
+
           // Check if game ends. More than 1 card remaining means another  room
           // can be dealt.
           if (roomCards.length > 1) {
             // Reset current card to last in deck, assign new values to server.
             roomCards.pop();
             currentRoomCard = roomCards[roomCards.length - 1];
-            progress.value = 0;
-            progress.max = currentRoomCard.health;
+
+            progress = helpers.resetProgress(progress, currentRoomCard.health);
 
             // API call to client that provides new game state.
             io.emit(
@@ -154,52 +161,24 @@ io.on("connection", (socket) => {
 
           // If round doesn't end, test for damage.
         } else {
-          let playerHit = false;
-
           // Check if more than 1 player.
           if (players.length >= 2) {
-            // Roll damage of card against 1-100 random return function.
+            players[p] = helpers.rollDamage(players[p], p, currentRoomCard);
 
-            // If current card is targeting player, reduce player energy.
-            if (currentRoomCard.target.includes(String(p))) {
-              playerHit = helperFunctions.rollDamageChance(
-                currentRoomCard.hitChance
-              );
-
-              if (playerHit) {
-                players[p].energy -= parseInt(currentRoomCard.damage);
-                players[p].receivedDamage = true;
-
-                if (players[p].energy <= 0) {
-                  players[p].score = 0;
-                  players[p].energy = 100;
-                }
-              }
-            }
-
-            // If one player, roll against function that offers better odds
-            // for game balance.
+            // Single player target has a higher chance to miss room card hit.
           } else {
-            playerHit = helperFunctions.rollLoneDamageChance(
-              currentRoomCard.hitChance
-            );
-            if (playerHit) {
-              players[p].energy -= parseInt(currentRoomCard.damage);
-              players[p].receivedDamage = true;
-              if (players[p].energy <= 0) {
-                players[p].score = 0;
-                players[p].energy = 100;
-              }
-            }
+            players[p] = helpers.rollLoneDamage(players[p], currentRoomCard);
           }
         }
       }
       //  Shuffle  player array in order to assign turn order.
-      helperFunctions.shuffle(players);
+      helpers.shuffle(players);
 
       // Apply new turn order to players
-      for (let turnOrder = 0; turnOrder < players.length; turnOrder++) {
-        players[turnOrder].turn = turnOrder + 1;
+      if (players.length > 1) {
+        for (let turnOrder = 0; turnOrder < players.length; turnOrder++) {
+          players[turnOrder].turn = turnOrder + 1;
+        }
       }
 
       // Send back updated game state for new round
