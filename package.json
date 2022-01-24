@@ -4,7 +4,7 @@
   "description": "root folder for bounty hunters project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd server && npm run test ",
     "start": "concurrently \"cd client && npm start\" \"cd server && npm run server\" ",
     "build": "concurrently \"cd client && npm run-script build\" \"cd server && npm run server\" ",
     "packageInstall": "concurrently  \"cd client && npm install\" \"cd server && npm install\""

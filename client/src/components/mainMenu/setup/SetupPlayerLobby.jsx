@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const SetupLobby = (props) => {
+const SetupPlayerLobby = (props) => {
   const submitNameHandler = (e) => {
     setPlayerName(e);
   };
@@ -166,4 +166,4 @@ const SetupLobby = (props) => {
   );
 };
 
-export default SetupLobby;
+export default SetupPlayerLobby;

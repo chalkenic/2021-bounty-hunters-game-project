@@ -66,6 +66,13 @@ const GameWindow = () => {
     dispatch(playerDeckActions.setUpHands());
   }
 
+  useEffect(() => {
+    if (players.length > 1) {
+      for (let index = 0; index < players.length; index++) {
+        players[index].turn = index + 1;
+      }
+    }
+  }, []);
 
   useEffect(() => {}, [playerHand]);
 
