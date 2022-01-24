@@ -38,6 +38,8 @@ const ErrorModal = (props) => {
     setOpen(false);
     props.handleClose();
   };
+
+  // Error modal for handling most game errors not covered in bug-testing.
   return (
     <Dialog
       open={open}

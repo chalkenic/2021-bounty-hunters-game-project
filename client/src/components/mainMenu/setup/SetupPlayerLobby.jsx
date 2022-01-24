@@ -94,6 +94,7 @@ const SetupPlayerLobby = (props) => {
     dispatch(setCurrentPlayerName(playerName));
   }
 
+  // Lobby window for handling & presenting new players.
   return (
     <Container className={classesBase.homeGrid}>
       <CardContent>

@@ -23,6 +23,7 @@ const StyledDialogTitle = withStyles((theme) => ({
   },
 }))(DialogTitle);
 
+// Modal for displaying player scores at end of game.
 const GameCompletedModal = (props) => {
   const players = useSelector((state) => state.allPlayers.players);
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ const GameCompletedModal = (props) => {
     finalPlayers.push(player);
   });
 
+  // Sort all players depending on score count and to discern winner easier.
   finalPlayers.sort(({ score: a }, { score: b }) => b - a);
 
   useEffect(() => {
