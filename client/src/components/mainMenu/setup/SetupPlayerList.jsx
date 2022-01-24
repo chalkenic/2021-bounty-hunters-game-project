@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { Grid } from "@material-ui/core";
 const HomePlayerList = () => {
   const players = useSelector((state) => state.allPlayers.players);
 

@@ -1,11 +1,8 @@
 import { makeStyles, withStyles } from "@material-ui/styles";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { LinearProgress, Typography } from "@material-ui/core";
-import { progressBarActions } from "../../../store/slices/progressBar-slice";
-import { resetProgress } from "../../../store/actions/progressActions";
 
-const useStyles = makeStyles((theme, barColor) => ({
+const useStyles = makeStyles(() => ({
   barContainer: {
     height: 20,
     width: "98%",
@@ -24,24 +21,6 @@ const useStyles = makeStyles((theme, barColor) => ({
     height: 20,
     borderRadius: 10,
   },
-
-  // barFill: {
-  //   height: "100%",
-  //   width: (props) => `${props.currentWidth}%`,
-  //   backgroundColor: (props) => props.barBackground,
-  //   borderRadius: "inherit",
-  //   textAlign: "right",
-  //   transition: "width 3s ease-in-out",
-  // },
-  // barLabel: {
-  //   padding: 5,
-  //   color: "white",
-  //   fontWeight: "bold",
-  // },
-
-  // barColor: {
-  //   color: "#b71c1c",
-  // },
 }));
 
 const BorderLinearProgress = withStyles(() => ({
@@ -58,6 +37,7 @@ const BorderLinearProgress = withStyles(() => ({
   },
 }))(LinearProgress);
 
+// Handle progress of room from player card choices.
 const DungeonProgressBar = (props) => {
   const progress = useSelector((state) => state.progressBar.value);
   let currentRoomCard = useSelector(
@@ -65,25 +45,15 @@ const DungeonProgressBar = (props) => {
   );
 
   const classes = useStyles(props);
-  const dispatch = useDispatch();
-  // let normalize = 0;
 
   // variable converts integer inputs from cards into their % variant for inclusion
   // into progress bar.
 
-  // if (currentRoomCard && currentRoomCard.health) {
   const normalize = (value) =>
     ((value - 0) * 100) /
     (currentRoomCard && currentRoomCard.health
       ? currentRoomCard.health
       : 0 - 0);
-  // }
-
-  useEffect(() => {
-    if (progress >= currentRoomCard.health) {
-      dispatch(resetProgress());
-    }
-  }, [progress]);
 
   return (
     <div>

@@ -16,6 +16,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
+// Hosts components containing current card data.
 const GameTrackingWindow = () => {
   const classes = useStyles();
   const currentRoomCard = useSelector(

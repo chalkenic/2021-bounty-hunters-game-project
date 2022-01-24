@@ -1,4 +1,3 @@
-// import Card from "../../UI/Card/Card";
 import React from "react";
 import { green } from "@material-ui/core/colors";
 import {
@@ -10,12 +9,9 @@ import {
   Card,
   Divider,
 } from "@material-ui/core";
-// import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 import DeckDropdown from "./DeckDropdown";
-import PlayerCount from "./PlayerCount";
 import useStylesBase from "../../../styles/StylesBase";
-import AppPrimaryButton from "../../../appComponents/AppPrimaryButton";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -41,6 +37,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+// BEYOND MVP COMPONENT: handles setting player count as well as which card deck to use.
 const SetupCreator = () => {
   const classes = useStyles();
   const classesBase = useStylesBase();
@@ -58,7 +55,6 @@ const SetupCreator = () => {
         </Grid>
       </CardContent>
     </Card>
-    // </section>
   );
 };
 export default SetupCreator;

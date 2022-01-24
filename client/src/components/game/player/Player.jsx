@@ -2,15 +2,12 @@ import React from "react";
 import {
   Card,
   CardContent,
-  Grid,
   Typography,
   withStyles,
 } from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerEnergyBar from "./PlayerEnergyBar";
-
-// const useStyles = makeStyles({});
 
 const PlayerNameTypography = withStyles(() => ({
   root: {
@@ -20,6 +17,7 @@ const PlayerNameTypography = withStyles(() => ({
   },
 }))(Typography);
 
+// Handle player card within team window.
 const Player = (props) => {
   const classesBase = useStylesBase();
 

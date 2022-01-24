@@ -126,7 +126,6 @@ io.on("connection", (socket) => {
         // Check if player's card submission exceeds current card's hp.
         if (progress.value >= progress.max && !scoreCompleted) {
           // Apply room card's score to player.
-          console.log("0.", players[p]);
           players[p] = helpers.applyScore(players[p], currentRoomCard.score);
 
           // Confirm score given to player.

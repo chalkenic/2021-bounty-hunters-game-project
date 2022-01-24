@@ -3,14 +3,8 @@ import {
   Typography,
   Card,
   CardContent,
-  Button,
-  Menu,
-  MenuItem,
-  Divider,
   makeStyles,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import NavMenu from "../../appComponents/NavMenu";
 import TutorialModal from "../game/tutorial/TutorialModal";
 

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
   Button,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Grid,
   withStyles,
 } from "@material-ui/core";
 
@@ -49,7 +47,6 @@ const ErrorModal = (props) => {
     >
       <StyledDialogTitle id="alert-dialog-title">{"ERROR"}</StyledDialogTitle>
       <DialogContent>
-          
         <ColoredDialogContentText id="alert-dialog-description">
           {props.children}
         </ColoredDialogContentText>

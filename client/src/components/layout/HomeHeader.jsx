@@ -69,6 +69,7 @@ const Header = () => {
         <img
           className={[classes.imageData]}
           src={`${process.env.PUBLIC_URL}/static/frontPage_banner.png`}
+          alt="Bounty Hunters Front page Banner"
         />
       </div>
     </Fragment>

@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
+// Track how many room cards left in state.
 const RoomsLeftTracker = () => {
   const cardCount = useSelector((state) => state.pyramidRoomDeck.deckSize);
 
