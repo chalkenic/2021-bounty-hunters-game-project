@@ -47,7 +47,7 @@ npm run start
 ### localhost:3000
 
 
-## Requirements 
+## MVP Requirements 
 
 | Requirement |  Location | Details |
 | ---------| -------- | -------- |
@@ -58,8 +58,8 @@ npm run start
 |  |  | Players can choose a card to play |
 |  |  | Players can view other player submissions |
 |  |  | Room details presented |
-|  |  | Player joinprogress bar presented |
-|  |  | Player choices log presented |
+|  |  | Game progress bar presented |
+|  |  | Player actions log presented |
 |  |  | Game progresses when all players choose a card to play |
 |  |  | New room card chosen when progress bar full  |
 | |  | Game ends when no room cards left in deck  |
