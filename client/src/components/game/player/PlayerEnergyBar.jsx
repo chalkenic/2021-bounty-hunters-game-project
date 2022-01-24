@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Custom MUI component with different color values.
 const BorderLinearProgress = withStyles(() => ({
   root: {
     height: 15,
@@ -42,15 +43,15 @@ const BorderLinearProgress = withStyles(() => ({
   },
 }))(LinearProgress);
 
+// Custom MUI component with different text style at root.
 const WhiteTypography = withStyles(() => ({
   root: {
     color: "white",
   },
 }))(Typography);
 
+// Handle player's personal energy within team window.
 const PlayerEnergyBar = (props) => {
-  //   let internalColor = string;
-
   const classes = useStyles();
 
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
+// Tracks potential energy damage that card can perform on players.
 const CardDamageTracker = (props) => {
   return (
     <Grid style={{ paddingTop: 30 }}>

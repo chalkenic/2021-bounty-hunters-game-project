@@ -1,26 +1,13 @@
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 
-const useStyles = makeStyles((theme) => ({
-  cardSize: {
-    // margin: "0.2rem",
-    // height: "9rem",
-  },
-
+const useStyles = makeStyles(() => ({
   cardImgSize: {
     height: "100%",
     width: "100%",
-    // [theme.breakpoints.down("sm")]: {
-    //   height: "6rem",
-    //   width: "4rem",
-    // },+
-    // [theme.breakpoints.down("xs")]: {
-    //   height: "5.5rem",
-    //   width: "3.7rem",
-    // },
   },
 }));
-
+// Creates dungeon room card component equal to parsed card asset.
 const DungeonCard = ({ card }) => {
   const classes = useStyles();
 

@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Handle player cards within individual player hands. Unique to each connection.
 const PlayerHand = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const playerHand = useSelector((state) => state.playerDeck.playerHand);
-
 
   useEffect(() => {
     if (playerHand.length === 0) {

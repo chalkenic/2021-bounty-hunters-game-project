@@ -4,12 +4,8 @@ import HomeWindow from "../components/mainMenu/HomeWindow";
 import GameWindow from "../components/game/GameWindow";
 import { Provider } from "react-redux";
 import store from "../store/store";
-import { useSelector } from "react-redux";
 
 const AppRouter = () => {
-  const roomCardExists = useSelector(
-    (state) => state.pyramidRoomDeck.currentCard
-  );
   return (
     <BrowserRouter>
       <Provider store={store}>

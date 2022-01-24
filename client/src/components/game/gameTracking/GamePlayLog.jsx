@@ -45,6 +45,8 @@ const logColumns = [
   { id: "Player", label: "Player", minWidth: 20 },
   { id: "Action", label: "Action", minWidth: 160 },
 ];
+
+// Records all player moves and actions made, alongside damage and score values made.
 const GamePlayLog = () => {
   const theme = useTheme(AppTheme);
   const classes = useStyles();

@@ -3,7 +3,6 @@ import AppPrimaryButton from "../../../appComponents/AppPrimaryButton";
 import {
   makeStyles,
   createStyles,
-  Card,
   CardContent,
   Typography,
   Divider,
@@ -15,8 +14,7 @@ import { red } from "@material-ui/core/colors";
 import useStylesBase from "../../../styles/StylesBase";
 import SetupPlayerList from "./SetupPlayerList";
 import { setCurrentPlayerName } from "../../../store/slices/currentPlayer-slice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -87,25 +85,21 @@ const SetupPlayerLobby = (props) => {
   const classes = useStyles();
   const classesBase = useStylesBase();
   const [playerName, setPlayerName] = useState("");
-  let [buttonDisabled, setButtonDisabled] = useState(false);
 
   function onClickReset() {
     props.onClickReset();
-    setButtonDisabled = true;
   }
 
   function onClickSubmit() {
-    setButtonDisabled = false;
     dispatch(setCurrentPlayerName(playerName));
   }
 
-  const players = useSelector((state) => state.allPlayers.players);
-
+  // Lobby window for handling & presenting new players.
   return (
     <Container className={classesBase.homeGrid}>
       <CardContent>
         <Grid container>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <AppPrimaryButton
               className={classes.buttonResetGame}
               onClick={onClickReset}
@@ -118,7 +112,6 @@ const SetupPlayerLobby = (props) => {
               className={classes.buttonStartGame}
               onClick={props.onClickStart}
               to="/game"
-              buttonDisabled={buttonDisabled}
             >
               Begin Game
             </AppPrimaryButton>

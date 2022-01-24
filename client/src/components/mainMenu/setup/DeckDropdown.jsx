@@ -24,6 +24,7 @@ const ColoredLabel = withStyles((theme) => ({
   },
 }))(InputLabel);
 
+// BEYOND MVP - Choose card deck to use.
 const DeckDropdown = () => {
   const classes = useStyles();
   const [deck, setDeck] = React.useState("");

@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Button, Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { red } from "@material-ui/core/colors";
 import PlayerHand from "./player/PlayerHand";
 import DungeonProgressBar from "./gameTracking/DungeonProgressBar";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,28 +25,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     padding: 10,
   },
-
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandgameOver: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-
-  handContainer: {
-    alignItems: "center",
-    display: "flex",
-    justify: "center",
-  },
 }));
 
+// Handles all components within application game window.
 const GameWindow = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -77,7 +57,6 @@ const GameWindow = () => {
   useEffect(() => {}, [playerHand]);
 
   useEffect(() => {
-    const player = players.current;
     if (players.length === undefined || players.length < 2) {
       players = 0;
     }
@@ -172,7 +151,6 @@ const GameWindow = () => {
           </Grid>
         </Grid>
         <Grid item xs={2} style={{ padding: "0 5px" }}>
-          {/* <GamePlayLog /> */}
           <GameTrackingWindow players={players} />
         </Grid>
       </Grid>

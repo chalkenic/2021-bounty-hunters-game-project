@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import ErrorModal from "../tutorial/ErrorModal";
 import { useState } from "react";
 
+// Tracks which targets room card is targeting.
 const CardTargetTracker = (props) => {
   const players = useSelector((state) => state.allPlayers.players);
 
@@ -13,11 +14,9 @@ const CardTargetTracker = (props) => {
     setValueError(false);
   };
 
-  const handleValueError = () => {
-    setValueError(true);
-  };
   let targets = "";
   try {
+    // If target error occurs, target will always be player at turn 1.
     targets = props.roomCard.target;
   } catch (error) {
     targets = ["1"];
@@ -39,6 +38,7 @@ const CardTargetTracker = (props) => {
             })}
           </>
         ) : (
+          // Player informed if single player game.
           <Typography style={{ fontStyle: "italic" }}>
             Single Player Game
           </Typography>

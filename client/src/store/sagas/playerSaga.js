@@ -1,11 +1,9 @@
-import { take, takeEvery } from "redux-saga/effects";
+import { takeEvery } from "redux-saga/effects";
 import {
   submitPlayer,
   resetGame,
   updatePlayer,
   playerEndTurn,
-  saveLocalPlayer,
-  // requestId,
   addValueToPlayer,
 } from "../actions/playerActions";
 

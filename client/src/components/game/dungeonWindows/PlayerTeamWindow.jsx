@@ -3,6 +3,7 @@ import React from "react";
 import Player from "../player/Player";
 import { useSelector } from "react-redux";
 
+// Holds all team players participating within game.
 const PlayerTeamWindow = () => {
   const players = useSelector((state) => state.allPlayers.players);
 

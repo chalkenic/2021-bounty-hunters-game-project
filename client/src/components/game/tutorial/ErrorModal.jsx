@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
   Button,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Grid,
   withStyles,
 } from "@material-ui/core";
 
@@ -40,6 +38,8 @@ const ErrorModal = (props) => {
     setOpen(false);
     props.handleClose();
   };
+
+  // Error modal for handling most game errors not covered in bug-testing.
   return (
     <Dialog
       open={open}
@@ -49,7 +49,6 @@ const ErrorModal = (props) => {
     >
       <StyledDialogTitle id="alert-dialog-title">{"ERROR"}</StyledDialogTitle>
       <DialogContent>
-          
         <ColoredDialogContentText id="alert-dialog-description">
           {props.children}
         </ColoredDialogContentText>

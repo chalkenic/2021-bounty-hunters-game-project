@@ -6,9 +6,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/styles";
-import { purple, red, green } from "@material-ui/core/colors";
-import { Divider, makeStyles, useTheme } from "@material-ui/core";
-import AppTheme from "../../../styles/AppTheme";
+import { purple, green } from "@material-ui/core/colors";
+import { Divider, makeStyles } from "@material-ui/core";
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -20,7 +19,7 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const useStyles = makeStyles((theme, barColor) => ({
+const useStyles = makeStyles(() => ({
   answerText: {
     border: "1px solid white",
     padding: "10px",
@@ -52,7 +51,6 @@ const useStyles = makeStyles((theme, barColor) => ({
 // Dialog adapted from Material UI dialog. Available at:
 // https://v4.mui.com/components/dialogs/#dialog
 const TutorialModal = () => {
-  const theme = useTheme(AppTheme);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState("paper");
