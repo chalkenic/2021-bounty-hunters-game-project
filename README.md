@@ -18,7 +18,7 @@ Incompatibility issues may occur when playing game using Safari and Mozilla brow
 
 ## Code Setup - complete via Command Prompt/Git Bash
 
-### 1. Initial clone 
+### 1. Initial clone from Main (Production)
 ```bash
 # Clone repository
 git clone https://git.cardiff.ac.uk/c1936922/bounty-hunters.git
@@ -68,6 +68,17 @@ npm run start
 |  |  | player loses energy values if hit by room card |
 |  |  | Player receives points if card chosen reaches progress bar end first |
 |  |  | Player resets points if energy brought to zero |
+
+## tests
+
+Unit testing exists within the server in order to confirm logic on server side works as intended.
+```bash
+# navigate to parent folder within terminal
+cd bounty-hunters
+
+# Launch tests
+npm run test
+```
 
 ## Architecture Diagrams (C4)
 
