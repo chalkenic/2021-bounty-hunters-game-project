@@ -9,6 +9,9 @@ import { withStyles } from "@material-ui/styles";
 import { purple, green } from "@material-ui/core/colors";
 import { Divider, makeStyles } from "@material-ui/core";
 
+// Text imports
+import * as TutorialText from "../../../texts/TutorialText";
+
 const ColorButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(green[700]),
@@ -50,6 +53,8 @@ const useStyles = makeStyles(() => ({
 
 // Dialog adapted from Material UI dialog. Available at:
 // https://v4.mui.com/components/dialogs/#dialog
+
+// Modal handles tutorial menu to explaining gameplay.
 const TutorialModal = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -106,44 +111,39 @@ const TutorialModal = () => {
                 className={classes.questionText}
                 component="div"
               >
-                How to win?
+                {TutorialText.questions.question1}
               </DialogContent>
               <DialogContentText className={classes.answerText} component="div">
-                Complete the progress bar to score points in each room round.
-                The player with the most points at the end of the game wins!
+                {TutorialText.answers.answer1}
               </DialogContentText>
               <DialogContentText
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
                 component="div"
               >
-                How do I make floor progress?
+                {TutorialText.questions.question2}
               </DialogContentText>
 
               <DialogContentText className={classes.answerText} component="div">
-                Choosing cards in your hand will increase the round's progress
-                by the value on the card!
+                {TutorialText.answers.answer2}
               </DialogContentText>
               <DialogContentText
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
                 component="div"
               >
-                That's great! So what's the catch?
+                {TutorialText.questions.question3}
               </DialogContentText>
 
               <DialogContentText className={classes.answerText} component="div">
-                Only one player can reach the end first, and the order of
-                players adding their cards to the progress bar is randomised
-                every turn.
+                {TutorialText.answers.answer3}
               </DialogContentText>
               <DialogContentText
                 style={{ fontWeight: 600, fontSize: "22px" }}
                 className={classes.questionText}
                 component="div"
               >
-                And...what's to stop me from just rushing through the progress
-                bar as fast as I can?
+                {TutorialText.questions.question4}
               </DialogContentText>
               {/* <DialogContent component="div"> */}
               <DialogContent className={classes.listText} component="div">
@@ -153,16 +153,13 @@ const TutorialModal = () => {
                     style={{ fontWeight: 200, fontSize: "20px" }}
                     component="div"
                   >
-                    Energy
+                    {TutorialText.headers.header1}
                   </DialogContentText>
                   <DialogContentText
                     className={classes.listText}
                     component="div"
                   >
-                    All players have an 'energy' bar, showing the strength you
-                    have left to continue looting rooms. If your value hits
-                    zero, you'll stumble on your journey, and reset your score
-                    back to
+                    {TutorialText.answers.answer4}
                   </DialogContentText>
                   <Divider className={classes.headerSeparate} component="div" />
                   <DialogContentText
@@ -170,17 +167,13 @@ const TutorialModal = () => {
                     style={{ fontWeight: 400, fontSize: "20px" }}
                     component="div"
                   >
-                    Room Card damage
+                    {TutorialText.headers.header2}
                   </DialogContentText>
                   <DialogContentText
                     className={classes.listText}
                     component="div"
                   >
-                    At the beginning of each turn (before players have selected
-                    a card) the room card will target player(s) to lose energy.
-                    If the round is not completed (progress bar not filled)
-                    during the turn, player(s) will lose energy as the room card
-                    specifies.
+                    {TutorialText.answers.answer5}
                   </DialogContentText>
                   <Divider className={classes.headerSeparate} component="div" />
                   <DialogContentText
@@ -188,34 +181,25 @@ const TutorialModal = () => {
                     style={{ fontWeight: 400, fontSize: "20px" }}
                     component="div"
                   >
-                    Strategy
+                    {TutorialText.headers.header3}
                   </DialogContentText>
                   <DialogContentText
                     className={classes.listText}
                     component="div"
                   >
-                    You'll want to work together as a team in order to progress
-                    through the room deck. However only the person who plays the
-                    final card to completes the progress bar for each room
-                    scores the room's points.
+                    {TutorialText.strategies.strategy1}
                   </DialogContentText>
                   <DialogContentText
                     className={classes.listText}
                     component="div"
                   >
-                    Think carefully about which card you play. for example, if
-                    another player has been targeted for energy loss, you could
-                    play a lower value card, forcing them to use their higher
-                    value cards to end the round sooner, or else lose energy!
+                    {TutorialText.strategies.strategy2}
                   </DialogContentText>
                   <DialogContentText
                     className={classes.listText}
                     component="div"
                   >
-                    Likewise, if you're the targeted player, you may choose to
-                    speed up the round's progress by playing high value cards,
-                    rather than aiming to win that room's points and risk losing
-                    energy.
+                    {TutorialText.strategies.strategy3}
                   </DialogContentText>
                 </DialogContent>
               </DialogContent>
