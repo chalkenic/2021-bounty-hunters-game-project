@@ -3,6 +3,7 @@ import {
   submitRoomCards,
 } from "../actions/roomDeckActions";
 
+// Saga handles API communication to server.
 export function* handleCardDeckCommands(appSocket) {
   const socket = appSocket;
 
