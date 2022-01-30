@@ -1,11 +1,21 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, makeStyles, createStyles } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import ErrorModal from "../tutorial/ErrorModal";
 import { useState } from "react";
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    targetHeader: {
+      fontWeight: "600 !important",
+      fontSize: "20px !important",
+    },
+  })
+);
+
 // Tracks which targets room card is targeting.
 const CardTargetTracker = (props) => {
+  const classes = useStyles();
   const players = useSelector((state) => state.allPlayers.players);
 
   const [valueError, setValueError] = useState(false);
@@ -24,7 +34,9 @@ const CardTargetTracker = (props) => {
   try {
     return (
       <Grid item style={{ paddingTop: 40 }}>
-        <Typography variant="h6">Card Target(s)</Typography>
+        <Typography variant="h1" className={classes.targetHeader}>
+          Card Target(s)
+        </Typography>
 
         {players.length > 1 ? (
           <>

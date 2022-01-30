@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
       flexWrap: "wrap",
     },
   },
+  playerHeader: {
+    fontWeight: "20 !important",
+    fontSize: "30px !important",
+  },
 }));
 
 // Handle player cards within individual player hands. Unique to each connection.
@@ -30,7 +34,7 @@ const PlayerHand = () => {
 
   return (
     <div>
-      <h3>Your Hand</h3>
+      <h1 className={classes.playerHeader}>Your Hand</h1>
 
       <div className={classes.root}>
         {playerHand.map((card) => {

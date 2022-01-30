@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 const logColumns = [
-  { id: "id", label: "", minWidth: 10 },
+  { id: "id", label: "ID", minWidth: 10 },
   { id: "Player", label: "Player", minWidth: 20 },
   { id: "Action", label: "Action", minWidth: 160 },
 ];

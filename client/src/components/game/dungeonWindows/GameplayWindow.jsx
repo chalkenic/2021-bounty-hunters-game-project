@@ -13,6 +13,10 @@ const useStyles = makeStyles(() =>
     gameLog: {
       maxHeight: 400,
     },
+    playerHeader: {
+      fontWeight: "20 !important",
+      fontSize: "30px !important",
+    },
   })
 );
 
@@ -28,14 +32,14 @@ const GameTrackingWindow = () => {
         <Grid item xs={1} />
         <Grid item xs={4}>
           <Paper>
-            <h3>Room Card</h3>
+            <h1 className={classes.playerHeader}>Room Card</h1>
             <DungeonCard card={currentRoomCard} />
           </Paper>
         </Grid>
         <Grid item xs={1} />
         <Grid item xs={6}>
           <Paper className={classes.gameLog}>
-            <h3>Game log</h3>
+            <h1 className={classes.playerHeader}>Game log</h1>
             <GamePlayLog />
           </Paper>
         </Grid>

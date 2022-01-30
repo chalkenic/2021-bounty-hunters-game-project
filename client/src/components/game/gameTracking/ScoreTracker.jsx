@@ -14,6 +14,23 @@ const useStyles = makeStyles(() =>
       marginLeft: "12.5%",
       marginRight: "12.5%",
     },
+    valueHeader: {
+      fontWeight: "20 !important",
+      fontSize: "20px !important",
+      paddingBottom: 10,
+    },
+    scoreHeader: {
+      fontWeight: "600 !important",
+      fontSize: "25px !important",
+      paddingBottom: 10,
+      paddingTop: 10,
+    },
+    playerHeader: {
+      fontWeight: "20 !important",
+      fontSize: "18px !important",
+      paddingBottom: 10,
+      paddingTop: 10,
+    },
   })
 );
 
@@ -23,7 +40,7 @@ const ScoreTracker = () => {
   const players = useSelector((state) => state.allPlayers.players);
   return (
     <Grid item>
-      <Typography variant="h4" style={{ paddingTop: 10, paddingBottom: 10 }}>
+      <Typography variant="h1" className={classes.scoreHeader}>
         Scores
       </Typography>
       {players.map((player) => {
@@ -33,8 +50,8 @@ const ScoreTracker = () => {
         }
         return (
           <Grid item xs={12} key={player.key}>
-            <Typography variant="subtitle1">{playerName}</Typography>
-            <Typography variant="h4" style={{ paddingBottom: 10 }}>
+            <Typography variant="h1" className={classes.playerHeader}>{playerName}</Typography>
+            <Typography variant="h1" className={classes.valueHeader}>
               {player.score}
             </Typography>
             <Divider className={classes.headerSeparate} />

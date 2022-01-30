@@ -45,6 +45,7 @@ export function generatePyramidDeck() {
       key: `p-${PYRAMID_DECK_CARD_DATA[card].name}`,
       name: `Pyramid Card ` + PYRAMID_DECK_CARD_DATA[card].name,
       src: "pyramidRoomCard_" + PYRAMID_DECK_CARD_DATA[card].name,
+      alt: 'Dungeon Card ' + `${PYRAMID_DECK_CARD_DATA[card]}` + 'containing image of ' + PYRAMID_DECK_CARD_DATA[card].name,
       windowText: PYRAMID_DECK_CARD_DATA[card].name,
       health: health,
       score: getRandomInt(1, 5),
@@ -78,7 +79,11 @@ export function generatePlayerDeck() {
         key: `pc${PLAYER_CARD_VALUES[cardTotal]}-${cardCounter}`,
         name: "Player Card" + PLAYER_CARD_VALUES[cardTotal],
         src: "playerCard_" + PLAYER_CARD_VALUES[cardTotal],
-        alt: "Player Card " + PLAYER_CARD_VALUES[cardTotal] + " image",
+        alt:
+          "Player Card " +
+          ` pc${PLAYER_CARD_VALUES[cardTotal]}-${cardCounter}` +
+          " image containing value " +
+          PLAYER_CARD_VALUES[cardTotal],
         count: `${PLAYER_CARD_COUNT[cardTotal]}`,
         value: `${PLAYER_CARD_VALUES[cardTotal]}`,
         clicked: false,

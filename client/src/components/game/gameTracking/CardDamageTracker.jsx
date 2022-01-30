@@ -1,11 +1,22 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, makeStyles, createStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    playerHeader: {
+      fontWeight: "600 !important",
+      fontSize: "20px !important",
+
+    },
+  })
+);
 
 // Tracks potential energy damage that card can perform on players.
 const CardDamageTracker = (props) => {
+  const classes = useStyles();
   return (
     <Grid style={{ paddingTop: 30 }}>
-      <Typography variant="h6">Card Damage</Typography>
+      <Typography variant="h1" className={classes.playerHeader}>Card Damage</Typography>
 
       {props.roomCard && props.roomCard && props.roomCard ? (
         <>
