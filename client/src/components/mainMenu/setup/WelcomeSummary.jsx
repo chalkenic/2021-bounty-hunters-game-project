@@ -1,10 +1,31 @@
 import React from "react";
 
-import { Card, CardContent, Typography, useTheme } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Typography,
+  useTheme,
+  makeStyles,
+  createStyles,
+} from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
 import AppTheme from "../../../styles/AppTheme";
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    welcomeHeader: {
+      fontWeight: "600 !important",
+      fontSize: "30px !important",
+    },
+    welcomeText: {
+      fontWeight: "400 !important",
+      fontSize: "22px !important",
+    },
+  })
+);
+
 const WelcomeSummary = () => {
+  const classes = useStyles();
   const theme = useTheme(AppTheme);
   // const classes = useStyles();
   const classesBase = useStylesBase();
@@ -14,24 +35,25 @@ const WelcomeSummary = () => {
         <Typography
           style={{ color: theme.palette.text.primary }}
           gutterBottom
-          variant="h4"
-          // component="h2"
+          variant="h1"
+          className={classes.welcomeHeader}
         >
           Welcome to Bounty Hunters
         </Typography>
         <Typography
           style={{ color: theme.palette.text.primary }}
-          variant="h5"
+          variant="h1"
           color="textSecondary"
-          // component="p"
+          className={classes.welcomeText}
         >
           In this game, you will work together alongside other players to
           explore rooms of a chosen scenario.
         </Typography>
         <Typography
           style={{ color: theme.palette.text.primary }}
-          variant="h5"
+          variant="h1"
           color="textSecondary"
+          className={classes.welcomeText}
         >
           However, only the player who completes each room exploration first
           will get the treasure!

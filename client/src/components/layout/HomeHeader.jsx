@@ -30,7 +30,10 @@ const useStyles = makeStyles({
     fontStyle: "italic",
     position: "relative",
     alignItems: "center",
+    fontSize: "30px !important",
+    fontWeight: '400 !important'
   },
+  
 
   imgContainer: {
     backgroundColor: "#4169E1",
@@ -61,7 +64,7 @@ const Header = () => {
         <Typography variant="h1" className={classes.headerText}>
           Bounty Hunters
         </Typography>
-        <Typography variant="h3" className={classes.quote}>
+        <Typography variant="h1" className={classes.quote}>
           "Explore together, win as one"
         </Typography>
       </ThemeProvider>

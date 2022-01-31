@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) =>
       marginRight: "12.5%",
     },
 
+    lobbyHeader: {
+      fontWeight: "400 !important",
+      fontSize: "20px !important",
+    },
+
     buttonSeparator: {
       borderTop: "5px solid #fff",
       marginTop: "3%",
@@ -78,6 +83,11 @@ const useStyles = makeStyles((theme) =>
 );
 
 const SetupPlayerLobby = (props) => {
+  const labelProps = {
+    inputProps: {
+      "aria-label": "inputAriaLabel",
+    },
+  };
   const submitNameHandler = (e) => {
     setPlayerName(e);
   };
@@ -125,17 +135,17 @@ const SetupPlayerLobby = (props) => {
         <Divider className={classes.headerSeparate} />
         <Grid container>
           <Grid item xs={4} sm={4} md={4}>
-            <Typography variant="h6" component="h4">
+            <Typography variant="h1" className={classes.lobbyHeader} a>
               New Player
             </Typography>
             <Divider className={classes.lineSeparate} />
             <TextField
+              {...labelProps}
               value={playerName}
               onChange={(e) => submitNameHandler(e.target.value)}
             />
-
-            <div className={classes.codeCard}>
-              <AppPrimaryButton onClick={onClickSubmit}>
+            <div className={classes.codeCard} id="nameField">
+              <AppPrimaryButton name="submitButton" onClick={onClickSubmit}>
                 Submit Name
               </AppPrimaryButton>
             </div>
@@ -147,7 +157,7 @@ const SetupPlayerLobby = (props) => {
             md={8}
             style={{ justifyContent: "flex-end" }}
           >
-            <Typography variant="h6" component="h4">
+            <Typography variant="h1" className={classes.lobbyHeader}>
               Current players
             </Typography>
             <Divider className={classes.headerSeparate} />
