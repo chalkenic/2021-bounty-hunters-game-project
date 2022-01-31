@@ -1,11 +1,15 @@
 import React from "react";
 import { Grid, Typography, makeStyles, createStyles } from "@material-ui/core";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     pointsHeader: {
       fontWeight: "600 !important",
       fontSize: "20px !important",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "15px !important",
+
+      },
     },
   })
 );

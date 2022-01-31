@@ -4,7 +4,7 @@ import DungeonCard from "../cards/DungeonCard";
 import { useSelector } from "react-redux";
 import GamePlayLog from "../gameTracking/GamePlayLog";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     border: {
       border: "1px solid white",
@@ -14,8 +14,12 @@ const useStyles = makeStyles(() =>
       maxHeight: 400,
     },
     playerHeader: {
-      fontWeight: "20 !important",
+      fontWeight: "600 !important",
       fontSize: "30px !important",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "20px !important",
+
+      },
     },
   })
 );

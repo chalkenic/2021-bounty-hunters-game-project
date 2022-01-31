@@ -4,11 +4,15 @@ import { useSelector } from "react-redux";
 import ErrorModal from "../tutorial/ErrorModal";
 import { useState } from "react";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     targetHeader: {
       fontWeight: "600 !important",
       fontSize: "20px !important",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "15px !important",
+
+      },
     },
   })
 );

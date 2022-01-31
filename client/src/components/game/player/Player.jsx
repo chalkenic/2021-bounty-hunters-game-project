@@ -1,19 +1,17 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
+import { Card, CardContent, Typography, withStyles } from "@material-ui/core";
 import useStylesBase from "../../../styles/StylesBase";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerEnergyBar from "./PlayerEnergyBar";
 
-const PlayerNameTypography = withStyles(() => ({
+const PlayerNameTypography = withStyles((theme) => ({
   root: {
     color: "textSecondary",
     fontWeight: 600,
     fontSize: "3rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "12px !important",
+    },
   },
 }))(Typography);
 

@@ -3,11 +3,15 @@ import React from "react";
 import Player from "../player/Player";
 import { useSelector } from "react-redux";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     playerHeader: {
-      fontWeight: "20 !important",
+      fontWeight: "600 !important",
       fontSize: "30px !important",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "20px !important",
+
+      },
     },
   })
 );

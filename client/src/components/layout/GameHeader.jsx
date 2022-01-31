@@ -8,15 +8,18 @@ import {
 import NavMenu from "../../appComponents/NavMenu";
 import TutorialModal from "../game/tutorial/TutorialModal";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   buttonPadding: {
-    padding: "0.5rem",
+    padding: "0.1rem",
   },
 
-  buttonContainer: {
-    flexWrap: "wrap",
-    flexDirection: "column",
+  textHeader: {
+    fontWeight: "600 !important",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "20px !important",
+    },
   },
+
 }));
 
 const GameHeader = (props) => {
@@ -26,11 +29,13 @@ const GameHeader = (props) => {
       <Grid item xs={3} s={3} m={3}>
         <Card variant="outlined">
           <CardContent>
-            <Typography variant="h3">Player: {props.player.name}</Typography>
+            <Typography variant="h3" className={classes.textHeader}>
+              Player: {props.player.name}
+            </Typography>
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={7} s={7} m={7}>
+      <Grid item xs={7} s={8} m={9}>
         <Typography
           variant="h1"
           align="center"
@@ -41,15 +46,17 @@ const GameHeader = (props) => {
         </Typography>
       </Grid>
 
-      <Grid item xs={1}>
-        <div className={classes.buttonPadding}>
-          <TutorialModal />
-        </div>
-      </Grid>
-      <Grid item xs={1}>
-        <div className={classes.buttonPadding}>
-          <NavMenu />
-        </div>
+      <Grid item xs={2} s={2} m={1}>
+          <Grid item xs={6}>
+            <div className={classes.buttonPadding}>
+              <TutorialModal />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className={classes.buttonPadding}>
+              <NavMenu />
+            </div>
+          </Grid>
       </Grid>
     </>
   );

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Grid, Typography, createStyles, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     border: {
       border: "1px solid white",
@@ -24,12 +24,20 @@ const useStyles = makeStyles(() =>
       fontSize: "25px !important",
       paddingBottom: 10,
       paddingTop: 10,
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "19px !important",
+
+      },
     },
     playerHeader: {
       fontWeight: "20 !important",
       fontSize: "18px !important",
       paddingBottom: 10,
       paddingTop: 10,
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "14px !important",
+
+      },
     },
   })
 );
@@ -50,7 +58,9 @@ const ScoreTracker = () => {
         }
         return (
           <Grid item xs={12} key={player.key}>
-            <Typography variant="h1" className={classes.playerHeader}>{playerName}</Typography>
+            <Typography variant="h1" className={classes.playerHeader}>
+              {playerName}
+            </Typography>
             <Typography variant="h1" className={classes.valueHeader}>
               {player.score}
             </Typography>
